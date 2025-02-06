@@ -6,6 +6,15 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		F4C6D20C2D550E8E00D81F89 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D20B2D550E8E00D81F89 /* FirebaseAuth */; };
+		F4C6D20E2D550E8E00D81F89 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D20D2D550E8E00D81F89 /* FirebaseAuthCombine-Community */; };
+		F4C6D2102D550E8E00D81F89 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D20F2D550E8E00D81F89 /* FirebaseCore */; };
+		F4C6D2132D550EB900D81F89 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D2122D550EB900D81F89 /* GoogleSignIn */; };
+		F4C6D2152D550EB900D81F89 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D2142D550EB900D81F89 /* GoogleSignInSwift */; };
+		F4C6D2182D550EC600D81F89 /* SwiftfulUI in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D2172D550EC600D81F89 /* SwiftfulUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		F4C6D1EB2D550D8600D81F89 /* CookIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -23,6 +32,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4C6D2182D550EC600D81F89 /* SwiftfulUI in Frameworks */,
+				F4C6D2152D550EB900D81F89 /* GoogleSignInSwift in Frameworks */,
+				F4C6D20C2D550E8E00D81F89 /* FirebaseAuth in Frameworks */,
+				F4C6D2132D550EB900D81F89 /* GoogleSignIn in Frameworks */,
+				F4C6D2102D550E8E00D81F89 /* FirebaseCore in Frameworks */,
+				F4C6D20E2D550E8E00D81F89 /* FirebaseAuthCombine-Community in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +80,12 @@
 			);
 			name = CookIt;
 			packageProductDependencies = (
+				F4C6D20B2D550E8E00D81F89 /* FirebaseAuth */,
+				F4C6D20D2D550E8E00D81F89 /* FirebaseAuthCombine-Community */,
+				F4C6D20F2D550E8E00D81F89 /* FirebaseCore */,
+				F4C6D2122D550EB900D81F89 /* GoogleSignIn */,
+				F4C6D2142D550EB900D81F89 /* GoogleSignInSwift */,
+				F4C6D2172D550EC600D81F89 /* SwiftfulUI */,
 			);
 			productName = CookIt;
 			productReference = F4C6D1EB2D550D8600D81F89 /* CookIt.app */;
@@ -94,6 +115,11 @@
 			);
 			mainGroup = F4C6D1E22D550D8600D81F89;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				F4C6D20A2D550E8E00D81F89 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				F4C6D2112D550EB900D81F89 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				F4C6D2162D550EC600D81F89 /* XCRemoteSwiftPackageReference "SwiftfulUI" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F4C6D1EC2D550D8600D81F89 /* Products */;
 			projectDirPath = "";
@@ -324,6 +350,66 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F4C6D20A2D550E8E00D81F89 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.8.1;
+			};
+		};
+		F4C6D2112D550EB900D81F89 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/GoogleSignIn-iOS";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+		F4C6D2162D550EC600D81F89 /* XCRemoteSwiftPackageReference "SwiftfulUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftfulThinking/SwiftfulUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F4C6D20B2D550E8E00D81F89 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4C6D20A2D550E8E00D81F89 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		F4C6D20D2D550E8E00D81F89 /* FirebaseAuthCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4C6D20A2D550E8E00D81F89 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseAuthCombine-Community";
+		};
+		F4C6D20F2D550E8E00D81F89 /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4C6D20A2D550E8E00D81F89 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		F4C6D2122D550EB900D81F89 /* GoogleSignIn */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4C6D2112D550EB900D81F89 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignIn;
+		};
+		F4C6D2142D550EB900D81F89 /* GoogleSignInSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4C6D2112D550EB900D81F89 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
+			productName = GoogleSignInSwift;
+		};
+		F4C6D2172D550EC600D81F89 /* SwiftfulUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4C6D2162D550EC600D81F89 /* XCRemoteSwiftPackageReference "SwiftfulUI" */;
+			productName = SwiftfulUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F4C6D1E32D550D8600D81F89 /* Project object */;
 }
