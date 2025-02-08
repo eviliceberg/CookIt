@@ -80,6 +80,8 @@ struct WelcomeView: View {
                             Task {
                                 do {
                                     try await vm.signIn()
+                                    
+                                    showWelcomeScreen = false
                                 } catch {
                                     print(error)
                                 }
@@ -92,7 +94,7 @@ struct WelcomeView: View {
                             .foregroundStyle(.specialWhite)
                         
                         NavigationLink {
-                            ProgressView()
+                            SignUpView(showWelcomeScreen: $showWelcomeScreen)
                         } label: {
                             Text("Register")
                                 .foregroundStyle(.blue)
@@ -204,6 +206,8 @@ struct WelcomeView: View {
 }
 
 #Preview {
-    WelcomeView(showWelcomeScreen: .constant(true))
+    NavigationStack {
+        WelcomeView(showWelcomeScreen: .constant(true))
+    }
 }
 

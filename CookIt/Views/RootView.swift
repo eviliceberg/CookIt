@@ -14,7 +14,7 @@ struct RootView: View {
     var body: some View {
         ZStack {
             if !showWelcomeView {
-                Text("Hello World!")
+                SettingsView(showWelcomeScreen: $showWelcomeView)
             }
         }
         .onAppear {
