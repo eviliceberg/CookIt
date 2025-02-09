@@ -14,13 +14,18 @@ final class SignUpViewModel: ObservableObject {
     @Published var email: String = ""
     @Published var password: String = ""
     
-    func signUp() async throws {
+    func signUp() async throws -> Bool {
         guard !email.isEmpty, !password.isEmpty, !username.isEmpty else {
             throw CookItErrors.noData
         }
-        let authUser = try await AuthenticationManager.shared.createUser(email: email, password: password, username: username)
-        let user = DBUser(auth: authUser)
-        try await UserManager.shared.createNewUser(user: user)
+        if try await !UserManager.shared.emailExists(userEmail: email) {
+            let authUser = try await AuthenticationManager.shared.createUser(email: email, password: password, username: username)
+            let user = DBUser(auth: authUser)
+            try await UserManager.shared.createNewUser(user: user)
+            return false
+        } else {
+            return true
+        }
     }
     
 }
@@ -31,6 +36,7 @@ struct SignUpView: View {
     
     @State private var confirmPassword: String = ""
     @State private var showAlert: Bool = false
+    @State private var emailExist: Bool = false
     
     @Binding var showWelcomeScreen: Bool
     
@@ -82,9 +88,11 @@ struct SignUpView: View {
                         if confirmPassword == vm.password && !confirmPassword.isEmpty {
                             Task {
                                 do {
-                                    try await vm.signUp()
-                                    
-                                    showWelcomeScreen = false
+                                    if try await vm.signUp() {
+                                        emailExist = true
+                                    } else {
+                                        showWelcomeScreen = false
+                                    }
                                 } catch {
                                     print(error)
                                 }
@@ -101,6 +109,11 @@ struct SignUpView: View {
             .alert("Your confirmation password does not match your password", isPresented: $showAlert) {
                 Button("Try again", role: .cancel) {
                     showAlert = false
+                }
+            }
+            .alert("Account with this email already exists. Try another one.", isPresented: $emailExist) {
+                Button("Ok", role: .cancel) {
+                    emailExist = false
                 }
             }
         }

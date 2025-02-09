@@ -157,11 +157,15 @@ final class UserManager {
         try userDocument(userid: user.userId).setData(from: user, merge: true)
     }
     
-//    func emailExists(userId: String, userEmail: String) async throws {
-//        if try await userExists(userId: userId) {
-//            //let user = try await userCollection
-//        }
-//    }
+    func emailExists(userEmail: String) async throws -> Bool {
+        let users = try await userCollection.getDocuments(as: DBUser.self)
+        let userEmails = users.compactMap(\.email)
+        if userEmails.contains(userEmail) {
+            return true
+        } else {
+            return false
+        }
+    }
     
     func userExists(userId: String) async throws -> Bool {
         try await userDocument(userid: userId).getDocument().exists

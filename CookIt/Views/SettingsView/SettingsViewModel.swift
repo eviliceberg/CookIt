@@ -31,16 +31,28 @@ final class SettingsViewModel: ObservableObject {
         let helper = SignInGoogleHelper()
         let tokens = try await helper.signIn()
         self.authUser = try await AuthenticationManager.shared.linkGoogle(tokens: tokens)
+        if let authUser {
+            let user = DBUser(auth: authUser)
+            try await UserManager.shared.createNewUser(user: user)
+        }
     }
     
     func linkEmail() async throws {
         self.authUser = try await AuthenticationManager.shared.linkEmail(email: email, password: password)
+        if let authUser {
+            let user = DBUser(auth: authUser)
+            try await UserManager.shared.createNewUser(user: user)
+        }
     }
     
     func linkApple() async throws {
         let helper = SignInAppleHelper()
         let tokens = try await helper.startSignInWithAppleFlow()
         self.authUser = try await AuthenticationManager.shared.linkApple(token: tokens)
+        if let authUser {
+            let user = DBUser(auth: authUser)
+            try await UserManager.shared.createNewUser(user: user)
+        }
     }
     
 }
