@@ -22,7 +22,21 @@ final class WelcomeViewModel: ObservableObject {
         }
         
         let _ = try await AuthenticationManager.shared.signInUser(email: emailText, password: passwordText)
-        
+    }
+    func continueWithGoogle() async throws {
+        let helper = SignInGoogleHelper()
+        let tokens = try await helper.signIn()
+        let _ = try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
+    }
+    
+    func continueWithApple() async throws {
+        let helper = SignInAppleHelper()
+        let tokens = try await helper.startSignInWithAppleFlow()
+        let _ = try await AuthenticationManager.shared.signInWithApple(tokens: tokens)
+    }
+    
+    func continueAnounimously() async throws {
+        try await AuthenticationManager.shared.signInAnonymous()
     }
 }
 
@@ -108,19 +122,26 @@ struct WelcomeView: View {
                     .font(.callout)
                     HStack(spacing: 24) {
                         GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .icon, state: .normal)) {
-//                            Task {
-//                                do {
-//                                    try await vm.signInGoogle()
-//                                    showSignInView = false
-//                                } catch {
-//                                    print(error)
-//                                }
-//                            }
+                            Task {
+                                do {
+                                    try await vm.continueWithGoogle()
+                                    showWelcomeScreen = false
+                                } catch {
+                                    print(error)
+                                }
+                            }
                         }
                         .clipShape(.circle)
                         
                         Button {
                             //apple signin flow
+                            Task {
+                                do {
+                                    try await vm.continueWithApple()
+                                } catch {
+                                    print(error)
+                                }
+                            }
                         } label: {
                             Circle()
                                 .frame(width: 50, height: 50)
@@ -134,7 +155,14 @@ struct WelcomeView: View {
                         }
                         
                         Button {
-                            //anonimous flow
+                            Task {
+                                do {
+                                    try await vm.continueAnounimously()
+                                    showWelcomeScreen = false
+                                } catch {
+                                    print(error)
+                                }
+                            }
                         } label: {
                             Circle()
                                 .frame(width: 50, height: 50)

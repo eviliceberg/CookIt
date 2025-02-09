@@ -19,9 +19,22 @@
 		F4C6D1EB2D550D8600D81F89 /* CookIt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CookIt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		F4C6D2A02D58D99100D81F89 /* Exceptions for "CookIt" folder in "CookIt" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = F4C6D1EA2D550D8600D81F89 /* CookIt */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		F4C6D1ED2D550D8600D81F89 /* CookIt */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				F4C6D2A02D58D99100D81F89 /* Exceptions for "CookIt" folder in "CookIt" target */,
+			);
 			path = CookIt;
 			sourceTree = "<group>";
 		};
@@ -281,6 +294,7 @@
 				DEVELOPMENT_TEAM = 3Z5R6WRVTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CookIt/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -310,6 +324,7 @@
 				DEVELOPMENT_TEAM = 3Z5R6WRVTZ;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CookIt/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

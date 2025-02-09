@@ -10,4 +10,6 @@ import Foundation
 enum CookItErrors: Error {
     case noEmailOrPassword
     case signInFailed
+    case GoogleSignInFailed
+    
 }
