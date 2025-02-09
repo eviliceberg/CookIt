@@ -10,12 +10,18 @@ import Foundation
 @MainActor
 final class SettingsViewModel: ObservableObject {
     
+    @Published var confirmPassword: String = ""
     @Published var email: String = ""
     @Published var password: String = ""
     @Published var authUser: AuthDataResultModel? = nil
+    @Published var providers: [AuthProviderOption] = []
     
     func loadAuthUser() {
         self.authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
+    }
+    
+    func loadProviders() throws {
+        providers = try AuthenticationManager.shared.getProviders()
     }
     
     func logOut() throws {
@@ -25,6 +31,21 @@ final class SettingsViewModel: ObservableObject {
     func deleteAccount() async throws {
         //let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
         try await AuthenticationManager.shared.deleteAccount()
+    }
+    
+    func resetPassword() async throws {
+        guard let userEmail = authUser?.email else {
+            throw CookItErrors.noData
+        }
+        try await AuthenticationManager.shared.resetPassword(email: userEmail)
+    }
+    
+    func updatePassword(newPassword: String) async throws {
+        try await AuthenticationManager.shared.updatePassword(password: newPassword)
+    }
+    
+    func updateEmail(newEmail: String) async throws {
+        try await AuthenticationManager.shared.updateEmail(email: newEmail)
     }
     
     func linkGoogle() async throws {
