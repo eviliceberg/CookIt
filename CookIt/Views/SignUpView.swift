@@ -15,7 +15,12 @@ final class SignUpViewModel: ObservableObject {
     @Published var password: String = ""
     
     func signUp() async throws {
-        try await AuthenticationManager.shared.createUser(email: email, password: password, username: username)
+        guard !email.isEmpty, !password.isEmpty, !username.isEmpty else {
+            throw CookItErrors.noData
+        }
+        let authUser = try await AuthenticationManager.shared.createUser(email: email, password: password, username: username)
+        let user = DBUser(auth: authUser)
+        try await UserManager.shared.createNewUser(user: user)
     }
     
 }

@@ -20,19 +20,26 @@ final class WelcomeViewModel: ObservableObject {
         guard !emailText.isEmpty, !passwordText.isEmpty else {
             throw CookItErrors.noEmailOrPassword
         }
-        
-        let _ = try await AuthenticationManager.shared.signInUser(email: emailText, password: passwordText)
+        try await AuthenticationManager.shared.signInUser(email: emailText, password: passwordText)
     }
     func continueWithGoogle() async throws {
         let helper = SignInGoogleHelper()
         let tokens = try await helper.signIn()
-        let _ = try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
+        let authUser = try await AuthenticationManager.shared.signInWithGoogle(tokens: tokens)
+        let user = DBUser(auth: authUser)
+        if try await !UserManager.shared.userExists(userId: user.userId) {
+            try await UserManager.shared.createNewUser(user: user)
+        }
     }
     
     func continueWithApple() async throws {
         let helper = SignInAppleHelper()
         let tokens = try await helper.startSignInWithAppleFlow()
-        let _ = try await AuthenticationManager.shared.signInWithApple(tokens: tokens)
+        let authUser = try await AuthenticationManager.shared.signInWithApple(tokens: tokens)
+        let user = DBUser(auth: authUser)
+        if try await !UserManager.shared.userExists(userId: user.userId) {
+            try await UserManager.shared.createNewUser(user: user)
+        }
     }
     
     func continueAnounimously() async throws {

@@ -11,5 +11,5 @@ enum CookItErrors: Error {
     case noEmailOrPassword
     case signInFailed
     case GoogleSignInFailed
-    
+    case noData
 }
