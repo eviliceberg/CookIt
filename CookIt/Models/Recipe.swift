@@ -14,6 +14,7 @@ struct RecipeArray: Codable {
 struct Recipe: Codable, Identifiable {
     let id: String
     let title: String
+    let isFavorite: Bool
     let ingredients: [Ingredient]
     let description: String
     let mainPhoto: String
