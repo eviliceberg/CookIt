@@ -20,7 +20,6 @@ struct Recipe: Codable, Identifiable {
     let mainPhoto: String
     let sourceURL: String
     let author: String
-    
 }
 
 struct Ingredient: Codable {

@@ -30,12 +30,21 @@ struct DiscoverView: View {
             ScrollView(.vertical) {
                 LazyVStack(alignment: .leading, spacing: 8) {
                     ForEach(vm.recipes) { recipe in
-                        Text(recipe.title)
-                            .foregroundStyle(.specialWhite)
+                        RecipeCellView(
+                            title: recipe.title,
+                            isPremium: recipe.isPremium,
+                    //        imageURL: <#T##String#>,
+                            height: 250
+                        )
+                        .onTapGesture {
+                           
+                        }
                     }
                 }
+                .padding(.horizontal, 8)
             }
         }
+        .navigationTitle("Discover")
         .onFirstAppear {
             Task {
                 do {
@@ -49,5 +58,7 @@ struct DiscoverView: View {
 }
 
 #Preview {
-    DiscoverView()
+    NavigationStack {
+        DiscoverView()
+    }
 }
