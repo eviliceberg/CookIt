@@ -123,7 +123,6 @@ struct WelcomeView: View {
                                 .background(.black.opacity(0.000001))
                                 .offset(x: -4)
                         }
-
                     }
                     .padding(.top, 8)
                     .font(.callout)
@@ -181,8 +180,6 @@ struct WelcomeView: View {
                                         .offset(x: -0.5)
                                 }
                         }
-
-
                     }
                     
                 }

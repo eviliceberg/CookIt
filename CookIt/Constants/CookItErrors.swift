@@ -12,4 +12,7 @@ enum CookItErrors: Error {
     case signInFailed
     case GoogleSignInFailed
     case noData
+    case errorRetrievingData
+    case invalidJSON
+    case cannotDecode
 }

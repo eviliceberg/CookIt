@@ -14,15 +14,27 @@ struct RecipeArray: Codable {
 struct Recipe: Codable, Identifiable {
     let id: String
     let title: String
-    let isFavorite: Bool
+    let isPremium: Bool
     let ingredients: [Ingredient]
     let description: String
     let mainPhoto: String
     let sourceURL: String
     let author: String
+    
 }
 
 struct Ingredient: Codable {
     let ingredient: String
     let quantity: Int
+    let measureMethod: MeasureMethod
+}
+
+enum MeasureMethod: String, Codable {
+    case grams = "grams"
+    case milliliters = "milliliters"
+    case pieces = "pieces"
+    case teaspoons = "teaspoons"
+    case tablespoons = "tablespoons"
+    case cups = "cups"
+    case pinches = "pinches"
 }

@@ -27,7 +27,6 @@ final class SignUpViewModel: ObservableObject {
             return true
         }
     }
-    
 }
 
 struct SignUpView: View {
