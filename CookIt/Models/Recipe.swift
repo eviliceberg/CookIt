@@ -15,11 +15,36 @@ struct Recipe: Codable, Identifiable {
     let id: String
     let title: String
     let isPremium: Bool
+    let isFavorite: Bool
     let ingredients: [Ingredient]
     let description: String
     let mainPhoto: String
     let sourceURL: String
     let author: String
+    let category: RecipeCategory
+    
+    enum CodingKeys: String, CodingKey {
+        case id = "id"
+        case title = "title"
+        case isPremium = "isPremium"
+        case isFavorite = "isFavorite"
+        case ingredients = "ingredients"
+        case description = "description"
+        case mainPhoto = "mainPhoto"
+        case sourceURL = "sourceURL"
+        case author = "author"
+        case category = "category"
+    }
+}
+
+enum RecipeCategory: String, Codable {
+    case dinner = "dinner"
+    case salad = "salad"
+    case dessert = "dessert"
+    case breakfast = "breakfast"
+    case soup = "soup"
+    case appetizer = "appetizer"
+    case beverage = "beverage"
 }
 
 struct Ingredient: Codable {

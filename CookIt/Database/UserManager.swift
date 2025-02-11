@@ -12,12 +12,12 @@ import Combine
 struct FavouriteItem: Codable, Identifiable {
     let id: String
     let dateCreated: Date
-    let productId: Int
+    let productId: String
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case dateCreated = "date_created"
-        case productId = "product_id"
+        case productId = "recipe_id"
     }
 }
 
@@ -135,13 +135,13 @@ final class UserManager {
         userDocument(userid: userId).collection("favourite_recipes")
     }
     
-    private func userFavouriteProductDocument(userid: String, favouriteProductId: String) -> DocumentReference {
-        userFavouriteCollection(userId: userid).document(favouriteProductId)
+    private func userFavouriteRecipeDocument(userid: String, favouriteRecipeId: String) -> DocumentReference {
+        userFavouriteCollection(userId: userid).document(favouriteRecipeId)
     }
     
     private let encoder: Firestore.Encoder = {
         let encoder = Firestore.Encoder()
-        //encoder.keyEncodingStrategy = .convertToSnakeCase
+       // encoder.keyEncodingStrategy = .convertToSnakeCase
         return encoder
     }()
     
@@ -149,7 +149,7 @@ final class UserManager {
     
     private let decoder: Firestore.Decoder = {
         let decoder = Firestore.Decoder()
-        //decoder.keyDecodingStrategy = .convertFromSnakeCase
+     //   decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
     
@@ -263,30 +263,30 @@ final class UserManager {
         try await userDocument(userid: userId).updateData(data as [AnyHashable : Any])
     }
     
-    func addUserFavouriteProduct(userId: String, productId: Int) async throws {
+    func addUserFavouriteRecipe(userId: String, recipeId: String) async throws {
         
         let document = userFavouriteCollection(userId: userId).document()
         let documentId = document.documentID
         
         let data: [String : Any] = [
             "id" : documentId,
-            "product_id" : productId,
+            "recipe_id" : recipeId,
             "date_created" : Timestamp()
         ]
         
         try await document.setData(data, merge: false)
     }
     
-    func removeUserFavouriteProduct(userId: String, favouriteProductId: String) async throws {
+    func removeUserFavouriteRecipe(userId: String, favouriteRecipeId: String) async throws {
         
-        try await userFavouriteProductDocument(userid: userId, favouriteProductId: favouriteProductId).delete()
+        try await userFavouriteRecipeDocument(userid: userId, favouriteRecipeId: favouriteRecipeId).delete()
     }
     
-//    func getFavourites(userId: String) async throws -> [FavouriteItem] {
-//       let products = try await userFavouriteCollection(userId: userId).getDocuments(as: FavouriteItem.self)
-//        
-//        return products
-//    }
+    func getFavourites(userId: String) async throws -> [FavouriteItem] {
+       let products = try await userFavouriteCollection(userId: userId).getDocuments(as: FavouriteItem.self)
+        
+        return products
+    }
     
     //this is how to disable listener
     func removeListenerForFavourites() {

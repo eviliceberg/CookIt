@@ -20,7 +20,7 @@ final class RecipesManager {
     }
     
     func uploadRecipes(recipe: Recipe) throws {
-        try recipeDocument(recipeId: recipe.id).setData(from: recipe, merge: true)
+        try recipeDocument(recipeId: recipe.id).setData(from: recipe, merge: false)
     }
     
     func getRecipe(by recipeId: String) async throws -> Recipe {
@@ -29,7 +29,7 @@ final class RecipesManager {
     
     func uploadRecipes() async throws {
         do {
-            guard let url = Bundle.main.url(forResource: "mock", withExtension: "json") else {
+            guard let url = Bundle.main.url(forResource: "updated_mock_final", withExtension: "json") else {
                 return
             }
             let data = try Data(contentsOf: url)
@@ -45,6 +45,13 @@ final class RecipesManager {
     
     func getAllRecipes() async throws -> [Recipe] {
         try await recipesCollection.getDocuments(as: Recipe.self)
+    }
+    
+    func updateRecipeFavoriteStatus(isFavorite: Bool, recipeId: String) async throws {
+        let data: [String : Any] = [
+            Recipe.CodingKeys.isFavorite.rawValue : isFavorite
+        ]
+        try await recipeDocument(recipeId: recipeId).updateData(data)
     }
 
 //    private func getAllProductsSortedByPrice(descending: Bool) async throws -> [Product] {

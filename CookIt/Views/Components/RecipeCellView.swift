@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftfulUI
 
 struct RecipeCellView: View {
     
@@ -13,6 +14,7 @@ struct RecipeCellView: View {
     var isPremium: Bool = false
     var imageURL: String = Constants.randomImage
     var height: CGFloat = 250
+    var bookmarkPressed: (() -> Void)? = nil
     
     var body: some View {
         ZStack(alignment: .bottomLeading) {
@@ -25,13 +27,22 @@ struct RecipeCellView: View {
                     .foregroundStyle(.specialWhite)
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                
-                if isPremium {
                     Image(systemName: "star.fill")
                         .foregroundStyle(.specialYellow)
                         .font(.title2)
-                        .padding([.bottom, .trailing])
-                }
+                        .opacity(isPremium ? 1 : 0)
+                        .padding(.bottom, 12)
+                        .padding(.trailing, 8)
+                    
+//                    Image(systemName: isFavorite ? "bookmark.fill" : "bookmark")
+//                        .foregroundStyle(isFavorite ? .specialYellow : .specialWhite)
+//                        .font(.title2)
+//                        .padding(4)
+//                        .background(.black.opacity(0.00001))
+//                        .asButton(.tap) {
+//                            bookmarkPressed?()
+//                        }
+
             }
             .frame(maxWidth: .infinity, alignment: .leading)
             .background(

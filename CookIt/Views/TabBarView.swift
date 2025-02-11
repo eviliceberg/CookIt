@@ -20,7 +20,13 @@ struct TabBarView: View {
                     DiscoverView()
                 }
             }
-            Tab("Profile", systemImage: "person.fill", value: 1) {
+            Tab("Favorites", systemImage: "star.fill", value: 1) {
+                NavigationStack {
+                    FavoritesView()
+                }
+            }
+            
+            Tab("Profile", systemImage: "person.fill", value: 2) {
                 NavigationStack {
                     SettingsView(showWelcomeScreen: $showWelcomeScreen)
                 }
