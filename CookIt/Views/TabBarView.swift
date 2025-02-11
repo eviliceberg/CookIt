@@ -28,7 +28,7 @@ struct TabBarView: View {
             
             Tab("Profile", systemImage: "person.fill", value: 2) {
                 NavigationStack {
-                    SettingsView(showWelcomeScreen: $showWelcomeScreen)
+                    ProfileView(showWelcomeScreen: $showWelcomeScreen)
                 }
             }
         }

@@ -34,6 +34,8 @@ struct FavoritesView: View {
                 ForEach(vm.favorites) { recipe in
                     RecipeCellViewBuilder(recipeId: recipe.productId)
                         .listRowBackground(Color.specialBlack)
+                        .listRowSeparator(.hidden)
+                        .listRowSpacing(4)
                         .frame(height: 250)
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
@@ -41,13 +43,11 @@ struct FavoritesView: View {
                             } label: {
                                 Image(systemName: "trash")
                             }
-                            
                         }
                 }
             }
             .background(.specialBlack)
             .listStyle(.plain)
-            .listRowSeparator(.hidden)
             .navigationTitle("Favorites")
             .task {
                 do {

@@ -20,19 +20,15 @@ struct SettingsView: View {
     var body: some View {
             VStack {
                 List {
-                    if let user = vm.authUser {
-                        Text(user.name ?? "None")
-                        Text(user.isAnonymous.description)
-                        Text(user.uid)
-                    }
-                    
                     if vm.providers.contains(.email) {
                         emailFunctionsSection
+                            .listRowBackground(Color.specialBlack)
                     }
                     
                     
                     if vm.authUser?.isAnonymous == true {
                         linkAccountSection
+                            .listRowBackground(Color.specialBlack)
                     }
                     
                     Section {
@@ -59,9 +55,12 @@ struct SettingsView: View {
                             Text("Delete Account")
                         }
                     }
-                    
+                    .listRowBackground(Color.specialBlack)
                 }
+                .background(.specialBlack)
+                .listStyle(.automatic)
             }
+            .preferredColorScheme(.dark)
             .onAppear(perform: {
                 vm.loadAuthUser()
                 try? vm.loadProviders()
