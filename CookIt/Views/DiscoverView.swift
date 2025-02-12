@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftfulUI
+import FirebaseFirestore
 
 @MainActor
 final class DiscoverViewModel: ObservableObject {
@@ -14,8 +15,69 @@ final class DiscoverViewModel: ObservableObject {
     @Published var recipes: [Recipe] = []
     @Published var user: DBUser? = nil
     
-    func getRecipes() async throws {
-        self.recipes = try await RecipesManager.shared.getAllRecipes()
+    @Published var categoryOption: CategoryOption = .noSorting {
+        didSet {
+            Task {
+                await self.categorySelected()
+            }
+        }
+    }
+    
+    private var lastDocument: DocumentSnapshot? = nil
+    @State private var isFetching: Bool = false
+    
+    enum CategoryOption: String, CaseIterable {
+        case noSorting = "No Sorting"
+        case dinner = "dinner"
+        case salad = "salad"
+        case dessert = "dessert"
+        case breakfast = "breakfast"
+        case soup = "soup"
+        case appetizer = "appetizer"
+        case beverage = "beverage"
+        
+        var description: String? {
+            switch self {
+            case .noSorting:
+                return nil
+            case .dinner:
+                return "dinner"
+            case .salad:
+                return "salad"
+            case .dessert:
+                return "dessert"
+            case .breakfast:
+                return "breakfast"
+            case .soup:
+                return "soup"
+            case .appetizer:
+                return "appetizer"
+            case .beverage:
+                return "beverage"
+            }
+        }
+    }
+    
+    func categorySelected() async {
+        self.recipes = []
+        self.lastDocument = nil
+        await self.getRecipes()
+    }
+    
+    func getRecipes() async {
+        guard !isFetching else { return }
+        isFetching = true
+        do {
+            let (newRecipes, newLastDocument) = try await RecipesManager.shared.getAllRecipes(descending: nil, category: categoryOption.description, count: 5, lastDocument: lastDocument)
+            
+            if let newLastDocument {
+                self.lastDocument = newLastDocument
+            }
+            recipes.append(contentsOf: newRecipes)
+        } catch {
+            print(error)
+        }
+        isFetching = false
     }
     
     func loadUser() async throws {
@@ -29,7 +91,6 @@ final class DiscoverViewModel: ObservableObject {
             try await UserManager.shared.addUserFavouriteRecipe(userId: authUser.uid, recipeId: recipeId)
         }
     }
-    
 }
 
 struct DiscoverView: View {
@@ -59,19 +120,43 @@ struct DiscoverView: View {
                                         .fontWeight(.bold)
                                 }
                             }
-
+                        }
+                        if recipe.id == vm.recipes.last?.id {
+                            HStack {
+                                Spacer()
+                                ProgressView()
+                                Spacer()
+                            }
+                            .onAppear {
+                                Task {
+                                    await vm.getRecipes()
+                                }
+                            }
                         }
                     }
                 }
                 .padding(.horizontal, 8)
             }
         }
+        .toolbar(content: {
+            ToolbarItem(placement: .topBarLeading) {
+                Menu {
+                    Picker("Sorting", selection: $vm.categoryOption) {
+                        ForEach(DiscoverViewModel.CategoryOption.allCases, id: \.self) { option in
+                            Text(option.rawValue.capitalized).tag(option)
+                        }
+                    }
+                } label: {
+                    Label("Sorting", systemImage: "line.3.horizontal.decrease")
+                }
+            }
+        })
         .preferredColorScheme(.dark)
         .navigationTitle("Discover")
         .onFirstAppear {
             Task {
                 do {
-                    try await vm.getRecipes()
+                    await vm.getRecipes()
                     try await vm.loadUser()
                 } catch {
                     print(error)

@@ -190,6 +190,9 @@ struct WelcomeView: View {
             }
             //.background(.red)
         }
+//        .task {
+//            try? await RecipesManager.shared.uploadRecipes()
+//        }
         .preferredColorScheme(.dark)
     }
     

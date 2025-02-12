@@ -17,7 +17,6 @@ final class ProfileViewModel: ObservableObject {
         let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
         self.user = try await UserManager.shared.getUser(userId: authUser.uid)
     }
-    
 }
 
 struct ProfileView: View {

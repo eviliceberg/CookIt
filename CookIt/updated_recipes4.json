@@ -41,7 +41,11 @@
             "author": "Chef Mario Rossi",
             "category": "dinner",
             "isPremium": true,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 20,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Boil spaghetti in salted water for 8 minutes until al dente. Meanwhile, cook pancetta in a pan over medium heat for 5 minutes until crispy. In a bowl, whisk egg yolks with grated Parmesan and black pepper. Drain pasta, reserving some pasta water, then mix hot pasta with the egg mixture off heat, adding reserved water gradually for a creamy sauce."
         },
         {
             "id": "2",
@@ -79,7 +83,11 @@
             "author": "Chef Anna White",
             "category": "salad",
             "isPremium": false,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 15,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Season and grill chicken breast over medium-high heat for 6 minutes per side until golden and cooked through. Let rest for 5 minutes, then slice. Tear romaine lettuce and mix with Caesar dressing. Top with sliced chicken, Parmesan shavings, and croutons. Serve immediately."
         },
         {
             "id": "3",
@@ -122,7 +130,11 @@
             "author": "Chef Emily Johnson",
             "category": "dessert",
             "isPremium": true,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 25,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Preheat oven to 180°C (350°F). Cream butter and sugar together, then mix in the egg. Gradually add flour and baking powder, then fold in chocolate chips. Scoop dough onto a baking sheet, leaving space between cookies. Bake for 12 minutes until edges are golden. Let cool before serving."
         },
         {
             "id": "4",
@@ -160,7 +172,11 @@
             "author": "Chef Michael Green",
             "category": "breakfast",
             "isPremium": false,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 10,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Mash avocado with a fork, adding lemon juice, salt, and pepper. Toast bread slices until golden brown. Spread avocado mixture evenly on toast and serve immediately for the best texture."
         },
         {
             "id": "5",
@@ -208,7 +224,11 @@
             "author": "Chef Sophia Martinez",
             "category": "dinner",
             "isPremium": true,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 35,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Heat olive oil in a pan, sauté diced onion for 3 minutes. Add chopped mushrooms and cook for 5 minutes. Stir in Arborio rice and toast for 2 minutes. Add vegetable broth gradually, stirring continuously. After 20 minutes, once creamy, remove from heat and stir in Parmesan and butter. Serve warm."
         },
         {
             "id": "6",
@@ -251,7 +271,11 @@
             "author": "Chef Pierre Dubois",
             "category": "breakfast",
             "isPremium": true,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 15,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Whisk eggs, milk, cinnamon, and vanilla in a bowl. Dip bread slices into the mixture, coating both sides. Heat butter in a pan and fry each slice for 2-3 minutes per side until golden. Serve warm with syrup or fruit."
         },
         {
             "id": "7",
@@ -299,7 +323,11 @@
             "author": "Chef Julia Adams",
             "category": "soup",
             "isPremium": false,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 30,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Heat olive oil in a pot, sauté onions and garlic for 3 minutes. Add chopped tomatoes and cook for 10 minutes, stirring. Pour in vegetable broth and simmer for another 15 minutes. Blend until smooth and season to taste. Serve warm."
         },
         {
             "id": "8",
@@ -347,7 +375,11 @@
             "author": "Chef Miguel Ramirez",
             "category": "appetizer",
             "isPremium": true,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 10,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Mash avocados in a bowl. Stir in diced tomato, red onion, chopped cilantro, lime juice, salt, and pepper. Mix well and let rest for 5 minutes before serving to enhance flavors."
         },
         {
             "id": "9",
@@ -400,7 +432,11 @@
             "author": "Chef Laura Baker",
             "category": "breakfast",
             "isPremium": true,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 20,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Whisk eggs, milk, and vanilla extract. Combine with flour, sugar, and baking powder. Heat a pan, grease lightly, and pour batter to form pancakes. Cook each side for 2 minutes until golden brown. Serve warm."
         },
         {
             "id": "10",
@@ -453,7 +489,11 @@
             "author": "Chef Dimitris Papadopoulos",
             "category": "salad",
             "isPremium": true,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 15,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Chop cucumber, tomatoes, and red onion into bite-sized pieces. Toss with feta cheese, olives, and oregano. Drizzle with olive oil and mix well. Serve fresh."
         },
         {
             "id": "11",
@@ -496,7 +536,11 @@
             "author": "Chef Marie Leclerc",
             "category": "breakfast",
             "isPremium": false,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 10,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Beat eggs with a pinch of salt and pepper. Melt butter in a pan over medium heat. Pour eggs in, stirring gently. After 2 minutes, add grated cheese. Fold and cook for another minute. Serve warm."
         },
         {
             "id": "12",
@@ -549,7 +593,11 @@
             "author": "Chef Raj Patel",
             "category": "dinner",
             "isPremium": true,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 40,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Sauté diced onion and minced garlic in oil for 3 minutes. Add chicken pieces and cook for 8 minutes until golden. Stir in curry powder, salt, and pepper. Pour in coconut milk and simmer for 20 minutes. Serve hot."
         },
         {
             "id": "13",
@@ -587,7 +635,11 @@
             "author": "Chef Lisa Brown",
             "category": "beverage",
             "isPremium": false,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 5,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Add strawberries, banana, milk, honey, and ice cubes to a blender. Blend for 30 seconds until smooth. Serve immediately."
         },
         {
             "id": "14",
@@ -635,7 +687,11 @@
             "author": "Chef Antonio Russo",
             "category": "dinner",
             "isPremium": true,
-            "isFavorite": false
+            "cookingTime": {
+                "timeNumber": 15,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Melt butter in a pan over medium heat. Add minced garlic and cook for 1 minute until fragrant. Stir in shrimp and cook for 3-4 minutes, flipping halfway, until pink and opaque. Squeeze lemon juice on top and garnish with parsley. Serve hot."
         }
     ]
 }

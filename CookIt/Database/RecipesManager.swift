@@ -29,7 +29,7 @@ final class RecipesManager {
     
     func uploadRecipes() async throws {
         do {
-            guard let url = Bundle.main.url(forResource: "updated_mock_final", withExtension: "json") else {
+            guard let url = Bundle.main.url(forResource: "updated_recipes4", withExtension: "json") else {
                 return
             }
             let data = try Data(contentsOf: url)
@@ -43,16 +43,16 @@ final class RecipesManager {
         }
     }
     
-    func getAllRecipes() async throws -> [Recipe] {
+    private func getAllRecipes() async throws -> [Recipe] {
         try await recipesCollection.getDocuments(as: Recipe.self)
     }
     
-    func updateRecipeFavoriteStatus(isFavorite: Bool, recipeId: String) async throws {
-        let data: [String : Any] = [
-            Recipe.CodingKeys.isFavorite.rawValue : isFavorite
-        ]
-        try await recipeDocument(recipeId: recipeId).updateData(data)
-    }
+//    func updateRecipeFavoriteStatus(isFavorite: Bool, recipeId: String) async throws {
+//        let data: [String : Any] = [
+//            Recipe.CodingKeys.isFavorite.rawValue : isFavorite
+//        ]
+//        try await recipeDocument(recipeId: recipeId).updateData(data)
+//    }
 
 //    private func getAllProductsSortedByPrice(descending: Bool) async throws -> [Product] {
 //        return try await productsCollection.order(by: Product.CodingKeys.price.rawValue, descending: descending).getDocuments(as: Product.self)
@@ -69,17 +69,17 @@ final class RecipesManager {
 //            .getDocuments(as: Product.self)
 //    }
     
-//    private func getAllProductsQuery() -> Query {
-//        productsCollection
+    private func getAllRecipesQuery() -> Query {
+        recipesCollection
+    }
+//    
+//    private func getAllRecipesSortedByTimeQuery(descending: Bool) -> Query {
+//        return recipesCollection.order(by: Recipe.CodingKeys.cookingTime.rawValue, descending: descending)
 //    }
 //    
-//    private func getAllProductsSortedByPriceQuery(descending: Bool) -> Query {
-//        return productsCollection.order(by: Product.CodingKeys.price.rawValue, descending: descending)
-//    }
-//    
-//    private func getAllProductsForCategoryQuery(category: String) -> Query {
-//        return productsCollection.whereField(Product.CodingKeys.category.rawValue, isEqualTo: category)
-//    }
+    private func getAllRecipesForCategoryQuery(category: String) -> Query {
+        return recipesCollection.whereField(Recipe.CodingKeys.category.rawValue, isEqualTo: category)
+    }
 //    
 //    private func getAllProductsByPriceAndCategoryQuery(descending: Bool, category: String) -> Query {
 //        return productsCollection
@@ -87,23 +87,30 @@ final class RecipesManager {
 //            .order(by: Product.CodingKeys.price.rawValue, descending: descending)
 //    }
 //    
-//    func getAllProducts(descending: Bool?, category: String?, count: Int, lastDocument: DocumentSnapshot?) async throws -> ([Product], DocumentSnapshot?) {
-//        
-//        var query: Query = getAllProductsQuery()
-//        
+    func getAllRecipes(descending: Bool?, category: String?, count: Int, lastDocument: DocumentSnapshot?) async throws -> ([Recipe], DocumentSnapshot?) {
+        
+        var query: Query = getAllRecipesQuery()
+        
+        if let category {
+            query = getAllRecipesForCategoryQuery(category: category)
+        }
+        
 //        if let category, let descending {
-//            query = getAllProductsByPriceAndCategoryQuery(descending: descending, category: category)
+//            //query = getAllProductsByPriceAndCategoryQuery(descending: descending, category: category)
+//            print("trigger1")
 //        } else if let descending {
-//            query = getAllProductsSortedByPriceQuery(descending: descending)
+//           // query = getAllProductsSortedByPriceQuery(descending: descending)
+//            print("trigger2")
 //        } else if let category {
-//            query = getAllProductsForCategoryQuery(category: category)
+//            query = getAllRecipesForCategoryQuery(category: category)
+//            print("trigger3")
 //        }
-//        
-//        return try await query
-//            .limit(to: count)
-//            .start(afterDocument: lastDocument)
-//            .getDocumentsWithSnapShot(as: Product.self)
-//    }
+        
+        return try await query
+            .limit(to: count)
+            .start(afterDocument: lastDocument)
+            .getDocumentsWithSnapShot(as: Recipe.self)
+    }
 //    
 //    func getProductsByRating(limit: Int, lastRating: Double?) async throws -> [Product] {
 //        try await productsCollection
