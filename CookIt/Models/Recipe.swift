@@ -21,7 +21,8 @@ struct Recipe: Codable, Identifiable {
     let mainPhoto: String
     let sourceURL: String
     let author: String
-    let category: String
+    let category: [String]
+    let statuses: [String]
     let cookingTime: CookingTime
     let cookingProcess: String
     
@@ -36,6 +37,7 @@ struct Recipe: Codable, Identifiable {
         case sourceURL = "sourceURL"
         case author = "author"
         case category = "category"
+        case statuses = "statuses"
         case cookingTime = "cookingTime"
         case cookingProcess = "cookingProcess"
     }
@@ -50,6 +52,17 @@ enum TimeMeasure: String, Codable {
 struct CookingTime: Codable {
     let timeNumber: Int
     let timeMeasure: TimeMeasure
+    
+    var lowDescription: String {
+        switch timeMeasure {
+        case .seconds:
+            return "\(timeNumber) sec"
+        case .minutes:
+            return "\(timeNumber) min"
+        case .hours:
+            return "\(timeNumber) h"
+        }
+    }
 }
 
 

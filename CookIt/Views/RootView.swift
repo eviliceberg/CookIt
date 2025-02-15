@@ -14,7 +14,8 @@ struct RootView: View {
     var body: some View {
         ZStack {
             if !showWelcomeView {
-                TabBarView(showWelcomeScreen: $showWelcomeView)
+                //TabBarView(showWelcomeScreen: $showWelcomeView)
+                HomeView()
             }
         }
         .onAppear {

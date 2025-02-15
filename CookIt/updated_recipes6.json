@@ -39,13 +39,18 @@
             "mainPhoto": "https://example.com/spaghetti-carbonara.jpg",
             "sourceURL": "https://www.example.com/spaghetti-carbonara-recipe",
             "author": "Chef Mario Rossi",
-            "category": "dinner",
+            "category": [
+                "dinner",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": true,
             "cookingTime": {
                 "timeNumber": 20,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Boil spaghetti in salted water for 8 minutes until al dente. Meanwhile, cook pancetta in a pan over medium heat for 5 minutes until crispy. In a bowl, whisk egg yolks with grated Parmesan and black pepper. Drain pasta, reserving some pasta water, then mix hot pasta with the egg mixture off heat, adding reserved water gradually for a creamy sauce."
+            "cookingProcess": "Boil spaghetti in salted water for 8 minutes until al dente. Meanwhile, cook pancetta in a pan over medium heat for 5 minutes until crispy. In a bowl, whisk egg yolks with grated Parmesan and black pepper. Drain pasta, reserving some pasta water, then mix hot pasta with the egg mixture off heat, adding reserved water gradually for a creamy sauce.",
+            "statuses": []
         },
         {
             "id": "2",
@@ -81,13 +86,18 @@
             "mainPhoto": "https://example.com/chicken-caesar-salad.jpg",
             "sourceURL": "https://www.example.com/chicken-caesar-salad-recipe",
             "author": "Chef Anna White",
-            "category": "salad",
+            "category": [
+                "salad",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": false,
             "cookingTime": {
                 "timeNumber": 15,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Season and grill chicken breast over medium-high heat for 6 minutes per side until golden and cooked through. Let rest for 5 minutes, then slice. Tear romaine lettuce and mix with Caesar dressing. Top with sliced chicken, Parmesan shavings, and croutons. Serve immediately."
+            "cookingProcess": "Season and grill chicken breast over medium-high heat for 6 minutes per side until golden and cooked through. Let rest for 5 minutes, then slice. Tear romaine lettuce and mix with Caesar dressing. Top with sliced chicken, Parmesan shavings, and croutons. Serve immediately.",
+            "statuses": []
         },
         {
             "id": "3",
@@ -128,13 +138,18 @@
             "mainPhoto": "https://example.com/chocolate-chip-cookies.jpg",
             "sourceURL": "https://www.example.com/chocolate-chip-cookies-recipe",
             "author": "Chef Emily Johnson",
-            "category": "dessert",
+            "category": [
+                "dessert",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": true,
             "cookingTime": {
                 "timeNumber": 25,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Preheat oven to 180°C (350°F). Cream butter and sugar together, then mix in the egg. Gradually add flour and baking powder, then fold in chocolate chips. Scoop dough onto a baking sheet, leaving space between cookies. Bake for 12 minutes until edges are golden. Let cool before serving."
+            "cookingProcess": "Preheat oven to 180°C (350°F). Cream butter and sugar together, then mix in the egg. Gradually add flour and baking powder, then fold in chocolate chips. Scoop dough onto a baking sheet, leaving space between cookies. Bake for 12 minutes until edges are golden. Let cool before serving.",
+            "statuses": []
         },
         {
             "id": "4",
@@ -170,13 +185,18 @@
             "mainPhoto": "https://example.com/avocado-toast.jpg",
             "sourceURL": "https://www.example.com/avocado-toast-recipe",
             "author": "Chef Michael Green",
-            "category": "breakfast",
+            "category": [
+                "breakfast",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": false,
             "cookingTime": {
                 "timeNumber": 10,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Mash avocado with a fork, adding lemon juice, salt, and pepper. Toast bread slices until golden brown. Spread avocado mixture evenly on toast and serve immediately for the best texture."
+            "cookingProcess": "Mash avocado with a fork, adding lemon juice, salt, and pepper. Toast bread slices until golden brown. Spread avocado mixture evenly on toast and serve immediately for the best texture.",
+            "statuses": []
         },
         {
             "id": "5",
@@ -222,13 +242,18 @@
             "mainPhoto": "https://example.com/mushroom-risotto.jpg",
             "sourceURL": "https://www.example.com/mushroom-risotto-recipe",
             "author": "Chef Sophia Martinez",
-            "category": "dinner",
+            "category": [
+                "dinner",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": true,
             "cookingTime": {
                 "timeNumber": 35,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Heat olive oil in a pan, sauté diced onion for 3 minutes. Add chopped mushrooms and cook for 5 minutes. Stir in Arborio rice and toast for 2 minutes. Add vegetable broth gradually, stirring continuously. After 20 minutes, once creamy, remove from heat and stir in Parmesan and butter. Serve warm."
+            "cookingProcess": "Heat olive oil in a pan, sauté diced onion for 3 minutes. Add chopped mushrooms and cook for 5 minutes. Stir in Arborio rice and toast for 2 minutes. Add vegetable broth gradually, stirring continuously. After 20 minutes, once creamy, remove from heat and stir in Parmesan and butter. Serve warm.",
+            "statuses": []
         },
         {
             "id": "6",
@@ -269,13 +294,18 @@
             "mainPhoto": "https://example.com/french-toast.jpg",
             "sourceURL": "https://www.example.com/french-toast-recipe",
             "author": "Chef Pierre Dubois",
-            "category": "breakfast",
+            "category": [
+                "breakfast",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": true,
             "cookingTime": {
                 "timeNumber": 15,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Whisk eggs, milk, cinnamon, and vanilla in a bowl. Dip bread slices into the mixture, coating both sides. Heat butter in a pan and fry each slice for 2-3 minutes per side until golden. Serve warm with syrup or fruit."
+            "cookingProcess": "Whisk eggs, milk, cinnamon, and vanilla in a bowl. Dip bread slices into the mixture, coating both sides. Heat butter in a pan and fry each slice for 2-3 minutes per side until golden. Serve warm with syrup or fruit.",
+            "statuses": []
         },
         {
             "id": "7",
@@ -321,13 +351,18 @@
             "mainPhoto": "https://example.com/tomato-soup.jpg",
             "sourceURL": "https://www.example.com/tomato-soup-recipe",
             "author": "Chef Julia Adams",
-            "category": "soup",
+            "category": [
+                "soup",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": false,
             "cookingTime": {
                 "timeNumber": 30,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Heat olive oil in a pot, sauté onions and garlic for 3 minutes. Add chopped tomatoes and cook for 10 minutes, stirring. Pour in vegetable broth and simmer for another 15 minutes. Blend until smooth and season to taste. Serve warm."
+            "cookingProcess": "Heat olive oil in a pot, sauté onions and garlic for 3 minutes. Add chopped tomatoes and cook for 10 minutes, stirring. Pour in vegetable broth and simmer for another 15 minutes. Blend until smooth and season to taste. Serve warm.",
+            "statuses": []
         },
         {
             "id": "8",
@@ -373,13 +408,18 @@
             "mainPhoto": "https://example.com/guacamole.jpg",
             "sourceURL": "https://www.example.com/guacamole-recipe",
             "author": "Chef Miguel Ramirez",
-            "category": "appetizer",
+            "category": [
+                "appetizer",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": true,
             "cookingTime": {
                 "timeNumber": 10,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Mash avocados in a bowl. Stir in diced tomato, red onion, chopped cilantro, lime juice, salt, and pepper. Mix well and let rest for 5 minutes before serving to enhance flavors."
+            "cookingProcess": "Mash avocados in a bowl. Stir in diced tomato, red onion, chopped cilantro, lime juice, salt, and pepper. Mix well and let rest for 5 minutes before serving to enhance flavors.",
+            "statuses": []
         },
         {
             "id": "9",
@@ -430,13 +470,18 @@
             "mainPhoto": "https://example.com/pancakes.jpg",
             "sourceURL": "https://www.example.com/pancakes-recipe",
             "author": "Chef Laura Baker",
-            "category": "breakfast",
+            "category": [
+                "breakfast",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": true,
             "cookingTime": {
                 "timeNumber": 20,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Whisk eggs, milk, and vanilla extract. Combine with flour, sugar, and baking powder. Heat a pan, grease lightly, and pour batter to form pancakes. Cook each side for 2 minutes until golden brown. Serve warm."
+            "cookingProcess": "Whisk eggs, milk, and vanilla extract. Combine with flour, sugar, and baking powder. Heat a pan, grease lightly, and pour batter to form pancakes. Cook each side for 2 minutes until golden brown. Serve warm.",
+            "statuses": []
         },
         {
             "id": "10",
@@ -487,13 +532,18 @@
             "mainPhoto": "https://example.com/greek-salad.jpg",
             "sourceURL": "https://www.example.com/greek-salad-recipe",
             "author": "Chef Dimitris Papadopoulos",
-            "category": "salad",
+            "category": [
+                "salad",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": true,
             "cookingTime": {
                 "timeNumber": 15,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Chop cucumber, tomatoes, and red onion into bite-sized pieces. Toss with feta cheese, olives, and oregano. Drizzle with olive oil and mix well. Serve fresh."
+            "cookingProcess": "Chop cucumber, tomatoes, and red onion into bite-sized pieces. Toss with feta cheese, olives, and oregano. Drizzle with olive oil and mix well. Serve fresh.",
+            "statuses": []
         },
         {
             "id": "11",
@@ -534,13 +584,18 @@
             "mainPhoto": "https://example.com/omelette.jpg",
             "sourceURL": "https://www.example.com/omelette-recipe",
             "author": "Chef Marie Leclerc",
-            "category": "breakfast",
+            "category": [
+                "breakfast",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": false,
             "cookingTime": {
                 "timeNumber": 10,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Beat eggs with a pinch of salt and pepper. Melt butter in a pan over medium heat. Pour eggs in, stirring gently. After 2 minutes, add grated cheese. Fold and cook for another minute. Serve warm."
+            "cookingProcess": "Beat eggs with a pinch of salt and pepper. Melt butter in a pan over medium heat. Pour eggs in, stirring gently. After 2 minutes, add grated cheese. Fold and cook for another minute. Serve warm.",
+            "statuses": []
         },
         {
             "id": "12",
@@ -591,13 +646,18 @@
             "mainPhoto": "https://example.com/chicken-curry.jpg",
             "sourceURL": "https://www.example.com/chicken-curry-recipe",
             "author": "Chef Raj Patel",
-            "category": "dinner",
+            "category": [
+                "dinner",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": true,
             "cookingTime": {
                 "timeNumber": 40,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Sauté diced onion and minced garlic in oil for 3 minutes. Add chicken pieces and cook for 8 minutes until golden. Stir in curry powder, salt, and pepper. Pour in coconut milk and simmer for 20 minutes. Serve hot."
+            "cookingProcess": "Sauté diced onion and minced garlic in oil for 3 minutes. Add chicken pieces and cook for 8 minutes until golden. Stir in curry powder, salt, and pepper. Pour in coconut milk and simmer for 20 minutes. Serve hot.",
+            "statuses": []
         },
         {
             "id": "13",
@@ -633,13 +693,18 @@
             "mainPhoto": "https://example.com/strawberry-smoothie.jpg",
             "sourceURL": "https://www.example.com/strawberry-smoothie-recipe",
             "author": "Chef Lisa Brown",
-            "category": "beverage",
+            "category": [
+                "beverage",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": false,
             "cookingTime": {
                 "timeNumber": 5,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Add strawberries, banana, milk, honey, and ice cubes to a blender. Blend for 30 seconds until smooth. Serve immediately."
+            "cookingProcess": "Add strawberries, banana, milk, honey, and ice cubes to a blender. Blend for 30 seconds until smooth. Serve immediately.",
+            "statuses": []
         },
         {
             "id": "14",
@@ -685,13 +750,143 @@
             "mainPhoto": "https://example.com/garlic-butter-shrimp.jpg",
             "sourceURL": "https://www.example.com/garlic-butter-shrimp-recipe",
             "author": "Chef Antonio Russo",
-            "category": "dinner",
+            "category": [
+                "dinner",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
             "isPremium": true,
             "cookingTime": {
                 "timeNumber": 15,
                 "timeMeasure": "minutes"
             },
-            "cookingProcess": "Melt butter in a pan over medium heat. Add minced garlic and cook for 1 minute until fragrant. Stir in shrimp and cook for 3-4 minutes, flipping halfway, until pink and opaque. Squeeze lemon juice on top and garnish with parsley. Serve hot."
+            "cookingProcess": "Melt butter in a pan over medium heat. Add minced garlic and cook for 1 minute until fragrant. Stir in shrimp and cook for 3-4 minutes, flipping halfway, until pink and opaque. Squeeze lemon juice on top and garnish with parsley. Serve hot.",
+            "statuses": []
+        },
+        {
+            "id": "15",
+            "title": "Vegan Lentil Soup",
+            "ingredients": [
+                {
+                    "ingredient": "Lentils",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Carrot",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Onion",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Garlic",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Vegetable broth",
+                    "quantity": 500,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Olive oil",
+                    "quantity": 20,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                }
+            ],
+            "description": "A hearty and healthy vegan lentil soup packed with protein and fiber.",
+            "mainPhoto": "https://example.com/vegan-lentil-soup.jpg",
+            "sourceURL": "https://www.example.com/vegan-lentil-soup-recipe",
+            "author": "Chef Emma Green",
+            "category": [
+                "Soup",
+                "Healthy",
+                "Timeless Classics"
+            ],
+            "isPremium": false,
+            "cookingTime": {
+                "timeNumber": 30,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Sauté onions, garlic, and carrots in olive oil for 5 minutes. Add lentils and vegetable broth, bring to a boil, then simmer for 25 minutes. Blend for a creamy texture or serve chunky.",
+            "statuses": [
+                "vegan",
+                "gluten-free"
+            ]
+        },
+        {
+            "id": "16",
+            "title": "Gluten-Free Banana Pancakes",
+            "ingredients": [
+                {
+                    "ingredient": "Bananas",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Eggs",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Oats",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Milk",
+                    "quantity": 100,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Cinnamon",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Vanilla extract",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Butter",
+                    "quantity": 10,
+                    "measureMethod": "grams"
+                }
+            ],
+            "description": "Fluffy and delicious banana pancakes made with oats, perfect for a gluten-free breakfast.",
+            "mainPhoto": "https://example.com/gluten-free-banana-pancakes.jpg",
+            "sourceURL": "https://www.example.com/gluten-free-banana-pancakes-recipe",
+            "author": "Chef Daniel White",
+            "category": [
+                "Breakfast",
+                "Healthy",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 20,
+                "timeMeasure": "minutes"
+            },
+            "cookingProcess": "Blend bananas, eggs, oats, milk, cinnamon, and vanilla until smooth. Heat butter in a pan and cook pancakes for 2 minutes per side until golden brown. Serve with fruit or honey.",
+            "statuses": [
+                "gluten-free",
+                "vegetarian"
+            ]
         }
     ]
 }

@@ -10,7 +10,7 @@ import SwiftUI
 struct MostPopularCellView: View {
     
     var statuses: [String] = ["vegan", "gluten-free"]
-    var cookingTime: (Int, String) = (10, "min")
+    var cookingTime: String = "10 min"
     var author: String = "John Doe"
     var title: String = "Guacamole"
     var imageURL: String = Constants.randomImage
@@ -39,15 +39,17 @@ struct MostPopularCellView: View {
             
             VStack {
                 HStack {
-                    HStack {
-                        ForEach(statuses, id: \.self) { status in
-                            Text(status)
-                                .font(.custom(Constants.appFontMedium, size: 10))
-                                .foregroundStyle(.specialBlack)
-                                .padding(.horizontal, 6)
-                                .padding(.vertical, 3)
-                                .background(statusColor(status))
-                                .clipShape(.rect(cornerRadius: 14))
+                    if !statuses.isEmpty {
+                        HStack {
+                            ForEach(statuses, id: \.self) { status in
+                                Text(status)
+                                    .font(.custom(Constants.appFontMedium, size: 10))
+                                    .foregroundStyle(.specialBlack)
+                                    .padding(.horizontal, 6)
+                                    .padding(.vertical, 3)
+                                    .background(statusColor(status))
+                                    .clipShape(.rect(cornerRadius: 14))
+                            }
                         }
                     }
                     
@@ -56,7 +58,7 @@ struct MostPopularCellView: View {
                             .font(.system(size: 14))
                             .fontWeight(.medium)
                         
-                        Text("\(cookingTime.0) \(cookingTime.1)")
+                        Text(cookingTime)
                             .font(.custom(Constants.appFontMedium, size: 14))
                     }
                     .frame(maxWidth: .infinity, alignment: .trailing)
@@ -72,6 +74,7 @@ struct MostPopularCellView: View {
                         .font(.custom(Constants.appFontBold, size: 20))
                         .fontWeight(.bold)
                 }
+                .shadow(color: .black.opacity(0.25), radius: 4, y: 4)
                 .foregroundStyle(.specialWhite)
                 .frame(maxHeight: .infinity, alignment: .bottomLeading)
                 .frame(maxWidth: .infinity,alignment: .leading)
