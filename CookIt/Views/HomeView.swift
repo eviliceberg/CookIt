@@ -45,10 +45,12 @@ struct HomeView: View {
             Color.specialBlack.ignoresSafeArea()
             
             ScrollView(.vertical) {
-                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: .sectionHeaders) {
+                LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
                     Section {
                         
                         mostPopularSection
+                        
+                        onePanSection
                         
                         ForEach(0..<10) { _ in
                             Rectangle()
@@ -114,7 +116,7 @@ struct HomeView: View {
     }
     
     private var mostPopularSection: some View {
-        VStack(alignment: .leading, spacing: 16) {
+        VStack(alignment: .leading, spacing: 8) {
             Text("Most Popular")
                 .font(.custom(Constants.appFontBold, size: 24))
                 .foregroundStyle(.specialWhite)
@@ -129,6 +131,32 @@ struct HomeView: View {
                             author: recipe.author,
                             title: recipe.title
                             //imageURL: <#T##String#>
+                        )
+                    }
+                }
+                .padding(.horizontal, 16)
+            }
+            .scrollIndicators(.hidden)
+        }
+    }
+    
+    private var onePanSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("One-Pan Magic")
+                .font(.custom(Constants.appFontBold, size: 24))
+                .foregroundStyle(.specialWhite)
+                .padding(.horizontal, 16)
+            
+            ScrollView(.horizontal) {
+                HStack {
+                    ForEach(vm.recipes) { recipe in
+                        SmallCellView(
+                            title: recipe.title,
+                            author: recipe.author,
+                            time: recipe.cookingTime.lowDescription,
+                            //photoUrl: <#T##String#>,
+                            status: recipe.statuses.first ?? "",
+                            isPremium: Bool.random()
                         )
                     }
                 }

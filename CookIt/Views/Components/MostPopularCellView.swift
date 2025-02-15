@@ -15,23 +15,6 @@ struct MostPopularCellView: View {
     var title: String = "Guacamole"
     var imageURL: String = Constants.randomImage
     
-    func statusColor(_ status: String) -> Color {
-        switch status {
-        case "vegan":
-                .specialYellow.opacity(0.49)
-        case "vegetarian":
-                .specialLightBlue.opacity(0.55)
-        case "gluten-free":
-                .specialGreen.opacity(0.54)
-        case "lactose-free":
-                .specialPink.opacity(0.49)
-        case "nut-free":
-                .specialPurple.opacity(0.5)
-        default:
-                .specialWhite.opacity(0.5)
-        }
-    }
-    
     var body: some View {
         ZStack {
             ImageLoaderView(urlString: imageURL)
@@ -47,7 +30,7 @@ struct MostPopularCellView: View {
                                     .foregroundStyle(.specialBlack)
                                     .padding(.horizontal, 6)
                                     .padding(.vertical, 3)
-                                    .background(statusColor(status))
+                                    .background(Constants.shared.statusColor(status))
                                     .clipShape(.rect(cornerRadius: 14))
                             }
                         }
