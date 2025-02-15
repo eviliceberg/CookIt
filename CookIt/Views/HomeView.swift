@@ -52,6 +52,16 @@ struct HomeView: View {
                         
                         onePanSection
                         
+                        if let recipe = vm.recipes.randomElement() {
+                            PremiumCellView(
+                                //imageUrl: <#T##String#>,
+                                author: recipe.author,
+                                title: recipe.title,
+                                time: recipe.cookingTime.lowDescription
+                            )
+                            .padding(.horizontal, 16)
+                        }
+                        
                         ForEach(0..<10) { _ in
                             Rectangle()
                                 .fill(Color.blue)
