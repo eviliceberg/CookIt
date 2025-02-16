@@ -18,7 +18,7 @@ struct SmallCellView: View {
     
     var body: some View {
         RoundedRectangle(cornerRadius: 20)
-            .fill(Color.specialDarkGrey)
+            .fill(Color.specialLightBlack)
             .frame(width: 171, height: 184)
             .overlay {
                 VStack(alignment: .leading, spacing: -8) {

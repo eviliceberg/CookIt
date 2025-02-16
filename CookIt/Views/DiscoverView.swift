@@ -26,38 +26,6 @@ final class DiscoverViewModel: ObservableObject {
     private var lastDocument: DocumentSnapshot? = nil
     @State private var isFetching: Bool = false
     
-    enum CategoryOption: String, CaseIterable {
-        case noSorting = "No Sorting"
-        case dinner = "dinner"
-        case salad = "salad"
-        case dessert = "dessert"
-        case breakfast = "breakfast"
-        case soup = "soup"
-        case appetizer = "appetizer"
-        case beverage = "beverage"
-        
-        var description: String? {
-            switch self {
-            case .noSorting:
-                return nil
-            case .dinner:
-                return "dinner"
-            case .salad:
-                return "salad"
-            case .dessert:
-                return "dessert"
-            case .breakfast:
-                return "breakfast"
-            case .soup:
-                return "soup"
-            case .appetizer:
-                return "appetizer"
-            case .beverage:
-                return "beverage"
-            }
-        }
-    }
-    
     func categorySelected() async {
         self.recipes = []
         self.lastDocument = nil
@@ -142,7 +110,7 @@ struct DiscoverView: View {
             ToolbarItem(placement: .topBarLeading) {
                 Menu {
                     Picker("Sorting", selection: $vm.categoryOption) {
-                        ForEach(DiscoverViewModel.CategoryOption.allCases, id: \.self) { option in
+                        ForEach(CategoryOption.allCases, id: \.self) { option in
                             Text(option.rawValue.capitalized).tag(option)
                         }
                     }

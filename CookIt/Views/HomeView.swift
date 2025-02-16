@@ -13,6 +13,9 @@ final class HomeViewModel: ObservableObject {
     
     @Published var authUser: DBUser? = nil
     @Published var recipes: [Recipe] = []
+    @Published var onePanRecipes: [Recipe] = []
+    @Published var proteinBoostRecipes: [Recipe] = []
+    @Published var timelessClassicRecipes: [Recipe] = []
     
     @State private var isFetching: Bool = false
     
@@ -21,17 +24,24 @@ final class HomeViewModel: ObservableObject {
         self.authUser = try await UserManager.shared.getUser(userId: tempUser.uid)
     }
     
-    func getRecipes() async {
-        guard !isFetching else { return }
+    func getRecipes(category: String? = nil, recipesArray: [Recipe]? = nil) async -> [Recipe] {
+        guard !isFetching else { return [] }
         isFetching = true
+        var resultArray: [Recipe] = []
         do {
-            let (newRecipes, _) = try await RecipesManager.shared.getAllRecipes(descending: nil, category: nil, count: 10, lastDocument: nil)
+            let (newRecipes, _) = try await RecipesManager.shared.getAllRecipes(descending: nil, category: category, count: 10, lastDocument: nil)
             
-            self.recipes.append(contentsOf: newRecipes)
+            if let recipesArray {
+                resultArray.append(contentsOf: recipesArray)
+            }
+            resultArray.append(contentsOf: newRecipes)
+            
         } catch {
             print(error)
+            return []
         }
         isFetching = false
+        return resultArray.shuffled()
     }
     
 }
@@ -48,13 +58,13 @@ struct HomeView: View {
                 LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
                     Section {
                         
-                        mostPopularSection
+                        wideCellSection(title: "Most Popular", recipes: vm.recipes)
                         
-                        onePanSection
+                        smallCellSection(title: "One-Pan Magic", recipes: vm.onePanRecipes)
                         
-                        if let recipe = vm.recipes.randomElement() {
+                        if let recipe = vm.recipes.last {
                             PremiumCellView(
-                                //imageUrl: <#T##String#>,
+                                imageUrl: recipe.mainPhoto,
                                 author: recipe.author,
                                 title: recipe.title,
                                 time: recipe.cookingTime.lowDescription
@@ -62,11 +72,9 @@ struct HomeView: View {
                             .padding(.horizontal, 16)
                         }
                         
-                        ForEach(0..<10) { _ in
-                            Rectangle()
-                                .fill(Color.blue)
-                                .frame(height: 175)
-                        }
+                        smallCellSection(title: CategoryOption.proteinBoost.rawValue, recipes: vm.proteinBoostRecipes)
+                        
+                        wideCellSection(title: CategoryOption.timelessClassics.rawValue, recipes: vm.timelessClassicRecipes)
                     } header: {
                         header
                     }
@@ -79,15 +87,16 @@ struct HomeView: View {
 //        .task {
 //            try? await RecipesManager.shared.uploadRecipes()
 //        }
-        .onAppear {
-            if vm.recipes.isEmpty {
-                Task {
-                    do {
-                        try await vm.loadCurrentUser()
-                        await vm.getRecipes()
-                    } catch {
-                        print(error)
-                    }
+        .onFirstAppear {
+            Task {
+                do {
+                    try await vm.loadCurrentUser()
+                    vm.recipes = await vm.getRecipes()
+                    vm.onePanRecipes = await vm.getRecipes(category: CategoryOption.breakfast.description)
+                    vm.timelessClassicRecipes = await vm.getRecipes(category: CategoryOption.timelessClassics.description)
+                    vm.proteinBoostRecipes = await vm.getRecipes(category: CategoryOption.proteinBoost.description)
+                } catch {
+                    print(error)
                 }
             }
         }
@@ -96,10 +105,16 @@ struct HomeView: View {
     private var header: some View {
         HStack {
             HStack(spacing: 16) {
-                ImageLoaderView()
-                    .frame(width: 40, height: 40)
-                    .clipShape(.circle)
-                
+                if let imageURL = vm.authUser?.photoUrl {
+                    ImageLoaderView(urlString: imageURL)
+                        .frame(width: 40, height: 40)
+                        .clipShape(.circle)
+                } else {
+                    Image(.user)
+                        .resizable()
+                        .frame(width: 40, height: 40)
+                        .clipShape(.circle)
+                }
                 if let user = vm.authUser {
                     Text("Hello, \(user.name ?? "User")")
                 } else {
@@ -125,22 +140,22 @@ struct HomeView: View {
         .background(.specialBlack)
     }
     
-    private var mostPopularSection: some View {
+    private func wideCellSection(title: String, recipes: [Recipe]) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("Most Popular")
+            Text(title)
                 .font(.custom(Constants.appFontBold, size: 24))
                 .foregroundStyle(.specialWhite)
                 .padding(.horizontal, 16)
             
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(vm.recipes) { recipe in
+                    ForEach(recipes) { recipe in
                         MostPopularCellView(
                             statuses: recipe.statuses,
                             cookingTime: recipe.cookingTime.lowDescription,
                             author: recipe.author,
-                            title: recipe.title
-                            //imageURL: <#T##String#>
+                            title: recipe.title,
+                            imageURL: recipe.mainPhoto
                         )
                     }
                 }
@@ -150,21 +165,21 @@ struct HomeView: View {
         }
     }
     
-    private var onePanSection: some View {
+    private func smallCellSection(title: String, recipes: [Recipe]) -> some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text("One-Pan Magic")
+            Text(title)
                 .font(.custom(Constants.appFontBold, size: 24))
                 .foregroundStyle(.specialWhite)
                 .padding(.horizontal, 16)
             
             ScrollView(.horizontal) {
                 HStack {
-                    ForEach(vm.recipes) { recipe in
+                    ForEach(recipes) { recipe in
                         SmallCellView(
                             title: recipe.title,
                             author: recipe.author,
                             time: recipe.cookingTime.lowDescription,
-                            //photoUrl: <#T##String#>,
+                            photoUrl: recipe.mainPhoto,
                             status: recipe.statuses.first ?? "",
                             isPremium: Bool.random()
                         )

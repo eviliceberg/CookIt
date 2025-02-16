@@ -78,7 +78,7 @@ final class RecipesManager {
 //    }
 //    
     private func getAllRecipesForCategoryQuery(category: String) -> Query {
-        return recipesCollection.whereField(Recipe.CodingKeys.category.rawValue, isEqualTo: category)
+        return recipesCollection.whereField(Recipe.CodingKeys.category.rawValue, arrayContains: category)
     }
 //    
 //    private func getAllProductsByPriceAndCategoryQuery(descending: Bool, category: String) -> Query {
