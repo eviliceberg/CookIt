@@ -70,7 +70,16 @@ struct HomeView: View {
                                 time: recipe.cookingTime.lowDescription
                             )
                             .padding(.horizontal, 16)
+                            .onTapGesture {
+                                
+                            }
                         }
+                        
+                        MysteryToolCell()
+                            .padding(.horizontal, 16)
+                            .onTapGesture {
+                                
+                            }
                         
                         smallCellSection(title: CategoryOption.proteinBoost.rawValue, recipes: vm.proteinBoostRecipes)
                         
@@ -157,6 +166,9 @@ struct HomeView: View {
                             title: recipe.title,
                             imageURL: recipe.mainPhoto
                         )
+                        .asButton(.tap) {
+                            
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
@@ -183,6 +195,9 @@ struct HomeView: View {
                             status: recipe.statuses.first ?? "",
                             isPremium: Bool.random()
                         )
+                        .asButton(.tap) {
+                            
+                        }
                     }
                 }
                 .padding(.horizontal, 16)
