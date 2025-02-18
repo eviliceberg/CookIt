@@ -43,7 +43,11 @@ final class WelcomeViewModel: ObservableObject {
     }
     
     func continueAnounimously() async throws {
-        try await AuthenticationManager.shared.signInAnonymous()
+        let authUser = try await AuthenticationManager.shared.signInAnonymous()
+        let user = DBUser(auth: authUser)
+        if try await !UserManager.shared.userExists(userId: user.userId) {
+            try await UserManager.shared.createNewUser(user: user)
+        }
     }
 }
 

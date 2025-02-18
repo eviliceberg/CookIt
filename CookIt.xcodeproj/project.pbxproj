@@ -11,6 +11,7 @@
 		F47B926C2D5A45660080B4EC /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = F47B926B2D5A45660080B4EC /* SDWebImageSwiftUI */; };
 		F47F96082D6222D700321629 /* AWSClientRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = F47F96072D6222D700321629 /* AWSClientRuntime */; };
 		F47F960A2D6222D700321629 /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = F47F96092D6222D700321629 /* AWSS3 */; };
+		F4B73F912D64C271005BD9E4 /* SwiftfulRouting in Frameworks */ = {isa = PBXBuildFile; productRef = F4B73F902D64C271005BD9E4 /* SwiftfulRouting */; };
 		F4C6D20C2D550E8E00D81F89 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D20B2D550E8E00D81F89 /* FirebaseAuth */; };
 		F4C6D20E2D550E8E00D81F89 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D20D2D550E8E00D81F89 /* FirebaseAuthCombine-Community */; };
 		F4C6D2102D550E8E00D81F89 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D20F2D550E8E00D81F89 /* FirebaseCore */; };
@@ -50,6 +51,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F47F960A2D6222D700321629 /* AWSS3 in Frameworks */,
+				F4B73F912D64C271005BD9E4 /* SwiftfulRouting in Frameworks */,
 				F4C6D2152D550EB900D81F89 /* GoogleSignInSwift in Frameworks */,
 				F4C6D20C2D550E8E00D81F89 /* FirebaseAuth in Frameworks */,
 				F4C6D2132D550EB900D81F89 /* GoogleSignIn in Frameworks */,
@@ -119,6 +121,7 @@
 				F41E9CC72D5CC91300F331A4 /* SwiftfulUI */,
 				F47F96072D6222D700321629 /* AWSClientRuntime */,
 				F47F96092D6222D700321629 /* AWSS3 */,
+				F4B73F902D64C271005BD9E4 /* SwiftfulRouting */,
 			);
 			productName = CookIt;
 			productReference = F4C6D1EB2D550D8600D81F89 /* CookIt.app */;
@@ -154,6 +157,7 @@
 				F47B926A2D5A45660080B4EC /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				F41E9CC62D5CC91300F331A4 /* XCRemoteSwiftPackageReference "SwiftfulUI" */,
 				F47F96062D6222D700321629 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */,
+				F4B73F8F2D64C271005BD9E4 /* XCRemoteSwiftPackageReference "SwiftfulRouting" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = F4C6D1EC2D550D8600D81F89 /* Products */;
@@ -413,6 +417,14 @@
 				minimumVersion = 1.2.19;
 			};
 		};
+		F4B73F8F2D64C271005BD9E4 /* XCRemoteSwiftPackageReference "SwiftfulRouting" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SwiftfulThinking/SwiftfulRouting";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.3.6;
+			};
+		};
 		F4C6D20A2D550E8E00D81F89 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -451,6 +463,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F47F96062D6222D700321629 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
 			productName = AWSS3;
+		};
+		F4B73F902D64C271005BD9E4 /* SwiftfulRouting */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4B73F8F2D64C271005BD9E4 /* XCRemoteSwiftPackageReference "SwiftfulRouting" */;
+			productName = SwiftfulRouting;
 		};
 		F4C6D20B2D550E8E00D81F89 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;

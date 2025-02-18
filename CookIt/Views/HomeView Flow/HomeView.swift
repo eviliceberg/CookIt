@@ -7,6 +7,7 @@
 
 import SwiftUI
 import FirebaseFirestore
+import SwiftfulRouting
 
 @MainActor
 final class HomeViewModel: ObservableObject {
@@ -18,6 +19,31 @@ final class HomeViewModel: ObservableObject {
     @Published var timelessClassicRecipes: [Recipe] = []
     
     @State private var isFetching: Bool = false
+    
+    func fetchAllData() async throws {
+        async let popularRecipes = getRecipes()
+        async let onePanRecipes = getRecipes(category: CategoryOption.breakfast.description)
+        async let timelessClassicRecipes = getRecipes(category: CategoryOption.timelessClassics.description)
+        async let proteinBoostRecipes = getRecipes(category: CategoryOption.proteinBoost.description)
+        
+        
+        recipes = await popularRecipes
+        self.onePanRecipes = await onePanRecipes
+        self.timelessClassicRecipes = await timelessClassicRecipes
+        self.proteinBoostRecipes = await proteinBoostRecipes
+    }
+    
+    func savePath(path: String) -> URL {
+        return FileManager.documentsDirectory.appending(path: path)
+    }
+    
+    func saveRecipesArray(array: [Recipe], path: String) throws {
+        let data = try JSONEncoder().encode(array)
+        
+        let pathURL = savePath(path: path)
+        
+        try data.write(to: pathURL)
+    }
     
     func loadCurrentUser() async throws {
         let tempUser = try AuthenticationManager.shared.getAuthenticatedUser()
@@ -48,7 +74,10 @@ final class HomeViewModel: ObservableObject {
 
 struct HomeView: View {
     
-    @StateObject private var vm: HomeViewModel = HomeViewModel()
+    @Environment(\.router) var router
+    @Binding var showWelcomeView: Bool
+
+    @EnvironmentObject var vm: HomeViewModel
     
     var body: some View {
         ZStack {
@@ -96,14 +125,20 @@ struct HomeView: View {
 //        .task {
 //            try? await RecipesManager.shared.uploadRecipes()
 //        }
-        .onFirstAppear {
+        .onAppear {
             Task {
                 do {
-                    try await vm.loadCurrentUser()
-                    vm.recipes = await vm.getRecipes()
-                    vm.onePanRecipes = await vm.getRecipes(category: CategoryOption.breakfast.description)
-                    vm.timelessClassicRecipes = await vm.getRecipes(category: CategoryOption.timelessClassics.description)
-                    vm.proteinBoostRecipes = await vm.getRecipes(category: CategoryOption.proteinBoost.description)
+                try await vm.loadCurrentUser()
+//                    async let popularRecipes = vm.getRecipes()
+//                    async let onePanRecipes = vm.getRecipes(category: CategoryOption.breakfast.description)
+//                    async let timelessClassicRecipes = vm.getRecipes(category: CategoryOption.timelessClassics.description)
+//                    async let proteinBoostRecipes = vm.getRecipes(category: CategoryOption.proteinBoost.description)
+//                    
+//                    
+//                    vm.recipes = await popularRecipes
+//                    vm.onePanRecipes = await onePanRecipes
+//                    vm.timelessClassicRecipes = await timelessClassicRecipes
+//                    vm.proteinBoostRecipes = await proteinBoostRecipes
                 } catch {
                     print(error)
                 }
@@ -118,11 +153,21 @@ struct HomeView: View {
                     ImageLoaderView(urlString: imageURL)
                         .frame(width: 40, height: 40)
                         .clipShape(.circle)
+                        .onTapGesture {
+                            router.showScreen(.push) { _ in
+                                ProfileView(showWelcomeScreen: $showWelcomeView)
+                            }
+                        }
                 } else {
                     Image(.user)
                         .resizable()
                         .frame(width: 40, height: 40)
                         .clipShape(.circle)
+                        .onTapGesture {
+                            router.showScreen(.push) { _ in
+                                ProfileView(showWelcomeScreen: $showWelcomeView)
+                            }
+                        }
                 }
                 if let user = vm.authUser {
                     Text("Hello, \(user.name ?? "User")")
@@ -209,5 +254,7 @@ struct HomeView: View {
 }
 
 #Preview {
-    RootView()
+    RouterView { _ in
+        RootView()
+    }
 }
