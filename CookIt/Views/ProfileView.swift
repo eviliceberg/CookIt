@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftfulUI
+import SwiftfulRouting
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
@@ -22,7 +23,7 @@ final class ProfileViewModel: ObservableObject {
 struct ProfileView: View {
     
     @Binding var showWelcomeScreen: Bool
-    
+    @Environment(\.router) var router
     @StateObject private var vm: ProfileViewModel = ProfileViewModel()
     
     var body: some View {
@@ -30,26 +31,40 @@ struct ProfileView: View {
             Color.specialBlack.ignoresSafeArea()
             if let user = vm.user {
                 ScrollView(.vertical) {
-                    if let photoUrl = user.photoUrl {
+                    VStack(alignment: .leading) {
                         Rectangle()
                             .opacity(0)
                             .overlay(content: {
-                                ImageLoaderView(urlString: photoUrl)
+                                if let photoUrl = user.photoUrl {
+                                    ImageLoaderView(urlString: photoUrl)
+                                } else {
+                                    Image(.user)
+                                }
                             })
                             .asStretchyHeader(startingHeight: 400)
-                        
-                        VStack(alignment: .leading) {
-                            Text(user.name ?? "None")
-                            Text(user.userId)
-                            Text("Is Anonimous: \(user.isAnonymous ?? true)")
-                            Text("Is Premium: \(user.isPremium ?? false)")
-                        }
-                        .padding(.horizontal, 8)
-                        .font(.headline)
-                        .fontWeight(.semibold)
-                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                        Text(user.name ?? "None")
+                        Text(user.userId)
+                        Text("Is Anonimous: \(user.isAnonymous ?? true)")
+                        Text("Is Premium: \(user.isPremium ?? false)")
                     }
+                    .padding(.horizontal, 8)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
+                    Text("To the animation testing playground")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding()
+                        .foregroundStyle(.specialBlack)
+                        .background(.white)
+                        .clipShape(.rect(cornerRadius: 16))
+                        .asButton(.tap) {
+                            router.showScreen(.push) { _ in
+                                AnimationLogoView()
+                            }
+                        }
                 }
                 .ignoresSafeArea()
             }
@@ -61,18 +76,25 @@ struct ProfileView: View {
         }
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink {
-                    SettingsView(showWelcomeScreen: $showWelcomeScreen)
-                } label: {
-                    Image(systemName: "gear")
-                }
+                Image(systemName: "gear")
+                    .foregroundStyle(.specialWhite)
+                    .asButton {
+                        router.showScreen(.push) { _ in
+                            SettingsView(showWelcomeScreen: $showWelcomeScreen)
+                        }
+                    }
+//                NavigationLink {
+//                    
+//                } label: {
+//                    
+//                }
             }
         }
     }
 }
 
 #Preview {
-    NavigationStack {
+    RouterView { _ in
         ProfileView(showWelcomeScreen: .constant(false))
     }
 }
