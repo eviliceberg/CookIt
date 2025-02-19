@@ -118,9 +118,11 @@ struct HomeView: View {
                     }
 
                 }
+                .padding(.bottom, 32)
             }
             .scrollIndicators(.hidden)
             .clipped()
+            .ignoresSafeArea(.all, edges: .bottom)
         }
 //        .task {
 //            try? await RecipesManager.shared.uploadRecipes()
@@ -128,17 +130,9 @@ struct HomeView: View {
         .onAppear {
             Task {
                 do {
+                    
                 try await vm.loadCurrentUser()
-//                    async let popularRecipes = vm.getRecipes()
-//                    async let onePanRecipes = vm.getRecipes(category: CategoryOption.breakfast.description)
-//                    async let timelessClassicRecipes = vm.getRecipes(category: CategoryOption.timelessClassics.description)
-//                    async let proteinBoostRecipes = vm.getRecipes(category: CategoryOption.proteinBoost.description)
-//                    
-//                    
-//                    vm.recipes = await popularRecipes
-//                    vm.onePanRecipes = await onePanRecipes
-//                    vm.timelessClassicRecipes = await timelessClassicRecipes
-//                    vm.proteinBoostRecipes = await proteinBoostRecipes
+                    
                 } catch {
                     print(error)
                 }

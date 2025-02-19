@@ -65,6 +65,19 @@ struct ProfileView: View {
                                 AnimationLogoView()
                             }
                         }
+                    
+                    Text("To the photo testing playground")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .padding()
+                        .foregroundStyle(.specialBlack)
+                        .background(.white)
+                        .clipShape(.rect(cornerRadius: 16))
+                        .asButton(.tap) {
+                            router.showScreen(.push) { _ in
+                                UploadTestView()
+                            }
+                        }
                 }
                 .ignoresSafeArea()
             }

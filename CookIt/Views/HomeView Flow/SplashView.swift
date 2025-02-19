@@ -19,8 +19,9 @@ struct SplashView: View {
                 Image(.logo)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 180)
+                    .frame(width: 150)
             }
+            .offset(y: -35)
         }
         .task {
             do {

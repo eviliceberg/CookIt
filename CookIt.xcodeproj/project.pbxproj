@@ -12,6 +12,9 @@
 		F47F96082D6222D700321629 /* AWSClientRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = F47F96072D6222D700321629 /* AWSClientRuntime */; };
 		F47F960A2D6222D700321629 /* AWSS3 in Frameworks */ = {isa = PBXBuildFile; productRef = F47F96092D6222D700321629 /* AWSS3 */; };
 		F4B73F912D64C271005BD9E4 /* SwiftfulRouting in Frameworks */ = {isa = PBXBuildFile; productRef = F4B73F902D64C271005BD9E4 /* SwiftfulRouting */; };
+		F4BC47BF2D662D2600E2CDF5 /* AWSControlCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = F4BC47BE2D662D2600E2CDF5 /* AWSControlCatalog */; };
+		F4BC47C32D6633EB00E2CDF5 /* AWSCognitoIdentityProvider in Frameworks */ = {isa = PBXBuildFile; productRef = F4BC47C22D6633EB00E2CDF5 /* AWSCognitoIdentityProvider */; };
+		F4BC47C72D665BBE00E2CDF5 /* AWSSDKIdentity in Frameworks */ = {isa = PBXBuildFile; productRef = F4BC47C62D665BBE00E2CDF5 /* AWSSDKIdentity */; };
 		F4C6D20C2D550E8E00D81F89 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D20B2D550E8E00D81F89 /* FirebaseAuth */; };
 		F4C6D20E2D550E8E00D81F89 /* FirebaseAuthCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D20D2D550E8E00D81F89 /* FirebaseAuthCombine-Community */; };
 		F4C6D2102D550E8E00D81F89 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = F4C6D20F2D550E8E00D81F89 /* FirebaseCore */; };
@@ -54,11 +57,14 @@
 				F4B73F912D64C271005BD9E4 /* SwiftfulRouting in Frameworks */,
 				F4C6D2152D550EB900D81F89 /* GoogleSignInSwift in Frameworks */,
 				F4C6D20C2D550E8E00D81F89 /* FirebaseAuth in Frameworks */,
+				F4BC47BF2D662D2600E2CDF5 /* AWSControlCatalog in Frameworks */,
 				F4C6D2132D550EB900D81F89 /* GoogleSignIn in Frameworks */,
+				F4BC47C32D6633EB00E2CDF5 /* AWSCognitoIdentityProvider in Frameworks */,
 				F47F96082D6222D700321629 /* AWSClientRuntime in Frameworks */,
 				F47B926C2D5A45660080B4EC /* SDWebImageSwiftUI in Frameworks */,
 				F41E9CC82D5CC91300F331A4 /* SwiftfulUI in Frameworks */,
 				F4C6D2102D550E8E00D81F89 /* FirebaseCore in Frameworks */,
+				F4BC47C72D665BBE00E2CDF5 /* AWSSDKIdentity in Frameworks */,
 				F4C6D20E2D550E8E00D81F89 /* FirebaseAuthCombine-Community in Frameworks */,
 				F4C6D2A92D58F14700D81F89 /* FirebaseFirestore in Frameworks */,
 			);
@@ -122,6 +128,9 @@
 				F47F96072D6222D700321629 /* AWSClientRuntime */,
 				F47F96092D6222D700321629 /* AWSS3 */,
 				F4B73F902D64C271005BD9E4 /* SwiftfulRouting */,
+				F4BC47BE2D662D2600E2CDF5 /* AWSControlCatalog */,
+				F4BC47C22D6633EB00E2CDF5 /* AWSCognitoIdentityProvider */,
+				F4BC47C62D665BBE00E2CDF5 /* AWSSDKIdentity */,
 			);
 			productName = CookIt;
 			productReference = F4C6D1EB2D550D8600D81F89 /* CookIt.app */;
@@ -468,6 +477,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = F4B73F8F2D64C271005BD9E4 /* XCRemoteSwiftPackageReference "SwiftfulRouting" */;
 			productName = SwiftfulRouting;
+		};
+		F4BC47BE2D662D2600E2CDF5 /* AWSControlCatalog */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F47F96062D6222D700321629 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
+			productName = AWSControlCatalog;
+		};
+		F4BC47C22D6633EB00E2CDF5 /* AWSCognitoIdentityProvider */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F47F96062D6222D700321629 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
+			productName = AWSCognitoIdentityProvider;
+		};
+		F4BC47C62D665BBE00E2CDF5 /* AWSSDKIdentity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F47F96062D6222D700321629 /* XCRemoteSwiftPackageReference "aws-sdk-swift" */;
+			productName = AWSSDKIdentity;
 		};
 		F4C6D20B2D550E8E00D81F89 /* FirebaseAuth */ = {
 			isa = XCSwiftPackageProductDependency;
