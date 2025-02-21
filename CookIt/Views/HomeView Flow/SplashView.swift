@@ -23,6 +23,9 @@ struct SplashView: View {
             }
             .offset(y: -35)
         }
+//        .task {
+//            try? await RecipesManager.shared.uploadRecipes()
+//        }
         .task {
             do {
                 try await vm.fetchAllData()

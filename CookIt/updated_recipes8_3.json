@@ -1,0 +1,1784 @@
+{
+    "recipes": [
+        {
+            "id": "1",
+            "title": "Spaghetti Carbonara",
+            "ingredients": [
+                {
+                    "ingredient": "Spaghetti",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Egg yolks",
+                    "quantity": 4,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Pancetta",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Parmesan cheese",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                }
+            ],
+            "description": "A classic Italian pasta dish made with eggs, cheese, pancetta, and pepper.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0535.jpeg",
+            "sourceURL": "https://www.example.com/spaghetti-carbonara-recipe",
+            "author": "Chef Mario Rossi",
+            "category": [
+                "dinner",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 20,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Boil spaghetti in salted water for 8 minutes until al dente",
+                    "photoURL": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0568.jpeg"
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Meanwhile, cook pancetta in a pan over medium heat for 5 minutes until crispy",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "In a bowl, whisk egg yolks with grated Parmesan and black pepper",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Drain pasta, reserving some pasta water, then mix hot pasta with the egg mixture off heat, adding reserved water gradually for a creamy sauce.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "2",
+            "title": "Chicken Caesar Salad",
+            "ingredients": [
+                {
+                    "ingredient": "Chicken breast",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Romaine lettuce",
+                    "quantity": 150,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Caesar dressing",
+                    "quantity": 50,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Parmesan cheese",
+                    "quantity": 30,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Croutons",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                }
+            ],
+            "description": "A fresh salad with grilled chicken, crispy romaine, parmesan, and croutons.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0544.jpeg",
+            "sourceURL": "https://www.example.com/chicken-caesar-salad-recipe",
+            "author": "Chef Anna White",
+            "category": [
+                "salad",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": false,
+            "cookingTime": {
+                "timeNumber": 15,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Season and grill chicken breast over medium-high heat for 6 minutes per side until golden and cooked through",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Let rest for 5 minutes, then slice",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Tear romaine lettuce and mix with Caesar dressing",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Top with sliced chicken, Parmesan shavings, and croutons",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 5,
+                    "instruction": "Serve immediately.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "3",
+            "title": "Chocolate Chip Cookies",
+            "ingredients": [
+                {
+                    "ingredient": "Flour",
+                    "quantity": 250,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Sugar",
+                    "quantity": 150,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Butter",
+                    "quantity": 125,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Chocolate chips",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Egg",
+                    "quantity": 1,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Baking powder",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                }
+            ],
+            "description": "Crispy on the edges and chewy in the middle, these cookies are a family favorite.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0545.jpeg",
+            "sourceURL": "https://www.example.com/chocolate-chip-cookies-recipe",
+            "author": "Chef Emily Johnson",
+            "category": [
+                "dessert",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 25,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Preheat oven to 180°C (350°F)",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Cream butter and sugar together, then mix in the egg",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Gradually add flour and baking powder, then fold in chocolate chips",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Scoop dough onto a baking sheet, leaving space between cookies",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 5,
+                    "instruction": "Bake for 12 minutes until edges are golden",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 6,
+                    "instruction": "Let cool before serving.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "4",
+            "title": "Avocado Toast",
+            "ingredients": [
+                {
+                    "ingredient": "Bread slice",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Avocado",
+                    "quantity": 1,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Lemon juice",
+                    "quantity": 5,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "pinches"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "pinches"
+                }
+            ],
+            "description": "A simple yet delicious breakfast made with mashed avocado on toast, seasoned with lemon and pepper.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0546.jpeg",
+            "sourceURL": "https://www.example.com/avocado-toast-recipe",
+            "author": "Chef Michael Green",
+            "category": [
+                "breakfast",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": false,
+            "cookingTime": {
+                "timeNumber": 10,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Mash avocado with a fork, adding lemon juice, salt, and pepper",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Toast bread slices until golden brown",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Spread avocado mixture evenly on toast and serve immediately for the best texture.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "5",
+            "title": "Mushroom Risotto",
+            "ingredients": [
+                {
+                    "ingredient": "Arborio rice",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Mushrooms",
+                    "quantity": 150,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Onion",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Vegetable broth",
+                    "quantity": 500,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Parmesan cheese",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Butter",
+                    "quantity": 30,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Olive oil",
+                    "quantity": 20,
+                    "measureMethod": "milliliters"
+                }
+            ],
+            "description": "A creamy and rich risotto with mushrooms and parmesan cheese.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0547.jpeg",
+            "sourceURL": "https://www.example.com/mushroom-risotto-recipe",
+            "author": "Chef Sophia Martinez",
+            "category": [
+                "dinner",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 35,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Heat olive oil in a pan, sauté diced onion for 3 minutes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Add chopped mushrooms and cook for 5 minutes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Stir in Arborio rice and toast for 2 minutes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Add vegetable broth gradually, stirring continuously",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 5,
+                    "instruction": "After 20 minutes, once creamy, remove from heat and stir in Parmesan and butter",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 6,
+                    "instruction": "Serve warm.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "6",
+            "title": "French Toast",
+            "ingredients": [
+                {
+                    "ingredient": "Bread slices",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Eggs",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Milk",
+                    "quantity": 50,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Cinnamon",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Vanilla extract",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Butter",
+                    "quantity": 10,
+                    "measureMethod": "grams"
+                }
+            ],
+            "description": "Classic French toast made with eggs, milk, and cinnamon, served with syrup.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0548.jpeg",
+            "sourceURL": "https://www.example.com/french-toast-recipe",
+            "author": "Chef Pierre Dubois",
+            "category": [
+                "breakfast",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 15,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Whisk eggs, milk, cinnamon, and vanilla in a bowl",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Dip bread slices into the mixture, coating both sides",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Heat butter in a pan and fry each slice for 2-3 minutes per side until golden",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Serve warm with syrup or fruit.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "7",
+            "title": "Tomato Soup",
+            "ingredients": [
+                {
+                    "ingredient": "Tomatoes",
+                    "quantity": 500,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Onion",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Garlic",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Vegetable broth",
+                    "quantity": 500,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Olive oil",
+                    "quantity": 20,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                }
+            ],
+            "description": "A warm and comforting tomato soup made with fresh tomatoes and vegetable broth.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0549.jpeg",
+            "sourceURL": "https://www.example.com/tomato-soup-recipe",
+            "author": "Chef Julia Adams",
+            "category": [
+                "soup",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": false,
+            "cookingTime": {
+                "timeNumber": 30,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Heat olive oil in a pot, sauté onions and garlic for 3 minutes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Add chopped tomatoes and cook for 10 minutes, stirring",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Pour in vegetable broth and simmer for another 15 minutes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Blend until smooth and season to taste",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 5,
+                    "instruction": "Serve warm.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "8",
+            "title": "Guacamole",
+            "ingredients": [
+                {
+                    "ingredient": "Avocados",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Lime juice",
+                    "quantity": 10,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Tomato",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Red onion",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Cilantro",
+                    "quantity": 10,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                }
+            ],
+            "description": "A creamy and flavorful guacamole made with ripe avocados and fresh ingredients.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0550.jpeg",
+            "sourceURL": "https://www.example.com/guacamole-recipe",
+            "author": "Chef Miguel Ramirez",
+            "category": [
+                "appetizer",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 10,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Mash avocados in a bowl",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Stir in diced tomato, red onion, chopped cilantro, lime juice, salt, and pepper",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Mix well and let rest for 5 minutes before serving to enhance flavors.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "9",
+            "title": "Pancakes",
+            "ingredients": [
+                {
+                    "ingredient": "Flour",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Milk",
+                    "quantity": 250,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Eggs",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Sugar",
+                    "quantity": 30,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Baking powder",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Butter",
+                    "quantity": 20,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Vanilla extract",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "pinches"
+                }
+            ],
+            "description": "Fluffy and delicious pancakes perfect for breakfast with syrup or fruit toppings.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0551.jpeg",
+            "sourceURL": "https://www.example.com/pancakes-recipe",
+            "author": "Chef Laura Baker",
+            "category": [
+                "breakfast",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 20,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Whisk eggs, milk, and vanilla extract",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Combine with flour, sugar, and baking powder",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Heat a pan, grease lightly, and pour batter to form pancakes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Cook each side for 2 minutes until golden brown",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 5,
+                    "instruction": "Serve warm.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "10",
+            "title": "Greek Salad",
+            "ingredients": [
+                {
+                    "ingredient": "Cucumber",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Tomato",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Red onion",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Feta cheese",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Olives",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Olive oil",
+                    "quantity": 20,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Oregano",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                }
+            ],
+            "description": "A refreshing and classic Greek salad with feta cheese, olives, and fresh vegetables.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0537.jpeg",
+            "sourceURL": "https://www.example.com/greek-salad-recipe",
+            "author": "Chef Dimitris Papadopoulos",
+            "category": [
+                "salad",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 15,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Chop cucumber, tomatoes, and red onion into bite-sized pieces",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Toss with feta cheese, olives, and oregano",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Drizzle with olive oil and mix well",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Serve fresh.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "11",
+            "title": "Omelette",
+            "ingredients": [
+                {
+                    "ingredient": "Eggs",
+                    "quantity": 3,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Milk",
+                    "quantity": 30,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Cheese",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "pinches"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "pinches"
+                },
+                {
+                    "ingredient": "Butter",
+                    "quantity": 10,
+                    "measureMethod": "grams"
+                }
+            ],
+            "description": "A fluffy omelette with cheese and seasoning, cooked in butter.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0538.jpeg",
+            "sourceURL": "https://www.example.com/omelette-recipe",
+            "author": "Chef Marie Leclerc",
+            "category": [
+                "breakfast",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": false,
+            "cookingTime": {
+                "timeNumber": 10,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Beat eggs with a pinch of salt and pepper",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Melt butter in a pan over medium heat",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Pour eggs in, stirring gently",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "After 2 minutes, add grated cheese",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 5,
+                    "instruction": "Fold and cook for another minute",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 6,
+                    "instruction": "Serve warm.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "12",
+            "title": "Chicken Curry",
+            "ingredients": [
+                {
+                    "ingredient": "Chicken breast",
+                    "quantity": 300,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Coconut milk",
+                    "quantity": 400,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Onion",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Garlic",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Curry powder",
+                    "quantity": 2,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Vegetable oil",
+                    "quantity": 20,
+                    "measureMethod": "milliliters"
+                }
+            ],
+            "description": "A creamy and spicy chicken curry cooked with coconut milk and fragrant spices.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0539.jpeg",
+            "sourceURL": "https://www.example.com/chicken-curry-recipe",
+            "author": "Chef Raj Patel",
+            "category": [
+                "dinner",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 40,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Sauté diced onion and minced garlic in oil for 3 minutes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Add chicken pieces and cook for 8 minutes until golden",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Stir in curry powder, salt, and pepper",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Pour in coconut milk and simmer for 20 minutes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 5,
+                    "instruction": "Serve hot.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "13",
+            "title": "Strawberry Smoothie",
+            "ingredients": [
+                {
+                    "ingredient": "Strawberries",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Banana",
+                    "quantity": 1,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Milk",
+                    "quantity": 250,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Honey",
+                    "quantity": 1,
+                    "measureMethod": "tablespoons"
+                },
+                {
+                    "ingredient": "Ice cubes",
+                    "quantity": 5,
+                    "measureMethod": "pieces"
+                }
+            ],
+            "description": "A delicious and healthy strawberry smoothie with banana and honey.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0540.jpeg",
+            "sourceURL": "https://www.example.com/strawberry-smoothie-recipe",
+            "author": "Chef Lisa Brown",
+            "category": [
+                "beverage",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": false,
+            "cookingTime": {
+                "timeNumber": 5,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Add strawberries, banana, milk, honey, and ice cubes to a blender",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Blend for 30 seconds until smooth",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Serve immediately.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "14",
+            "title": "Garlic Butter Shrimp",
+            "ingredients": [
+                {
+                    "ingredient": "Shrimp",
+                    "quantity": 300,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Garlic",
+                    "quantity": 4,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Butter",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Lemon juice",
+                    "quantity": 20,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Parsley",
+                    "quantity": 10,
+                    "measureMethod": "grams"
+                }
+            ],
+            "description": "Succulent shrimp cooked in garlic butter with a hint of lemon and fresh parsley.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0541.jpeg",
+            "sourceURL": "https://www.example.com/garlic-butter-shrimp-recipe",
+            "author": "Chef Antonio Russo",
+            "category": [
+                "dinner",
+                "Timeless Classics",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 15,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Melt butter in a pan over medium heat",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Add minced garlic and cook for 1 minute until fragrant",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Stir in shrimp and cook for 3-4 minutes, flipping halfway, until pink and opaque",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Squeeze lemon juice on top and garnish with parsley",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 5,
+                    "instruction": "Serve hot.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "15",
+            "title": "Vegan Lentil Soup",
+            "ingredients": [
+                {
+                    "ingredient": "Lentils",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Carrot",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Onion",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Garlic",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Vegetable broth",
+                    "quantity": 500,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Olive oil",
+                    "quantity": 20,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                }
+            ],
+            "description": "A hearty and healthy vegan lentil soup packed with protein and fiber.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0542.jpeg",
+            "sourceURL": "https://www.example.com/vegan-lentil-soup-recipe",
+            "author": "Chef Emma Green",
+            "category": [
+                "Soup",
+                "Healthy",
+                "Timeless Classics"
+            ],
+            "isPremium": false,
+            "cookingTime": {
+                "timeNumber": 30,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [
+                "vegan",
+                "gluten-free"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Sauté onions, garlic, and carrots in olive oil for 5 minutes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Add lentils and vegetable broth, bring to a boil, then simmer for 25 minutes",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Blend for a creamy texture or serve chunky.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "16",
+            "title": "Gluten-Free Banana Pancakes",
+            "ingredients": [
+                {
+                    "ingredient": "Bananas",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Eggs",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Oats",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Milk",
+                    "quantity": 100,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Cinnamon",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Vanilla extract",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Butter",
+                    "quantity": 10,
+                    "measureMethod": "grams"
+                }
+            ],
+            "description": "Fluffy and delicious banana pancakes made with oats, perfect for a gluten-free breakfast.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0543.jpeg",
+            "sourceURL": "https://www.example.com/gluten-free-banana-pancakes-recipe",
+            "author": "Chef Daniel White",
+            "category": [
+                "Breakfast",
+                "Healthy",
+                "Protein Boost"
+            ],
+            "isPremium": true,
+            "cookingTime": {
+                "timeNumber": 20,
+                "timeMeasure": "minutes"
+            },
+            "statuses": [
+                "gluten-free",
+                "vegetarian"
+            ],
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Blend bananas, eggs, oats, milk, cinnamon, and vanilla until smooth",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Heat butter in a pan and cook pancakes for 2 minutes per side until golden brown",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Serve with fruit or honey.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Follow each step carefully for the best results.",
+            "nutritionFacts": {
+                "calories": 250.0,
+                "protein": 10.0,
+                "carbs": 30.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "17",
+            "title": "Classic Beef Burger",
+            "isPremium": true,
+            "ingredients": [
+                {
+                    "ingredient": "Ground beef",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Burger bun",
+                    "quantity": 1,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Cheese slice",
+                    "quantity": 1,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Lettuce",
+                    "quantity": 1,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Tomato",
+                    "quantity": 2,
+                    "measureMethod": "slices"
+                },
+                {
+                    "ingredient": "Onion",
+                    "quantity": 1,
+                    "measureMethod": "slices"
+                },
+                {
+                    "ingredient": "Ketchup",
+                    "quantity": 1,
+                    "measureMethod": "tablespoons"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                }
+            ],
+            "description": "A juicy classic beef burger with fresh toppings.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0569.jpeg",
+            "sourceURL": "https://www.example.com/classic-beef-burger",
+            "author": "Chef Tom Wilson",
+            "category": [
+                "dinner",
+                "American",
+                "Fast Food"
+            ],
+            "statuses": [],
+            "cookingTime": {
+                "timeNumber": 15,
+                "timeMeasure": "minutes"
+            },
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Season ground beef with salt and pepper.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Form into a patty and cook on a grill for 4 minutes per side.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Toast the burger bun and assemble with lettuce, tomato, onion, and cheese.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Add ketchup and serve hot.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Use fresh beef for the juiciest burgers.",
+            "nutritionFacts": {
+                "calories": 450.5,
+                "protein": 35.0,
+                "carbs": 40.0,
+                "fat": 22.5
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "18",
+            "title": "Vegan Buddha Bowl",
+            "isPremium": false,
+            "ingredients": [
+                {
+                    "ingredient": "Quinoa",
+                    "quantity": 150,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Chickpeas",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Avocado",
+                    "quantity": 1,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Carrot",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Spinach",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Tahini",
+                    "quantity": 20,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Olive oil",
+                    "quantity": 10,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                }
+            ],
+            "description": "A colorful and nutritious vegan buddha bowl.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0570.jpeg",
+            "sourceURL": "https://www.example.com/vegan-buddha-bowl",
+            "author": "Chef Sarah Miller",
+            "category": [
+                "lunch",
+                "Healthy",
+                "Vegan"
+            ],
+            "statuses": [
+                "gluten-free"
+            ],
+            "cookingTime": {
+                "timeNumber": 20,
+                "timeMeasure": "minutes"
+            },
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Cook quinoa according to package instructions.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Roast chickpeas with olive oil and salt for 10 minutes.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Slice avocado and carrots thinly.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Assemble all ingredients in a bowl and drizzle with tahini.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Add a squeeze of lemon for extra freshness.",
+            "nutritionFacts": {
+                "calories": 320.0,
+                "protein": 12.0,
+                "carbs": 50.0,
+                "fat": 15.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "19",
+            "title": "Shrimp Fried Rice",
+            "isPremium": true,
+            "ingredients": [
+                {
+                    "ingredient": "Shrimp",
+                    "quantity": 150,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Rice",
+                    "quantity": 200,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Eggs",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Soy sauce",
+                    "quantity": 15,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Garlic",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Carrot",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Peas",
+                    "quantity": 50,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Sesame oil",
+                    "quantity": 10,
+                    "measureMethod": "milliliters"
+                }
+            ],
+            "description": "A delicious shrimp fried rice with eggs and vegetables.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0571.jpeg",
+            "sourceURL": "https://www.example.com/shrimp-fried-rice",
+            "author": "Chef Daniel Wong",
+            "category": [
+                "dinner",
+                "Asian",
+                "Quick Meal"
+            ],
+            "statuses": [],
+            "cookingTime": {
+                "timeNumber": 25,
+                "timeMeasure": "minutes"
+            },
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Cook rice and set aside.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Scramble eggs in a pan and remove.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Sauté garlic, carrots, and peas in sesame oil.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Add shrimp and cook for 5 minutes.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 5,
+                    "instruction": "Mix in rice, eggs, and soy sauce. Stir well.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Use cold rice for the best fried rice texture.",
+            "nutritionFacts": {
+                "calories": 480.0,
+                "protein": 30.0,
+                "carbs": 65.0,
+                "fat": 15.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        },
+        {
+            "id": "20",
+            "title": "Pumpkin Soup",
+            "isPremium": false,
+            "ingredients": [
+                {
+                    "ingredient": "Pumpkin",
+                    "quantity": 500,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Onion",
+                    "quantity": 100,
+                    "measureMethod": "grams"
+                },
+                {
+                    "ingredient": "Garlic",
+                    "quantity": 2,
+                    "measureMethod": "pieces"
+                },
+                {
+                    "ingredient": "Vegetable broth",
+                    "quantity": 500,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Coconut milk",
+                    "quantity": 200,
+                    "measureMethod": "milliliters"
+                },
+                {
+                    "ingredient": "Salt",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Black pepper",
+                    "quantity": 1,
+                    "measureMethod": "teaspoons"
+                },
+                {
+                    "ingredient": "Olive oil",
+                    "quantity": 10,
+                    "measureMethod": "milliliters"
+                }
+            ],
+            "description": "A creamy pumpkin soup perfect for cold days.",
+            "mainPhoto": "https://cookit-recipe-photos.s3.eu-north-1.amazonaws.com/IMG_0572.jpeg",
+            "sourceURL": "https://www.example.com/pumpkin-soup",
+            "author": "Chef Emily Brown",
+            "category": [
+                "soup",
+                "Healthy",
+                "Vegan"
+            ],
+            "statuses": [
+                "gluten-free"
+            ],
+            "cookingTime": {
+                "timeNumber": 35,
+                "timeMeasure": "minutes"
+            },
+            "steps": [
+                {
+                    "stepNumber": 1,
+                    "instruction": "Sauté onions and garlic in olive oil for 3 minutes.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 2,
+                    "instruction": "Add chopped pumpkin and cook for 5 minutes.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 3,
+                    "instruction": "Pour in broth and simmer for 20 minutes.",
+                    "photoURL": null
+                },
+                {
+                    "stepNumber": 4,
+                    "instruction": "Blend the soup until smooth and mix in coconut milk.",
+                    "photoURL": null
+                }
+            ],
+            "hint": "Top with toasted pumpkin seeds for extra crunch.",
+            "nutritionFacts": {
+                "calories": 280.0,
+                "protein": 6.0,
+                "carbs": 40.0,
+                "fat": 10.0
+            },
+            "savedCount": 0,
+            "viewCount": 0
+        }
+    ]
+}

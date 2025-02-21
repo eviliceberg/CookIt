@@ -29,7 +29,7 @@ final class RecipesManager {
     
     func uploadRecipes() async throws {
         do {
-            guard let url = Bundle.main.url(forResource: "updated_recipes6", withExtension: "json") else {
+            guard let url = Bundle.main.url(forResource: "updated_recipes8_3", withExtension: "json") else {
                 return
             }
             let data = try Data(contentsOf: url)

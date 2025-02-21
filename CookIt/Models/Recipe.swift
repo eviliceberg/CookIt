@@ -15,7 +15,6 @@ struct Recipe: Codable, Identifiable {
     let id: String
     let title: String
     let isPremium: Bool
-    //let isFavorite: Bool
     let ingredients: [Ingredient]
     let description: String
     let mainPhoto: String
@@ -24,13 +23,16 @@ struct Recipe: Codable, Identifiable {
     let category: [String]
     let statuses: [String]
     let cookingTime: CookingTime
-    let cookingProcess: String
+    let steps: [Step]  // Updated: Replaced cookingProcess
+    let hint: String?   // Added hint for additional tips
+    let nutritionFacts: NutritionFacts // Added nutrition info
+    var savedCount: Int  // Added saved count
+    var viewCount: Int   // Added view count
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case title = "title"
         case isPremium = "isPremium"
-        //case isFavorite = "isFavorite"
         case ingredients = "ingredients"
         case description = "description"
         case mainPhoto = "mainPhoto"
@@ -39,41 +41,45 @@ struct Recipe: Codable, Identifiable {
         case category = "category"
         case statuses = "statuses"
         case cookingTime = "cookingTime"
-        case cookingProcess = "cookingProcess"
+        case steps = "steps"
+        case hint = "hint"
+        case nutritionFacts = "nutritionFacts"
+        case savedCount = "savedCount"
+        case viewCount = "viewCount"
     }
 }
 
-enum TimeMeasure: String, Codable {
-    case seconds
-    case minutes
-    case hours
+struct Step: Codable {
+    let stepNumber: Int
+    let instruction: String
+    let photoURL: String? // Optional image
+}
+
+struct NutritionFacts: Codable {
+    let calories: Double
+    let protein: Double
+    let carbs: Double
+    let fat: Double
 }
 
 struct CookingTime: Codable {
     let timeNumber: Int
     let timeMeasure: TimeMeasure
-    
+
     var lowDescription: String {
         switch timeMeasure {
-        case .seconds:
+        case .seconds: 
             return "\(timeNumber) sec"
-        case .minutes:
+        case .minutes: 
             return "\(timeNumber) min"
-        case .hours:
+        case .hours: 
             return "\(timeNumber) h"
         }
     }
 }
 
-
-enum RecipeCategory: String, Codable {
-    case dinner = "dinner"
-    case salad = "salad"
-    case dessert = "dessert"
-    case breakfast = "breakfast"
-    case soup = "soup"
-    case appetizer = "appetizer"
-    case beverage = "beverage"
+enum TimeMeasure: String, Codable {
+    case seconds, minutes, hours
 }
 
 struct Ingredient: Codable {
@@ -86,8 +92,8 @@ enum MeasureMethod: String, Codable {
     case grams = "grams"
     case milliliters = "milliliters"
     case pieces = "pieces"
-    case teaspoons = "teaspoons"
-    case tablespoons = "tablespoons"
-    case cups = "cups"
     case pinches = "pinches"
+    case slices = "slices"
+    case tablespoons = "tablespoons"
+    case teaspoons = "teaspoons"
 }

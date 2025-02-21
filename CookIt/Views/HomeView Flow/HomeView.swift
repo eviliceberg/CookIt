@@ -124,9 +124,6 @@ struct HomeView: View {
             .clipped()
             .ignoresSafeArea(.all, edges: .bottom)
         }
-//        .task {
-//            try? await RecipesManager.shared.uploadRecipes()
-//        }
         .onAppear {
             Task {
                 do {

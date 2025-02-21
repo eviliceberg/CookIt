@@ -53,7 +53,7 @@ struct SmallCellView: View {
             .overlay(alignment: .topLeading) {
                 HStack {
                     if isPremium {
-                        Image(systemName: "crown.fill")
+                        Image(.premium)
                             .shadow(color: .specialBlack.opacity(0.25), radius: 4, y: 4)
                             .frame(width: 16, height: 16)
                             .foregroundStyle(.specialYellow)
