@@ -11,9 +11,11 @@ import SwiftfulUI
 @MainActor
 final class RecipesViewModel: ObservableObject {
     @Published var recipe: Recipe
+    @Published var author: DBUser?
     
-    init(recipe: Recipe) {
+    init(recipe: Recipe, author: DBUser? = nil) {
         self.recipe = recipe
+        self.author = author
     }
 }
 
@@ -21,8 +23,8 @@ struct RecipeView: View {
     
     @StateObject private var vm: RecipesViewModel
     
-    init(recipe: Recipe) {
-        _vm = StateObject(wrappedValue: RecipesViewModel(recipe: recipe))
+    init(recipe: Recipe, author: DBUser? = nil) {
+        _vm = StateObject(wrappedValue: RecipesViewModel(recipe: recipe, author: author))
     }
     
     var body: some View {
@@ -32,6 +34,19 @@ struct RecipeView: View {
             ScrollView(.vertical) {
                 LazyVStack(alignment: .leading, spacing: 16, pinnedViews: [.sectionHeaders]) {
                     Section {
+                        
+                        RecipePhotoCell(
+                            photoURL: vm.recipe.mainPhoto,
+                            statuses: vm.recipe.statuses,
+                            isPremium: vm.recipe.isPremium,
+                            category: vm.recipe.category.first ?? "",
+                            cookingTime: vm.recipe.cookingTime.lowDescription
+                        )
+                        .padding(.horizontal, 12)
+                        
+                        authorSection
+                            .padding(.horizontal, 12)
+                        
                         ForEach(0..<10) { _ in
                             Rectangle()
                                 .fill(Color.red)
@@ -65,6 +80,55 @@ struct RecipeView: View {
         .padding(.horizontal, 16)
         .padding(.bottom, 4)
         .background(.specialBlack)
+    }
+    
+    private var authorSection: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                HStack {
+                    if let authorPhoto = vm.author?.photoUrl {
+                        ImageLoaderView(urlString: authorPhoto)
+                            .frame(width: 40, height: 40)
+                            .clipShape(.circle)
+                    } else {
+                        Image(.user)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 40, height: 40)
+                            .clipShape(.circle)
+                    }
+                    
+                    VStack {
+                        Text(vm.recipe.author)
+                            .font(.custom(Constants.appFont, size: 12))
+                        
+                        if let author = vm.author {
+                            Text("chef")
+                                .font(.custom(Constants.appFontMedium, size: 10))
+                                .foregroundStyle(.specialBlack)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 2)
+                                .background()
+                        }
+                    }
+                }
+                Group {
+                    if vm.recipe.savedCount == 1 {
+                        Text("\(vm.recipe.savedCount) person saved this recipe")
+                    } else if vm.recipe.savedCount == 0 {
+                        Text("")
+                    } else {
+                        Text("\(vm.recipe.savedCount) people saved this recipe")
+                    }
+                }
+                .font(.custom(Constants.appFont, size: 12))
+                .frame(maxWidth: .infinity, alignment: .trailing)
+            }
+            
+            Text(vm.recipe.description)
+                .font(.custom(Constants.appFont, size: 14))
+        }
+        .foregroundStyle(.specialWhite)
     }
     
 }

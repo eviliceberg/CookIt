@@ -20,6 +20,7 @@ struct Recipe: Codable, Identifiable {
     let mainPhoto: String
     let sourceURL: String
     let author: String
+    let authorId: String?
     let category: [String]
     let statuses: [String]
     let cookingTime: CookingTime
@@ -46,6 +47,7 @@ struct Recipe: Codable, Identifiable {
         case nutritionFacts = "nutritionFacts"
         case savedCount = "savedCount"
         case viewCount = "viewCount"
+        case authorId = "authorId"
     }
 }
 

@@ -9,11 +9,11 @@ import SwiftUI
 
 struct RecipePhotoCell: View {
     
-    let photoURL: String = Constants.randomImage
-    let statuses: [String] = ["gluten-free", "vegan", "vegetarian"]
-    let isPremium: Bool = true
-    let categories: [String] = ["pasta", "pizza", "salad"]
-    let cookingTime: String = "15 min"
+    var photoURL: String = Constants.randomImage
+    var statuses: [String] = ["gluten-free", "vegan", "vegetarian"]
+    var isPremium: Bool = true
+    var category: String = "Timeless classics"
+    var cookingTime: String = "15 min"
     
     var body: some View {
         ImageLoaderView(urlString: photoURL)
@@ -37,28 +37,24 @@ struct RecipePhotoCell: View {
                                 .clipShape(.rect(cornerRadius: 14))
                         }
                     }
-                    HStack {
-                        ForEach(categories, id: \.self) { category in
-                            if category == categories.first {
-                                Text(category.description.capitalized + ", ")
-                            } else if category == categories.last {
-                                Text(category)
-                            } else {
-                                Text(category + ", ")
-                            }
-                                
-                        }
+                    .frame(maxHeight: .infinity, alignment: .topLeading)
+                    
+                    HStack(spacing: 4) {
+                        Text(category.capitalized)
                         
-                        HStack(spacing: 0) {
+                        HStack(spacing: 2) {
                             Image(systemName: "clock")
-                                .fontWeight(.semibold)
-                                .font(.system(size: 12))
+                                .fontWeight(.bold)
+                                .font(.system(size: 14))
                             
                             Text(cookingTime)
-                                .font(.custom(Constants.appFont, size: 14))
+                                .font(.custom(Constants.appFontSemiBold, size: 14))
                         }
+                        .frame(maxWidth: .infinity, alignment: .trailing)
                     }
+                    .font(.custom(Constants.appFont, size: 14))
                 }
+                .padding(16)
                 .foregroundStyle(.specialWhite)
             }
     }
