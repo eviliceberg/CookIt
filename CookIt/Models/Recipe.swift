@@ -51,7 +51,7 @@ struct Recipe: Codable, Identifiable {
     }
 }
 
-struct Step: Codable {
+struct Step: Hashable, Codable {
     let stepNumber: Int
     let instruction: String
     let photoURL: String? // Optional image
@@ -84,7 +84,7 @@ enum TimeMeasure: String, Codable {
     case seconds, minutes, hours
 }
 
-struct Ingredient: Codable {
+struct Ingredient: Hashable, Codable {
     let ingredient: String
     let quantity: Int
     let measureMethod: MeasureMethod

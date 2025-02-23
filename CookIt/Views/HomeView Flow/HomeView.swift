@@ -203,7 +203,9 @@ struct HomeView: View {
                             imageURL: recipe.mainPhoto
                         )
                         .asButton(.tap) {
-                            
+                            router.showScreen(.push) { _ in
+                                RecipeView(recipe: recipe)
+                            }
                         }
                     }
                 }
@@ -232,7 +234,9 @@ struct HomeView: View {
                             isPremium: Bool.random()
                         )
                         .asButton(.tap) {
-                            
+                            router.showScreen(.push) { _ in
+                                RecipeView(recipe: recipe)
+                            }
                         }
                     }
                 }
