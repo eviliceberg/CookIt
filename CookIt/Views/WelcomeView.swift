@@ -53,7 +53,7 @@ final class WelcomeViewModel: ObservableObject {
 
 struct WelcomeView: View {
     
-//    @State private var animateLogo: Bool = false
+    //    @State private var animateLogo: Bool = false
     @State private var animateSymbol: Bool = false
     
     @Binding var showWelcomeScreen: Bool
@@ -64,180 +64,162 @@ struct WelcomeView: View {
         ZStack {
             Color.specialBlack.ignoresSafeArea()
             
-            ZStack {
+            VStack(spacing: 16) {
+                Image(.logo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 150)
+                    .padding(.bottom)
                 
-                logoCell
+                SuperTextField(
+                    textFieldType: .regular,
+                    placeholder: Text("Enter your email...")
+                        .foregroundStyle(.specialLightGray)
+                        .font(.custom(Constants.appFontMedium, size: 16)),
+                    text: $vm.emailText)
+                .padding()
+                .background(.specialBlack)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 26)
+                        .stroke(lineWidth: 1)
+                        .foregroundStyle(.specialDarkGrey)
+                }
                 
-                VStack {
-                    Spacer()
+                SuperTextField(
+                    textFieldType: .secure,
+                    placeholder: Text("Enter your password...")
+                        .foregroundStyle(.specialLightGray)
+                        .font(.custom(Constants.appFontMedium, size: 16)),
+                    text: $vm.passwordText)
+                .padding()
+                .background(.specialBlack)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 26)
+                        .stroke(lineWidth: 1)
+                        .foregroundStyle(.specialDarkGrey)
+                }
+                
+                HStack {
+                    RoundedRectangle(cornerRadius: 1)
+                        .frame(height: 0.5)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                     
+                    Text("or")
+                        .font(.custom(Constants.appFontMedium, size: 16))
                     
-                    TextField("Email...", text: $vm.emailText)
-                        .padding()
-                        .background(.specialBlack)
-                        .clipShape(.rect(cornerRadius: 16))
+                    RoundedRectangle(cornerRadius: 1)
+                        .frame(height: 0.5)
+                        .frame(maxWidth: .infinity, alignment: .trailing)
+                    
+                }
+                .foregroundStyle(.specialDarkGrey)
+                
+                HStack(spacing: 24) {
+                    Circle()
+                        .frame(width: 44, height: 44)
+                        .foregroundStyle(.white)
                         .overlay {
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(lineWidth: 3)
-                                .foregroundStyle(.specialDarkGrey)
-                        }
-                    
-                    SecureField("Password...", text: $vm.passwordText)
-                        .padding()
-                        .background(.specialBlack)
-                        .clipShape(.rect(cornerRadius: 16))
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 16)
-                                .stroke(lineWidth: 3)
-                                .foregroundStyle(.specialDarkGrey)
-                        }
-                    
-                    Text("Sign In")
-                        .foregroundStyle(.specialBlack)
-                        .font(.title)
-                        .padding(.vertical, 8)
-                        .padding(.horizontal, 16)
-                        .frame(maxWidth: .infinity, alignment: .center)
-                        .background(.specialYellow)
-                        .clipShape(.rect(cornerRadius: 16))
-                        .padding(.top, 16)
-                        .asButton(.tap) {
-                            Task {
-                                do {
-                                    try await vm.signIn()
-                                    
-                                    showWelcomeScreen = false
-                                } catch {
-                                    print(error)
+                            GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .icon, state: .normal)) {
+                                Task {
+                                    do {
+                                        try await vm.continueWithGoogle()
+                                        showWelcomeScreen = false
+                                    } catch {
+                                        print(error)
+                                    }
                                 }
                             }
+                            .frame(width: 30, height: 30)
+                            .clipShape(Circle())
+                            
                         }
-                    
-                    HStack {
-                        Text("Don't have an account?")
-                            .font(.callout)
-                            .foregroundStyle(.specialWhite)
-                        
-                        NavigationLink {
-                            SignUpView(showWelcomeScreen: $showWelcomeScreen)
-                        } label: {
-                            Text("Register")
-                                .foregroundStyle(.blue)
-                                .padding(8)
-                                .background(.black.opacity(0.000001))
-                                .offset(x: -4)
+                    Button {
+                        //apple signin flow
+                        Task {
+                            do {
+                                try await vm.continueWithApple()
+                            } catch {
+                                print(error)
+                            }
                         }
+                    } label: {
+                        Circle()
+                            .frame(width: 44, height: 44)
+                            .foregroundStyle(.white)
+                            .overlay {
+                                Image(systemName: "applelogo")
+                                    .foregroundStyle(.black)
+                                    .imageScale(.large)
+                                    .offset(x: -0.5)
+                            }
                     }
-                    .padding(.top, 8)
-                    .font(.callout)
-                    HStack(spacing: 24) {
-                        GoogleSignInButton(viewModel: GoogleSignInButtonViewModel(scheme: .dark, style: .icon, state: .normal)) {
-                            Task {
-                                do {
-                                    try await vm.continueWithGoogle()
-                                    showWelcomeScreen = false
-                                } catch {
-                                    print(error)
-                                }
+                    
+                    Button {
+                        Task {
+                            do {
+                                try await vm.continueAnounimously()
+                                showWelcomeScreen = false
+                            } catch {
+                                print(error)
                             }
                         }
-                        .clipShape(.circle)
-                        
-                        Button {
-                            //apple signin flow
-                            Task {
-                                do {
-                                    try await vm.continueWithApple()
-                                } catch {
-                                    print(error)
-                                }
+                    } label: {
+                        Circle()
+                            .frame(width: 44, height: 44)
+                            .foregroundStyle(.white)
+                            .overlay {
+                                Image(systemName: "person.fill")
+                                    .foregroundStyle(.black)
+                                    .imageScale(.large)
+                                    .offset(x: -0.5)
                             }
-                        } label: {
-                            Circle()
-                                .frame(width: 50, height: 50)
-                                .foregroundStyle(.black)
-                                .overlay {
-                                    Image(systemName: "applelogo")
-                                        .foregroundStyle(.white)
-                                        .imageScale(.large)
-                                        .offset(x: -0.5)
-                                }
-                        }
-                        
-                        Button {
-                            Task {
-                                do {
-                                    try await vm.continueAnounimously()
-                                    showWelcomeScreen = false
-                                } catch {
-                                    print(error)
-                                }
-                            }
-                        } label: {
-                            Circle()
-                                .frame(width: 50, height: 50)
-                                .foregroundStyle(.specialYellow)
-                                .overlay {
-                                    Image(systemName: "person.fill")
-                                        .foregroundStyle(.specialDarkGrey)
-                                        .imageScale(.large)
-                                        .offset(x: -0.5)
-                                }
-                        }
                     }
                     
                 }
-                .padding(.horizontal, 16)
-                .padding(.bottom, 16)
-                //.frame(maxHeight: .infinity, alignment: .bottom)
-                //.background(.red)
+                .padding(.vertical, 4)
+                
+                Text("Login")
+                    .foregroundStyle(.specialBlack)
+                    .font(.custom(Constants.appFontBold, size: 24))
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 16)
+                    .frame(maxWidth: .infinity, alignment: .center)
+                    .background(.specialGreen)
+                    .clipShape(.rect(cornerRadius: 26))
+                    .asButton(.tap) {
+                        Task {
+                            do {
+                                try await vm.signIn()
+                                
+                                showWelcomeScreen = false
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    }
+                
+                HStack {
+                    Text("Don't have an account?")
+                        .font(.callout)
+                        .foregroundStyle(.specialWhite)
+                    
+                    NavigationLink {
+                        SignUpView(showWelcomeScreen: $showWelcomeScreen)
+                    } label: {
+                        Text("Sign Up")
+                            .foregroundStyle(.specialGreen)
+                            .underline()
+                            .padding(8)
+                            .background(.black.opacity(0.000001))
+                            .offset(x: -4)
+                    }
+                }
+                .font(.custom(Constants.appFont, size: 16))
+                
             }
-            //.background(.red)
+            .padding(.horizontal, 16)
         }
         .preferredColorScheme(.dark)
-    }
-    
-    private var logoCell: some View {
-        VStack {
-            ZStack {
-                Circle()
-                    .stroke(lineWidth: 5)
-                    .frame(width: 180, height: 180)
-                    .foregroundStyle(.specialWhite.opacity(0.5))
-                
-                Circle()
-                    .frame(width: 180, height: 180)
-                    .foregroundStyle(.black)
-                VStack {
-                    Text("CookIt!")
-                        .font(.largeTitle)
-                        .foregroundStyle(.specialWhite)
-                        .fontWeight(.bold)
-                    ZStack {
-                        Image(systemName: "fork.knife")
-                            .opacity(animateSymbol ? 1 : 0)
-                            .rotationEffect(Angle(degrees: animateSymbol ? 0 : -90))
-                        Image(systemName: "frying.pan")
-                            .opacity(animateSymbol ? 0 : 1)
-                            .rotationEffect(Angle(degrees: animateSymbol ? 90 : 0))
-                    }
-                    .fontWeight(.semibold)
-                    .font(.largeTitle)
-                    .imageScale(.large)
-                    .foregroundStyle(.specialYellow)
-                    .onAppear() {
-                        withAnimation(.easeInOut(duration: 0.3).delay(15.0).repeatForever()) {
-                            animateSymbol.toggle()
-                        }
-                    }
-                }
-                .offset(x: 1, y: 10)
-            }
-        }
-        .transition(.move(edge: .top))
-        .padding(.top, 24)
-        .frame(maxHeight: .infinity, alignment: .top)
-        //.background(.red)
     }
 }
 
