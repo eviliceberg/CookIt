@@ -49,40 +49,101 @@ struct SignUpView: View {
             Color.specialBlack.ignoresSafeArea()
             
             VStack {
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Enter your username:")
-                        .font(.title2)
-                        .fontWeight(.bold)
-
-                    reusableField(fieldType: .text, placeholder: "Enter your username...", text: $vm.username)
+                Image(.logo)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 70)
+                    .padding(.bottom, 48)
+                
+                VStack(alignment: .leading, spacing: 20) {
+                    HStack {
+                        Image(systemName: "person.fill")
+                            .foregroundStyle(.specialDarkGrey)
+                            .fontWeight(.bold)
+                            .imageScale(.medium)
+                        
+                        SuperTextField(textFieldType: .regular, placeholder: Text("Enter your username")
+                            .font(.custom(Constants.appFontMedium, size: 16))
+                            .foregroundStyle(.specialLightGray), text: $vm.username)
+                    }
+                    .padding()
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 26)
+                            .stroke(lineWidth: 1)
+                            .foregroundStyle(.specialDarkGrey)
+                    }
                     
-                    Text("Enter your email:")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    reusableField(fieldType: .text, placeholder: "Enter your email...", text: $vm.email)
-                    
-                    Text("Enter your password:")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    reusableField(fieldType: .secure, placeholder: "Enter your password...", text: $vm.password)
-                    
-                    Text("Confirm password:")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                    reusableField(fieldType: .secure, placeholder: "Enter your password...", text: $confirmPassword)
+                    HStack {
+                        Image(systemName: "at")
+                            .foregroundStyle(.specialDarkGrey)
+                            .fontWeight(.bold)
+                            .imageScale(.medium)
+                        
+                        SuperTextField(textFieldType: .regular, placeholder: Text("Enter your email")
+                            .font(.custom(Constants.appFontMedium, size: 16))
+                            .foregroundStyle(.specialLightGray), text: $vm.email)
+                    }
+                    .padding()
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 26)
+                            .stroke(lineWidth: 1)
+                            .foregroundStyle(.specialDarkGrey)
+                    }
                 }
-                .frame(maxHeight: .infinity, alignment: .top)
                 .padding(.top, 8)
                 
+                Text("Password")
+                    .foregroundStyle(.specialWhite)
+                    .font(.custom(Constants.appFontMedium, size: 18))
+                    .padding(.top, 16)
+                    .offset(y: 12)
+                    
                 
-                Text("Sign Up")
+                VStack(alignment: .leading, spacing: 20) {
+                    HStack {
+                        Image(systemName: "lock.fill")
+                            .foregroundStyle(.specialDarkGrey)
+                            .fontWeight(.bold)
+                            .imageScale(.medium)
+                        
+                        SuperTextField(textFieldType: .secure, placeholder: Text("Must be 6 characters")
+                            .font(.custom(Constants.appFontMedium, size: 16))
+                            .foregroundStyle(.specialLightGray), text: $vm.password)
+                    }
+                    .padding()
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 26)
+                            .stroke(lineWidth: 1)
+                            .foregroundStyle(.specialDarkGrey)
+                    }
+                    
+                    HStack {
+                        Image(systemName: "exclamationmark.lock.fill")
+                            .foregroundStyle(.specialDarkGrey)
+                            .fontWeight(.bold)
+                            .imageScale(.medium)
+                        
+                        SuperTextField(textFieldType: .secure, placeholder: Text("Repeat your password")
+                            .font(.custom(Constants.appFontMedium, size: 16))
+                            .foregroundStyle(.specialLightGray), text: $confirmPassword)
+                    }
+                    .padding()
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 26)
+                            .stroke(lineWidth: 1)
+                            .foregroundStyle(.specialDarkGrey)
+                    }
+                    
+                }
+                
+                Text("Login")
                     .foregroundStyle(.specialBlack)
-                    .font(.title)
+                    .font(.custom(Constants.appFontBold, size: 24))
                     .padding(.vertical, 8)
                     .frame(maxWidth: .infinity, alignment: .center)
-                    .background(.specialYellow)
-                    .clipShape(.rect(cornerRadius: 16))
-                    .padding(.bottom, 16)
+                    .background(.specialGreen)
+                    .clipShape(.rect(cornerRadius: 26))
+                    .padding(.top, 48)
                     .asButton(.tap) {
                         if confirmPassword == vm.password && !confirmPassword.isEmpty {
                             Task {
@@ -117,29 +178,7 @@ struct SignUpView: View {
             }
         }
         .preferredColorScheme(.dark)
-        .navigationTitle("Sign Up")
     }
-    
-    private func reusableField(fieldType: FieldType, placeholder: String, text: Binding<String>) -> some View {
-        AnyView(
-            VStack {
-                if fieldType == .secure {
-                    SecureField(placeholder, text: text)
-                } else {
-                    TextField(placeholder, text: text)
-                }
-            }
-            .padding()
-            .background(.specialBlack)
-            .clipShape(.rect(cornerRadius: 16))
-            .overlay {
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(lineWidth: 3)
-                    .foregroundStyle(.specialDarkGrey)
-            }
-        )
-    }
-    
 }
 
 #Preview {
