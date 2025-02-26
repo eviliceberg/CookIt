@@ -32,6 +32,14 @@ final class RecipesViewModel: ObservableObject {
         self.servingNumber -= 1
     }
     
+    func incrementViews() async {
+        do {
+            try await RecipesManager.shared.incrementViewCount(recipeId: recipe.id)
+        } catch {
+            print(error)
+        }
+    }
+    
     func getRecipes(category: String? = nil, recipesArray: [Recipe]? = nil) async -> [Recipe] {
         var resultArray: [Recipe] = []
         do {
@@ -102,6 +110,9 @@ struct RecipeView: View {
             .ignoresSafeArea(edges: .bottom)
         }
         .toolbarVisibility(.hidden, for: .navigationBar)
+        .task {
+            await vm.incrementViews()
+        }
         .onFirstAppear {
             Task {
                 vm.similarRecipes = await vm.getRecipes()

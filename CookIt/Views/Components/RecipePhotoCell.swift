@@ -22,7 +22,7 @@ struct RecipePhotoCell: View {
             .overlay {
                 VStack(alignment: .leading) {
                     HStack {
-                        if isPremium {
+                        if isPremium == true {
                             Image(.premium)
                                 .offset(y: 4)
                                 .padding(.trailing, 2)

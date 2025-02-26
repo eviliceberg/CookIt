@@ -231,7 +231,7 @@ struct HomeView: View {
                             time: recipe.cookingTime.lowDescription,
                             photoUrl: recipe.mainPhoto,
                             status: recipe.statuses.first ?? "",
-                            isPremium: Bool.random()
+                            isPremium: recipe.isPremium
                         )
                         .asButton(.tap) {
                             router.showScreen(.push) { _ in

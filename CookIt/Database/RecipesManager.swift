@@ -27,6 +27,20 @@ final class RecipesManager {
         try await recipeDocument(recipeId: recipeId).getDocument(as: Recipe.self)
     }
     
+    func incrementViewCount(recipeId: String) async throws {
+        let recipe = recipeDocument(recipeId: recipeId)
+        try await recipe.updateData([
+            "viewCount" : FieldValue.increment(Int64(1))
+        ])
+    }
+    
+    func incrementSavedCount(recipeId: String) async throws {
+        let recipe = recipeDocument(recipeId: recipeId)
+        try await recipe.updateData([
+            "savedCount" : FieldValue.increment(Int64(1))
+        ])
+    }
+    
     func uploadRecipes() async throws {
         do {
             guard let url = Bundle.main.url(forResource: "updated_recipes8_3", withExtension: "json") else {
