@@ -21,6 +21,7 @@ final class FavoritesViewModel: ObservableObject {
         Task {
             let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
             try await UserManager.shared.removeUserFavouriteRecipe(userId: authUser.uid, favouriteRecipeId: recipeId)
+            try await RecipesManager.shared.decrementSavedCount(recipeId: recipeId)
         }
     }
 }
@@ -39,7 +40,7 @@ struct FavoritesView: View {
                         .frame(height: 250)
                         .swipeActions(edge: .trailing) {
                             Button(role: .destructive) {
-                                vm.deleteFavorite(recipe.id)
+                                vm.deleteFavorite(recipe.productId)
                             } label: {
                                 Image(systemName: "trash")
                             }

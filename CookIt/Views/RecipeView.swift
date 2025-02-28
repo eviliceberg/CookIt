@@ -43,7 +43,7 @@ final class RecipesViewModel: ObservableObject {
     func getRecipes(category: String? = nil, recipesArray: [Recipe]? = nil) async -> [Recipe] {
         var resultArray: [Recipe] = []
         do {
-            let (newRecipes, _) = try await RecipesManager.shared.getAllRecipes(descending: nil, category: category, count: 10, lastDocument: nil)
+            let (newRecipes, _) = try await RecipesManager.shared.getAllRecipes(descending: nil, category: category, popular: nil, count: 10, lastDocument: nil)
             
             if let recipesArray {
                 resultArray.append(contentsOf: recipesArray)

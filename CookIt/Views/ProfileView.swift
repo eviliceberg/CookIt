@@ -66,7 +66,7 @@ struct ProfileView: View {
                             }
                         }
                     
-                    Text("To the photo testing playground")
+                    Text("To favorites")
                         .font(.title2)
                         .fontWeight(.bold)
                         .padding()
@@ -75,7 +75,7 @@ struct ProfileView: View {
                         .clipShape(.rect(cornerRadius: 16))
                         .asButton(.tap) {
                             router.showScreen(.push) { _ in
-                                UploadTestView()
+                                FavoritesView()
                             }
                         }
                 }

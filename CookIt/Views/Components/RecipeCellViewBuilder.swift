@@ -18,7 +18,7 @@ struct RecipeCellViewBuilder: View {
                 RecipeCellView(
                     title: recipe.title,
                     isPremium: recipe.isPremium,
-                    //imageURL: <#T##String#>,
+                    imageURL: recipe.mainPhoto,
                     height: 250
                 )
             }

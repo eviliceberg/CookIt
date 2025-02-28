@@ -21,7 +21,7 @@ final class HomeViewModel: ObservableObject {
     @State private var isFetching: Bool = false
     
     func fetchAllData() async throws {
-        async let popularRecipes = getRecipes()
+        async let popularRecipes = getRecipes(popular: true)
         async let onePanRecipes = getRecipes(category: CategoryOption.breakfast.description)
         async let timelessClassicRecipes = getRecipes(category: CategoryOption.timelessClassics.description)
         async let proteinBoostRecipes = getRecipes(category: CategoryOption.proteinBoost.description)
@@ -50,12 +50,20 @@ final class HomeViewModel: ObservableObject {
         self.authUser = try await UserManager.shared.getUser(userId: tempUser.uid)
     }
     
-    func getRecipes(category: String? = nil, recipesArray: [Recipe]? = nil) async -> [Recipe] {
+    func addToFavorites(_ recipeId: String) {
+        Task {
+            let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+            try await UserManager.shared.addUserFavouriteRecipe(userId: authUser.uid, recipeId: recipeId)
+            try await RecipesManager.shared.incrementSavedCount(recipeId: recipeId)
+        }
+    }
+    
+    func getRecipes(category: String? = nil, popular: Bool? = nil, recipesArray: [Recipe]? = nil) async -> [Recipe] {
         guard !isFetching else { return [] }
         isFetching = true
         var resultArray: [Recipe] = []
         do {
-            let (newRecipes, _) = try await RecipesManager.shared.getAllRecipes(descending: nil, category: category, count: 10, lastDocument: nil)
+            let (newRecipes, _) = try await RecipesManager.shared.getAllRecipes(descending: nil, category: category, popular: popular, count: 10, lastDocument: nil)
             
             if let recipesArray {
                 resultArray.append(contentsOf: recipesArray)
@@ -67,6 +75,9 @@ final class HomeViewModel: ObservableObject {
             return []
         }
         isFetching = false
+        if popular == true {
+            return resultArray
+        }
         return resultArray.shuffled()
     }
     
@@ -206,6 +217,14 @@ struct HomeView: View {
                             router.showScreen(.push) { _ in
                                 RecipeView(recipe: recipe)
                             }
+                        }
+                        .contextMenu {
+                            Button {
+                                vm.addToFavorites(recipe.id)
+                            } label: {
+                                Text("Add to favorites")
+                            }
+
                         }
                     }
                 }

@@ -41,6 +41,13 @@ final class RecipesManager {
         ])
     }
     
+    func decrementSavedCount(recipeId: String) async throws {
+        let recipe = recipeDocument(recipeId: recipeId)
+        try await recipe.updateData([
+            "savedCount" : FieldValue.increment(Int64(-1))
+        ])
+    }
+    
     func uploadRecipes() async throws {
         do {
             guard let url = Bundle.main.url(forResource: "updated_recipes8_3", withExtension: "json") else {
@@ -94,19 +101,34 @@ final class RecipesManager {
     private func getAllRecipesForCategoryQuery(category: String) -> Query {
         return recipesCollection.whereField(Recipe.CodingKeys.category.rawValue, arrayContains: category)
     }
-//    
+    
+    private func getAllRecipesForPopularityQuery(popular: Bool) -> Query {
+        return recipesCollection
+            .order(by: Recipe.CodingKeys.viewCount.rawValue, descending: popular)
+    }
+    
+    private func getAllRecipesForCategoryAndPopularityQuery(category: String) -> Query {
+        return recipesCollection
+            .whereField(Recipe.CodingKeys.category.rawValue, arrayContains: category)
+            .order(by: Recipe.CodingKeys.viewCount.rawValue, descending: true)
+    }
+//
 //    private func getAllProductsByPriceAndCategoryQuery(descending: Bool, category: String) -> Query {
 //        return productsCollection
 //            .whereField(Product.CodingKeys.category.rawValue, isEqualTo: category)
 //            .order(by: Product.CodingKeys.price.rawValue, descending: descending)
 //    }
 //    
-    func getAllRecipes(descending: Bool?, category: String?, count: Int, lastDocument: DocumentSnapshot?) async throws -> ([Recipe], DocumentSnapshot?) {
+    func getAllRecipes(descending: Bool?, category: String?, popular: Bool?, count: Int, lastDocument: DocumentSnapshot?) async throws -> ([Recipe], DocumentSnapshot?) {
         
         var query: Query = getAllRecipesQuery()
         
-        if let category {
+        if let category, let popular {
+            query = getAllRecipesForCategoryAndPopularityQuery(category: category)
+        } else if let category {
             query = getAllRecipesForCategoryQuery(category: category)
+        } else if let popular {
+            query = getAllRecipesForPopularityQuery(popular: popular)
         }
         
 //        if let category, let descending {

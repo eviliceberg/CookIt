@@ -36,7 +36,7 @@ final class DiscoverViewModel: ObservableObject {
         guard !isFetching else { return }
         isFetching = true
         do {
-            let (newRecipes, newLastDocument) = try await RecipesManager.shared.getAllRecipes(descending: nil, category: categoryOption.description, count: 5, lastDocument: lastDocument)
+            let (newRecipes, newLastDocument) = try await RecipesManager.shared.getAllRecipes(descending: nil, category: categoryOption.description, popular: nil, count: 5, lastDocument: lastDocument)
             
             if let newLastDocument {
                 self.lastDocument = newLastDocument
@@ -57,6 +57,7 @@ final class DiscoverViewModel: ObservableObject {
         Task {
             let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
             try await UserManager.shared.addUserFavouriteRecipe(userId: authUser.uid, recipeId: recipeId)
+            try await RecipesManager.shared.incrementViewCount(recipeId: recipeId)
         }
     }
 }

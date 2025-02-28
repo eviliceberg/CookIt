@@ -58,6 +58,8 @@ struct WelcomeView: View {
     
     @Binding var showWelcomeScreen: Bool
     
+    @Binding var showMainScreen: Bool
+    
     @StateObject private var vm: WelcomeViewModel = WelcomeViewModel()
     
     var body: some View {
@@ -123,7 +125,13 @@ struct WelcomeView: View {
                                 Task {
                                     do {
                                         try await vm.continueWithGoogle()
+                                        showMainScreen = false
                                         showWelcomeScreen = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            withAnimation {
+                                                showMainScreen = true
+                                            }
+                                        }
                                     } catch {
                                         print(error)
                                     }
@@ -138,6 +146,13 @@ struct WelcomeView: View {
                         Task {
                             do {
                                 try await vm.continueWithApple()
+                                showMainScreen = false
+                                showWelcomeScreen = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    withAnimation {
+                                        showMainScreen = true
+                                    }
+                                }
                             } catch {
                                 print(error)
                             }
@@ -158,7 +173,13 @@ struct WelcomeView: View {
                         Task {
                             do {
                                 try await vm.continueAnounimously()
+                                showMainScreen = false
                                 showWelcomeScreen = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    withAnimation {
+                                        showMainScreen = true
+                                    }
+                                }
                             } catch {
                                 print(error)
                             }
@@ -190,8 +211,13 @@ struct WelcomeView: View {
                         Task {
                             do {
                                 try await vm.signIn()
-                                
+                                showMainScreen = false
                                 showWelcomeScreen = false
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                    withAnimation {
+                                        showMainScreen = true
+                                    }
+                                }
                             } catch {
                                 print(error)
                             }
@@ -204,7 +230,7 @@ struct WelcomeView: View {
                         .foregroundStyle(.specialWhite)
                     
                     NavigationLink {
-                        SignUpView(showWelcomeScreen: $showWelcomeScreen)
+                        SignUpView(showWelcomeScreen: $showWelcomeScreen, showMainScreen: $showMainScreen)
                     } label: {
                         Text("Sign Up")
                             .foregroundStyle(.specialGreen)
@@ -225,7 +251,7 @@ struct WelcomeView: View {
 
 #Preview {
     NavigationStack {
-        WelcomeView(showWelcomeScreen: .constant(true))
+        WelcomeView(showWelcomeScreen: .constant(true), showMainScreen: .constant(true))
     }
 }
 

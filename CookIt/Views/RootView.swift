@@ -41,7 +41,7 @@ struct RootView: View {
         }
         .fullScreenCover(isPresented: $showWelcomeView) {
             NavigationStack {
-                WelcomeView(showWelcomeScreen: $showWelcomeView)
+                WelcomeView(showWelcomeScreen: $showWelcomeView, showMainScreen: $showMainScreen)
             }
         }
     }

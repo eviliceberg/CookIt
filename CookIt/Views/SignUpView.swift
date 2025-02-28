@@ -39,10 +39,7 @@ struct SignUpView: View {
     
     @Binding var showWelcomeScreen: Bool
     
-    enum FieldType: Equatable {
-        case secure
-        case text
-    }
+    @Binding var showMainScreen: Bool
     
     var body: some View {
         ZStack {
@@ -151,7 +148,13 @@ struct SignUpView: View {
                                     if try await vm.signUp() {
                                         emailExist = true
                                     } else {
+                                        showMainScreen = false
                                         showWelcomeScreen = false
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                            withAnimation {
+                                                showMainScreen = true
+                                            }
+                                        }
                                     }
                                 } catch {
                                     print(error)
@@ -183,6 +186,6 @@ struct SignUpView: View {
 
 #Preview {
     NavigationStack {
-        SignUpView(showWelcomeScreen: .constant(true))
+        SignUpView(showWelcomeScreen: .constant(true), showMainScreen: .constant(true))
     }
 }
