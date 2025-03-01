@@ -8,6 +8,7 @@
 import SwiftUI
 import FirebaseFirestore
 import SwiftfulRouting
+import SwiftfulUI
 
 @MainActor
 final class HomeViewModel: ObservableObject {
@@ -134,6 +135,23 @@ struct HomeView: View {
             .scrollIndicators(.hidden)
             .clipped()
             .ignoresSafeArea(.all, edges: .bottom)
+        }
+        .overlay(alignment: .bottomTrailing) {
+            Circle()
+                .fill(.specialBlack)
+                .frame(width: 60, height: 60)
+                .overlay {
+                    Image(.cookbook)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24)
+                }
+                .padding(.trailing, 24)
+                .onTapGesture {
+                    router.showScreen(.push) { _ in
+                        CookBookView()
+                    }
+                }
         }
         .onAppear {
             Task {

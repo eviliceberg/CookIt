@@ -122,22 +122,9 @@ struct RecipeView: View {
     }
     
     private var header: some View {
-        ZStack(alignment: .leading) {
-            Image(systemName: "chevron.left")
-                .font(.custom(Constants.appFontSemiBold, size: 24))
-                .asButton(.press) {
-                    router.dismissScreen()
-                }
-            
-            Text(vm.recipe.title)
-                .font(.custom(Constants.appFontSemiBold, size: 24))
-                .frame(maxWidth: .infinity, alignment: .center)
-            
-        }
-        .foregroundStyle(.specialWhite)
+        ReusableHeader(title: vm.recipe.title, router: router)
         .padding(.horizontal, 16)
         .padding(.bottom, 4)
-        .background(.specialBlack)
     }
     
     private var authorSection: some View {
