@@ -16,10 +16,13 @@ struct SmallCellView: View {
     var status: String = "vegetarian"
     var isPremium: Bool = false
     
+    var height: CGFloat? = 184
+    var width: CGFloat? = 171
+    
     var body: some View {
         RoundedRectangle(cornerRadius: 20)
             .fill(Color.specialLightBlack)
-            .frame(width: 171, height: 184)
+            .frame(width: width, height: height)
             .overlay {
                 VStack(alignment: .leading, spacing: -8) {
                     ImageLoaderView(urlString: photoUrl)

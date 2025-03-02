@@ -48,6 +48,7 @@ struct ProfileView: View {
                         Text("Is Anonimous: \(user.isAnonymous ?? true)")
                         Text("Is Premium: \(user.isPremium ?? false)")
                     }
+                    .foregroundStyle(.specialWhite)
                     .padding(.horizontal, 8)
                     .font(.headline)
                     .fontWeight(.semibold)
