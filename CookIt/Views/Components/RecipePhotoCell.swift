@@ -52,7 +52,7 @@ struct RecipePhotoCell: View {
                         }
                         .frame(maxWidth: .infinity, alignment: .trailing)
                     }
-                    .font(.custom(Constants.appFont, size: 14))
+                    .font(.custom(Constants.appFontMedium, size: 14))
                 }
                 .padding(16)
                 .foregroundStyle(.specialWhite)

@@ -123,7 +123,6 @@ struct RecipeView: View {
     
     private var header: some View {
         ReusableHeader(title: vm.recipe.title, router: router)
-        .padding(.horizontal, 16)
         .padding(.bottom, 4)
     }
     
@@ -145,7 +144,7 @@ struct RecipeView: View {
                     
                     VStack {
                         Text(vm.recipe.author)
-                            .font(.custom(Constants.appFont, size: 12))
+                            .font(.custom(Constants.appFontMedium, size: 12))
                         
                         if let author = vm.author {
                             Text("chef")
@@ -166,12 +165,13 @@ struct RecipeView: View {
                         Text("\(vm.recipe.savedCount) people saved this recipe")
                     }
                 }
-                .font(.custom(Constants.appFont, size: 12))
+                .font(.custom(Constants.appFontMedium, size: 12))
                 .frame(maxWidth: .infinity, alignment: .trailing)
             }
             
             Text(vm.recipe.description)
-                .font(.custom(Constants.appFont, size: 14))
+                .font(.system(.callout, design: .rounded))
+                .font(.system(size: 14))
         }
         .padding(.horizontal, 12)
         .foregroundStyle(.specialWhite)
@@ -221,12 +221,12 @@ struct RecipeView: View {
                                 .font(.custom(Constants.appFontBold, size: 16))
                             +
                             Text(ingredient.measureMethod.rawValue)
-                                .font(.custom(Constants.appFont, size: 16))
+                                .font(.custom(Constants.appFontMedium, size: 16))
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         
                         Text(ingredient.ingredient.capitalized)
-                            .font(.custom(Constants.appFont, size: 16))
+                            .font(.custom(Constants.appFontMedium, size: 16))
                     }
                 }
             }
@@ -243,7 +243,7 @@ struct RecipeView: View {
             HStack {
                 Group {
                     Text("Cal")
-                        .font(.custom(Constants.appFont, size: 16))
+                        .font(.custom(Constants.appFontMedium, size: 16))
                     +
                     Text(" \(vm.recipe.nutritionFacts.calories.description)")
                         .font(.custom(Constants.appFontSemiBold, size: 16))
@@ -251,7 +251,7 @@ struct RecipeView: View {
                 Spacer()
                 Group {
                     Text("Prot")
-                        .font(.custom(Constants.appFont, size: 16))
+                        .font(.custom(Constants.appFontMedium, size: 16))
                     +
                     Text(" \(vm.recipe.nutritionFacts.protein.description)g")
                         .font(.custom(Constants.appFontSemiBold, size: 16))
@@ -259,7 +259,7 @@ struct RecipeView: View {
                 Spacer()
                 Group {
                     Text("Carb")
-                        .font(.custom(Constants.appFont, size: 16))
+                        .font(.custom(Constants.appFontMedium, size: 16))
                     +
                     Text(" \(vm.recipe.nutritionFacts.carbs.description)g")
                         .font(.custom(Constants.appFontSemiBold, size: 16))
@@ -267,7 +267,7 @@ struct RecipeView: View {
                 Spacer()
                 Group {
                     Text("Fat")
-                        .font(.custom(Constants.appFont, size: 16))
+                        .font(.custom(Constants.appFontMedium, size: 16))
                     +
                     Text(" \(vm.recipe.nutritionFacts.fat.description)g")
                         .font(.custom(Constants.appFontSemiBold, size: 16))
@@ -287,7 +287,8 @@ struct RecipeView: View {
                     Text("Step \(step.stepNumber)")
                         .font(.custom(Constants.appFontSemiBold, size: 16))
                     Text(step.instruction)
-                        .font(.custom(Constants.appFont, size: 16))
+                        .font(.system(.callout, design: .rounded))
+                        .font(.system(size: 16))
                     
                     if let photo = step.photoURL {
                         ImageLoaderView(urlString: photo)
@@ -303,19 +304,18 @@ struct RecipeView: View {
     }
     
     private func hintSection(_ hint: String) -> some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             Text("Helpful Hints")
                 .font(.custom(Constants.appFontBold, size: 20))
+                .foregroundStyle(.specialGreen)
             
-            HStack {
-                Image(systemName: "star.fill")
-                    .imageScale(.small)
-                
-                Text(hint)
-                    .font(.custom(Constants.appFont, size: 16))
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
+            Text(hint)
+                .font(.custom(Constants.appFontMedium, size: 16))
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .padding(8)
+        .background(.specialLightBlack)
+        .clipShape(.rect(cornerRadius: 20))
         .foregroundStyle(.specialWhite)
         .padding(.horizontal, 12)
     }

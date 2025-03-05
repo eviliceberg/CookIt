@@ -15,12 +15,12 @@ struct AuthDataResultModel {
     let isAnonymous: Bool
     let name: String?
     
-    init(user: User, username: String? = nil) {
+    init(user: User) {
         self.uid = user.uid
         self.email = user.email
         self.photoUrl = user.photoURL?.absoluteString
         self.isAnonymous = user.isAnonymous
-        self.name = username ?? user.displayName
+        self.name = user.displayName
     }
 }
 
@@ -110,7 +110,7 @@ extension AuthenticationManager {
     @discardableResult
     func createUser(email: String, password: String, username: String? = nil) async throws -> AuthDataResultModel {
         let authDataResult = try await Auth.auth().createUser(withEmail: email, password: password)
-        return AuthDataResultModel(user: authDataResult.user, username: username)
+        return AuthDataResultModel(user: authDataResult.user)
     }
     
     @discardableResult

@@ -34,7 +34,7 @@ struct SmallCellView: View {
                             .lineLimit(1)
                         HStack {
                             Text(author)
-                                .font(.custom(Constants.appFont, size: 12))
+                                .font(.custom(Constants.appFontMedium, size: 12))
                                 .lineLimit(1)
                             
                             HStack(spacing: 0) {
@@ -43,7 +43,7 @@ struct SmallCellView: View {
                                     .font(.system(size: 12))
                                 
                                 Text(time)
-                                    .font(.custom(Constants.appFont, size: 14))
+                                    .font(.custom(Constants.appFontMedium, size: 14))
                             }
                             .frame(maxWidth: .infinity, alignment: .trailing)
                         }

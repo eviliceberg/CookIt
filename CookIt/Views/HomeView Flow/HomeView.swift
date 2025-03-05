@@ -174,8 +174,11 @@ struct HomeView: View {
                         .frame(width: 40, height: 40)
                         .clipShape(.circle)
                         .onTapGesture {
+                            guard let authUser = vm.authUser else {
+                                return
+                            }
                             router.showScreen(.push) { _ in
-                                ProfileView(showWelcomeScreen: $showWelcomeView)
+                                ProfileView(user: authUser, showWelcomeScreen: $showWelcomeView)
                             }
                         }
                 } else {
@@ -184,8 +187,11 @@ struct HomeView: View {
                         .frame(width: 40, height: 40)
                         .clipShape(.circle)
                         .onTapGesture {
+                            guard let authUser = vm.authUser else {
+                                return
+                            }
                             router.showScreen(.push) { _ in
-                                ProfileView(showWelcomeScreen: $showWelcomeView)
+                                ProfileView(user: authUser, showWelcomeScreen: $showWelcomeView)
                             }
                         }
                 }

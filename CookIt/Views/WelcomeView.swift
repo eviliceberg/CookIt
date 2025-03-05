@@ -240,7 +240,7 @@ struct WelcomeView: View {
                             .offset(x: -4)
                     }
                 }
-                .font(.custom(Constants.appFont, size: 16))
+                .font(.custom(Constants.appFontMedium, size: 16))
                 
             }
             .padding(.horizontal, 16)

@@ -13,7 +13,7 @@ struct MysteryToolCell: View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
                 Text("Can't choose what to cook?")
-                    .font(.custom(Constants.appFont, size: 20))
+                    .font(.custom(Constants.appFontMedium, size: 20))
                 Group {
                     Text("-Try our ")
                     +

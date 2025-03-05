@@ -22,7 +22,7 @@ struct PremiumCellView: View {
                 VStack(spacing: -12) {
                     HStack {
                         Text(author)
-                            .font(.custom(Constants.appFont, size: 16))
+                            .font(.custom(Constants.appFontMedium, size: 16))
                             .lineLimit(1)
                             .minimumScaleFactor(0.9)
                         
@@ -31,7 +31,7 @@ struct PremiumCellView: View {
                                 .imageScale(.small)
                             
                             Text(time)
-                                .font(.custom(Constants.appFont, size: 16))
+                                .font(.custom(Constants.appFontMedium, size: 16))
                         }
                         .frame(maxWidth: .infinity, alignment: .trailing)
                     }

@@ -32,8 +32,9 @@ struct DBUser: Codable {
     let preferences: [String]?
     let profileImagePath: String?
     let profileImageUrl: String?
+    let username: String
     
-    init(auth: AuthDataResultModel) {
+    init(auth: AuthDataResultModel, username: String? = nil) {
         self.userId = auth.uid
         self.email = auth.email
         self.dateCreated = Date()
@@ -44,9 +45,10 @@ struct DBUser: Codable {
         self.preferences = nil
         self.profileImagePath = nil
         self.profileImageUrl = nil
+        self.username = username ?? UUID().uuidString
     }
     
-    init(userId: String, isAnonymous: Bool? = nil, dateCreated: Date? = nil, email: String? = nil, photoUrl: String? = nil, name: String? = nil, isPremium: Bool? = nil, preferences: [String]? = nil, profileImagePath: String? = nil, profileImageUrl: String? = nil) {
+    init(userId: String, isAnonymous: Bool? = nil, dateCreated: Date? = nil, email: String? = nil, photoUrl: String? = nil, name: String? = nil, isPremium: Bool? = nil, preferences: [String]? = nil, profileImagePath: String? = nil, profileImageUrl: String? = nil, username: String) {
         self.userId = userId
         self.isAnonymous = isAnonymous
         self.dateCreated = dateCreated
@@ -57,6 +59,7 @@ struct DBUser: Codable {
         self.preferences = preferences
         self.profileImagePath = profileImagePath
         self.profileImageUrl = profileImageUrl
+        self.username = username
     }
     
 //    func togglePremiumStatus() -> DBUser {
@@ -87,6 +90,7 @@ struct DBUser: Codable {
         case preferences = "preferences"
         case profileImagePath = "profile_image_path"
         case profileImageUrl = "profile_image_url"
+        case username = "username"
     }
     
     init(from decoder: any Decoder) throws {
@@ -101,6 +105,7 @@ struct DBUser: Codable {
         self.preferences = try container.decodeIfPresent([String].self, forKey: .preferences)
         self.profileImagePath = try container.decodeIfPresent(String.self, forKey: .profileImagePath)
         self.profileImageUrl = try container.decodeIfPresent(String.self, forKey: .profileImageUrl)
+        self.username = try container.decode(String.self, forKey: .username)
     }
 
     
@@ -116,6 +121,7 @@ struct DBUser: Codable {
         try container.encodeIfPresent(self.preferences, forKey: .preferences)
         try container.encodeIfPresent(self.profileImagePath, forKey: .profileImagePath)
         try container.encodeIfPresent(self.profileImageUrl, forKey: .profileImageUrl)
+        try container.encode(self.username, forKey: .username)
     }
     
 }
@@ -275,6 +281,10 @@ final class UserManager {
         ]
         
         try await document.setData(data, merge: false)
+    }
+    
+    func getFavoritesCount(userId: String) async throws -> Int {
+        try await userFavouriteCollection(userId: userId).aggregateCount()
     }
     
     func removeUserFavouriteRecipe(userId: String, favouriteRecipeId: String) async throws {

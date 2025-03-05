@@ -12,11 +12,19 @@ import SwiftfulRouting
 @MainActor
 final class ProfileViewModel: ObservableObject {
     
-    @Published var user: DBUser? = nil
+    @Published var user: DBUser
+    @Published var savesCount: Int = 0
     
-    func loadCurrentUser() async throws {
-        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
-        self.user = try await UserManager.shared.getUser(userId: authUser.uid)
+    func getSavesCount() async {
+        do {
+            self.savesCount = try await UserManager.shared.getFavoritesCount(userId: user.userId)
+        } catch {
+            print(error)
+        }
+    }
+    
+    init(user: DBUser) {
+        self.user = user
     }
 }
 
@@ -24,91 +32,79 @@ struct ProfileView: View {
     
     @Binding var showWelcomeScreen: Bool
     @Environment(\.router) var router
-    @StateObject private var vm: ProfileViewModel = ProfileViewModel()
+    @StateObject private var vm: ProfileViewModel
+    
+    init(user: DBUser, showWelcomeScreen: Binding<Bool>) {
+        _vm = StateObject(wrappedValue: ProfileViewModel(user: user))
+        self._showWelcomeScreen = showWelcomeScreen
+    }
     
     var body: some View {
         ZStack {
             Color.specialBlack.ignoresSafeArea()
-            if let user = vm.user {
-                ScrollView(.vertical) {
-                    VStack(alignment: .leading) {
-                        Rectangle()
-                            .opacity(0)
-                            .overlay(content: {
-                                if let photoUrl = user.photoUrl {
-                                    ImageLoaderView(urlString: photoUrl)
-                                } else {
-                                    Image(.user)
-                                }
-                            })
-                            .asStretchyHeader(startingHeight: 400)
-
-                        Text(user.name ?? "None")
-                        Text(user.userId)
-                        Text("Is Anonimous: \(user.isAnonymous ?? true)")
-                        Text("Is Premium: \(user.isPremium ?? false)")
+            ScrollView(.vertical) {
+                LazyVStack(alignment: .leading, spacing: 8, pinnedViews: [.sectionHeaders]) {
+                    Section {
+                        
+                        topSection
+                            .padding(.top, 16)
+                            
+                        
+                    } header: {
+                        ReusableHeader(systemName: "chevron.left", title: "", router: router)
                     }
-                    .foregroundStyle(.specialWhite)
-                    .padding(.horizontal, 8)
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    
-                    Text("To the animation testing playground")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .padding()
-                        .foregroundStyle(.specialBlack)
-                        .background(.white)
-                        .clipShape(.rect(cornerRadius: 16))
-                        .asButton(.tap) {
-                            router.showScreen(.push) { _ in
-                                AnimationLogoView()
-                            }
-                        }
-                    
-                    Text("To favorites")
-                        .font(.title2)
-                        .fontWeight(.bold)
-                        .padding()
-                        .foregroundStyle(.specialBlack)
-                        .background(.white)
-                        .clipShape(.rect(cornerRadius: 16))
-                        .asButton(.tap) {
-                            router.showScreen(.push) { _ in
-                                FavoritesView()
-                            }
-                        }
                 }
-                .ignoresSafeArea()
             }
+            .clipped()
+            .ignoresSafeArea(.all, edges: .bottom)
+            .scrollIndicators(.hidden)
         }
-        .onFirstAppear {
-            Task {
-                try await vm.loadCurrentUser()
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .topBarTrailing) {
-                Image(systemName: "gear")
-                    .foregroundStyle(.specialWhite)
-                    .asButton {
-                        router.showScreen(.push) { _ in
-                            SettingsView(showWelcomeScreen: $showWelcomeScreen)
-                        }
-                    }
-//                NavigationLink {
-//                    
-//                } label: {
-//                    
-//                }
-            }
+        .task {
+            await vm.getSavesCount()
         }
     }
+    
+    private var topSection: some View {
+        HStack(spacing: 16) {
+            if let photo = vm.user.photoUrl {
+                ImageLoaderView(urlString: photo)
+                    .frame(width: 100, height: 100)
+                    .clipShape(.circle)
+            } else {
+                Image(.user)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .clipShape(.circle)
+            }
+            
+            VStack(alignment: .leading, spacing: -2) {
+                Text(vm.user.name ?? "User")
+                    .font(.custom(Constants.appFontBold, size: 24))
+                    .foregroundStyle(.specialWhite)
+                
+                HStack(spacing: 8) {
+                    Text("0 recipes")
+                    
+                    Text("\(vm.savesCount) likes")
+                }
+                .font(.custom(Constants.appFontMedium, size: 16))
+                .foregroundStyle(.specialWhite)
+                HStack(spacing: 2) {
+                    Image(systemName: "at")
+                    Text(vm.user.username)
+                }
+                .foregroundStyle(.specialGreen)
+                .font(.custom(Constants.appFontMedium, size: 16))
+            }
+        }
+        .padding(.horizontal, 16)
+    }
+    
 }
-
+    
 #Preview {
     RouterView { _ in
-        ProfileView(showWelcomeScreen: .constant(false))
+        ProfileView(user: DBUser(userId: "1", isAnonymous: true, name: "Mock User", username: "Black_Gorilla224"), showWelcomeScreen: .constant(false))
     }
 }
