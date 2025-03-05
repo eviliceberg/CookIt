@@ -32,9 +32,9 @@ struct DBUser: Codable {
     let preferences: [String]?
     let profileImagePath: String?
     let profileImageUrl: String?
-    let username: String
+    let userInfo: String?
     
-    init(auth: AuthDataResultModel, username: String? = nil) {
+    init(auth: AuthDataResultModel) {
         self.userId = auth.uid
         self.email = auth.email
         self.dateCreated = Date()
@@ -45,10 +45,10 @@ struct DBUser: Codable {
         self.preferences = nil
         self.profileImagePath = nil
         self.profileImageUrl = nil
-        self.username = username ?? UUID().uuidString
+        self.userInfo = nil
     }
     
-    init(userId: String, isAnonymous: Bool? = nil, dateCreated: Date? = nil, email: String? = nil, photoUrl: String? = nil, name: String? = nil, isPremium: Bool? = nil, preferences: [String]? = nil, profileImagePath: String? = nil, profileImageUrl: String? = nil, username: String) {
+    init(userId: String, isAnonymous: Bool? = nil, dateCreated: Date? = nil, email: String? = nil, photoUrl: String? = nil, name: String? = nil, isPremium: Bool? = nil, preferences: [String]? = nil, profileImagePath: String? = nil, profileImageUrl: String? = nil, userInfo: String? = nil) {
         self.userId = userId
         self.isAnonymous = isAnonymous
         self.dateCreated = dateCreated
@@ -59,7 +59,7 @@ struct DBUser: Codable {
         self.preferences = preferences
         self.profileImagePath = profileImagePath
         self.profileImageUrl = profileImageUrl
-        self.username = username
+        self.userInfo = userInfo
     }
     
 //    func togglePremiumStatus() -> DBUser {
@@ -90,7 +90,7 @@ struct DBUser: Codable {
         case preferences = "preferences"
         case profileImagePath = "profile_image_path"
         case profileImageUrl = "profile_image_url"
-        case username = "username"
+        case userInfo = "user_info"
     }
     
     init(from decoder: any Decoder) throws {
@@ -105,7 +105,7 @@ struct DBUser: Codable {
         self.preferences = try container.decodeIfPresent([String].self, forKey: .preferences)
         self.profileImagePath = try container.decodeIfPresent(String.self, forKey: .profileImagePath)
         self.profileImageUrl = try container.decodeIfPresent(String.self, forKey: .profileImageUrl)
-        self.username = try container.decode(String.self, forKey: .username)
+        self.userInfo = try container.decodeIfPresent(String.self, forKey: .userInfo)
     }
 
     
@@ -121,7 +121,7 @@ struct DBUser: Codable {
         try container.encodeIfPresent(self.preferences, forKey: .preferences)
         try container.encodeIfPresent(self.profileImagePath, forKey: .profileImagePath)
         try container.encodeIfPresent(self.profileImageUrl, forKey: .profileImageUrl)
-        try container.encode(self.username, forKey: .username)
+        try container.encodeIfPresent(self.userInfo, forKey: .userInfo)
     }
     
 }
