@@ -21,7 +21,6 @@ struct ReusableHeader: View {
                 .asButton(.press) {
                     router.dismissScreen()
                 }
-                .padding(.leading, 16)
             
             Text(title)
                 .font(.custom(Constants.appFontSemiBold, size: 24))

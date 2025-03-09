@@ -44,6 +44,11 @@ struct RootView: View {
                 WelcomeView(showWelcomeScreen: $showWelcomeView, showMainScreen: $showMainScreen)
             }
         }
+        .onChange(of: showMainScreen) { _, newValue in
+            if newValue == true {
+                HapticManager.shared.notification(type: .success)
+            }
+        }
     }
 }
 

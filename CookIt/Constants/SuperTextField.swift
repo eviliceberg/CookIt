@@ -25,6 +25,7 @@ struct SuperTextField: View {
                 SecureField("", text: $text)
             case .regular:
                 TextField("", text: $text)
+                    .keyboardType(.emailAddress)
             }
             
         }

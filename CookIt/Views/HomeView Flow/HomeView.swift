@@ -19,6 +19,8 @@ final class HomeViewModel: ObservableObject {
     @Published var proteinBoostRecipes: [Recipe] = []
     @Published var timelessClassicRecipes: [Recipe] = []
     
+    //@Published var favorites: [(recipe: Recipe, favouriteId: String)] = []
+    
     @State private var isFetching: Bool = false
     
     func fetchAllData() async throws {
@@ -27,6 +29,7 @@ final class HomeViewModel: ObservableObject {
         async let timelessClassicRecipes = getRecipes(category: CategoryOption.timelessClassics.description)
         async let proteinBoostRecipes = getRecipes(category: CategoryOption.proteinBoost.description)
         
+        try await loadCurrentUser()
         
         recipes = await popularRecipes
         self.onePanRecipes = await onePanRecipes
@@ -45,6 +48,17 @@ final class HomeViewModel: ObservableObject {
         
         try data.write(to: pathURL)
     }
+    
+//    func getFavorites() async throws {
+//        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+//        
+//        let favoritesArray = try await UserManager.shared.getFavourites(userId: authUser.uid)
+//
+//        for item in favoritesArray {
+//            self.favorites.append((try await RecipesManager.shared.getRecipe(by: item.productId), item.id))
+//            
+//        }
+//    }
     
     func loadCurrentUser() async throws {
         let tempUser = try AuthenticationManager.shared.getAuthenticatedUser()
@@ -91,6 +105,8 @@ struct HomeView: View {
 
     @EnvironmentObject var vm: HomeViewModel
     
+    @StateObject var cookBookVM: CookBookViewModel = CookBookViewModel()
+    
     var body: some View {
         ZStack {
             Color.specialBlack.ignoresSafeArea()
@@ -136,6 +152,15 @@ struct HomeView: View {
             .clipped()
             .ignoresSafeArea(.all, edges: .bottom)
         }
+        .onFirstAppear {
+            Task {
+                do {
+                    try await cookBookVM.getFavorites()
+                } catch {
+                    print(error)
+                }
+            }
+        }
         .overlay(alignment: .bottomTrailing) {
             Circle()
                 .fill(.specialBlack)
@@ -149,20 +174,9 @@ struct HomeView: View {
                 .padding(.trailing, 24)
                 .onTapGesture {
                     router.showScreen(.push) { _ in
-                        CookBookView()
+                        CookBookView(vm: cookBookVM)
                     }
                 }
-        }
-        .onAppear {
-            Task {
-                do {
-                    
-                try await vm.loadCurrentUser()
-                    
-                } catch {
-                    print(error)
-                }
-            }
         }
     }
     
@@ -245,6 +259,10 @@ struct HomeView: View {
                         .contextMenu {
                             Button {
                                 vm.addToFavorites(recipe.id)
+                                Task {
+                                    cookBookVM.favorites.append((try await RecipesManager.shared.getRecipe(by: recipe.id), UUID().uuidString))
+                                    HapticManager.shared.notification(type: .success)
+                                }
                             } label: {
                                 Text("Add to favorites")
                             }

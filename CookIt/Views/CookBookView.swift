@@ -15,15 +15,12 @@ final class CookBookViewModel: ObservableObject  {
     
     func getFavorites() async throws {
         let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
-        print("User verified")
         
         let favoritesArray = try await UserManager.shared.getFavourites(userId: authUser.uid)
-        print("favoritesArray decoded")
         
         for item in favoritesArray {
             self.favorites.append((try await RecipesManager.shared.getRecipe(by: item.productId), item.id))
         }
-        print("Success")
     }
     
     func deleteFavorite(_ recipeId: String) {
@@ -41,7 +38,11 @@ struct CookBookView: View {
     @Environment(\.router) var router
     @State private var tabSelected: Bool = true
     
-    @StateObject private var vm: CookBookViewModel = CookBookViewModel()
+    @StateObject private var vm: CookBookViewModel
+    
+    init(vm: CookBookViewModel) {
+        _vm = StateObject(wrappedValue: vm)
+    }
     
     var body: some View {
         ZStack {
@@ -65,13 +66,6 @@ struct CookBookView: View {
             .scrollIndicators(.hidden)
             .clipped()
             .ignoresSafeArea(edges: .bottom)
-        }
-        .task {
-            do {
-                try await vm.getFavorites()
-            } catch {
-                print("Error fetching favorites: \(error)")
-            }
         }
         .toolbarVisibility(.hidden, for: .navigationBar)
     }
@@ -101,7 +95,6 @@ struct CookBookView: View {
             }
             
         }
-        .padding(.horizontal, 16)
         .padding(.bottom, 4)
         .background(.specialBlack)
     }

@@ -111,6 +111,7 @@ struct ProfileView: View {
                                 .font(.custom(Constants.appFontBold, size: 20))
                                 .padding(.bottom, 8)
                             
+                            
                             if vm.user.isAnonymous == true {
                                 Text("Link Email")
                                     .font(.custom(Constants.appFontMedium, size: 14))
