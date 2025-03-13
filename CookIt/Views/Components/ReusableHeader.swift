@@ -27,6 +27,7 @@ struct ReusableHeader: View {
                 .frame(maxWidth: .infinity, alignment: .center)
             
         }
+        .padding(.horizontal, 16)
         .foregroundStyle(.specialWhite)
         .background(.specialBlack)
         

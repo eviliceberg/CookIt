@@ -124,7 +124,6 @@ struct RecipeView: View {
     private var header: some View {
         ReusableHeader(title: vm.recipe.title, router: router)
         .padding(.bottom, 4)
-        .padding(.horizontal, 16)
     }
     
     private var authorSection: some View {

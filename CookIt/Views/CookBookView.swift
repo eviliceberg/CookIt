@@ -61,7 +61,6 @@ struct CookBookView: View {
                     }
                 }
                 .animation(.smooth(duration: 0.3), value: tabSelected)
-                .padding(.horizontal, 16)
             }
             .scrollIndicators(.hidden)
             .clipped()
@@ -93,6 +92,7 @@ struct CookBookView: View {
                         tabSelected = false
                     }
             }
+            .padding(.horizontal, 16)
             
         }
         .padding(.bottom, 4)
@@ -130,6 +130,7 @@ struct CookBookView: View {
                 .padding(.top, 64)
             }
         }
+        .padding(.horizontal, 16)
     }
     
     private var myRecipesPlaceholder: some View {
@@ -157,6 +158,7 @@ struct CookBookView: View {
         }
         .frame(maxWidth: .infinity, alignment: .center)
         .padding(.top, 64)
+        .padding(.horizontal, 16)
     }
     
 }
