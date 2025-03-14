@@ -153,7 +153,9 @@ struct CookBookView: View {
                         .foregroundStyle(.specialBlack)
                 }
                 .onTapGesture {
-                    
+                    router.showScreen(.push) { _ in
+                        AddNewRecipeView()
+                    }
                 }
         }
         .frame(maxWidth: .infinity, alignment: .center)

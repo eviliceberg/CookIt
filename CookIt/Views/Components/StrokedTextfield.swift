@@ -11,23 +11,23 @@ struct StrokedTextfield: View {
     
     var systemName: ImageResource = .pen
     var placeholder: String = "Dish Title"
-    @Binding var text: String
-    var lineLimit: Int = 1
+    var text: Binding<String>
+    var lineLimit: Int? = nil
     
     var body: some View {
         HStack {
             SuperTextField(textFieldType: .regular, placeholder:
               Text(placeholder)
                 .font(.custom(Constants.appFontMedium, size: 16))
-                .foregroundStyle(.specialLightGray), text: $text)
+                .foregroundStyle(.specialLightGray), text: text, lineLimit: lineLimit)
             
             Image(systemName)
                 .resizable()
                 .scaledToFit()
                 .frame(width: 24)
         }
-        .padding(.horizontal, 20)
-        .padding(.vertical, 16)
+        .padding(.horizontal, 18)
+        .padding(.vertical, 12)
         .overlay {
             RoundedRectangle(cornerRadius: 26)
                 .stroke(lineWidth: 1)
@@ -41,6 +41,6 @@ struct StrokedTextfield: View {
     ZStack {
         Color.specialBlack.ignoresSafeArea()
         
-        StrokedTextfield(text: .constant("some title"))
+        StrokedTextfield(text: .constant("some title to test how big can be this textfield"))
     }
 }

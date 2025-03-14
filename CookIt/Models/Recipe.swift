@@ -80,8 +80,19 @@ struct CookingTime: Codable {
     }
 }
 
-enum TimeMeasure: String, Codable {
+enum TimeMeasure: String, Codable, CaseIterable {
     case seconds, minutes, hours
+    
+    var lowDescription: String {
+        switch self {
+        case .seconds:
+            "sec"
+        case .minutes:
+            "min"
+        case .hours:
+            "hr"
+        }
+    }
 }
 
 struct Ingredient: Hashable, Codable {

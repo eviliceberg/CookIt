@@ -74,7 +74,7 @@ struct WelcomeView: View {
                     .padding(.bottom)
                 
                 SuperTextField(
-                    textFieldType: .regular,
+                    textFieldType: .email,
                     placeholder: Text("Enter your email...")
                         .foregroundStyle(.specialLightGray)
                         .font(.custom(Constants.appFontMedium, size: 16)),

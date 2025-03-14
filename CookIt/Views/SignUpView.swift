@@ -76,7 +76,7 @@ struct SignUpView: View {
                             .fontWeight(.bold)
                             .imageScale(.medium)
                         
-                        SuperTextField(textFieldType: .regular, placeholder: Text("Enter your email")
+                        SuperTextField(textFieldType: .email, placeholder: Text("Enter your email")
                             .font(.custom(Constants.appFontMedium, size: 16))
                             .foregroundStyle(.specialLightGray), text: $vm.email)
                     }

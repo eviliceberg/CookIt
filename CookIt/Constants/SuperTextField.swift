@@ -10,12 +10,14 @@ import SwiftUI
 struct SuperTextField: View {
     
     enum TextFieldType {
-        case secure, regular
+        case secure, regular, email
     }
     
     var textFieldType: TextFieldType = .regular
     var placeholder: Text
     @Binding var text: String
+    
+    var lineLimit: Int? = nil
     
     var body: some View {
         ZStack(alignment: .leading) {
@@ -23,9 +25,13 @@ struct SuperTextField: View {
             switch textFieldType {
             case .secure:
                 SecureField("", text: $text)
-            case .regular:
-                TextField("", text: $text)
+            case .email:
+                TextField("", text: $text, axis: .vertical)
                     .keyboardType(.emailAddress)
+            case .regular:
+                TextField("", text: $text, axis: .vertical)
+                    .keyboardType(.default)
+                    .lineLimit(lineLimit)
             }
             
         }
