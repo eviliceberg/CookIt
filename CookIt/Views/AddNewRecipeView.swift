@@ -9,6 +9,24 @@ import SwiftUI
 import SwiftfulRouting
 import PhotosUI
 
+struct Steps {
+    var text: String = ""
+    var image: PhotosPickerItem? = nil
+    
+    var imageUI: UIImage? {
+        get async {
+            do {
+                guard let data = try await image?.loadTransferable(type: Data.self) else { throw CookItErrors.noData }
+                return UIImage(data: data)
+            } catch {
+                print(CookItErrors.noData)
+            }
+            return nil
+        }
+    }
+}
+
+
 @MainActor
 final class AddNewRecipeViewModel: ObservableObject {
     
@@ -19,6 +37,9 @@ final class AddNewRecipeViewModel: ObservableObject {
     @Published var typeSelection: CategoryOption = .noSorting
     @Published var timeText: String = ""
     @Published var timeMeasure: TimeMeasure = .minutes
+    
+    @Published var ingredients: [Ingredient] = [Ingredient(ingredient: "", quantity: nil, measureMethod: nil)]
+    
     
     @Published var mainPhoto: PhotosPickerItem? = nil {
         didSet {
@@ -50,6 +71,8 @@ struct AddNewRecipeView: View {
     @Environment(\.router) var router
     
     @StateObject private var vm: AddNewRecipeViewModel = AddNewRecipeViewModel()
+    
+    @FocusState private var state: Bool 
 
     var body: some View {
         ZStack {
@@ -58,12 +81,17 @@ struct AddNewRecipeView: View {
             ScrollView(.vertical) {
                 LazyVStack(alignment: .leading, spacing: 16, pinnedViews: .sectionHeaders) {
                     Section {
-                        StrokedTextfield(systemName: .pen, placeholder: "Dish Title", text: $vm.titleText)
+                        StrokedTextfield(systemName: .pen, placeholder: "Dish Title", text: $vm.titleText, focus: $state)
                             .padding(.horizontal, 16)
                         
                         photoPickerCell(photo: $vm.mainPhoto, photoUI: vm.mainPhotoUI)
                         
                         typeAndTimeSection
+                        
+                        StrokedTextfield(systemName: .pen, placeholder: "Description", text: $vm.descriptionText, focus: $state)
+                            .padding(.horizontal, 16)
+                        
+                        ingredientsSection
                         
                     } header: {
                         header
@@ -73,6 +101,9 @@ struct AddNewRecipeView: View {
             .scrollIndicators(.hidden)
             .clipped()
             .ignoresSafeArea(.all, edges: .bottom)
+        }
+        .onTapGesture {
+            state = false
         }
         .toolbarVisibility(.hidden, for: .navigationBar)
     }
@@ -170,7 +201,7 @@ struct AddNewRecipeView: View {
             HStack {
                 SuperTextField(textFieldType: .regular, placeholder: Text("Time")
                     .foregroundStyle(.specialLightGray)
-                    .font(.custom(Constants.appFontMedium, size: 16)), text: $vm.timeText, lineLimit: 1)
+                    .font(.custom(Constants.appFontMedium, size: 16)), text: $vm.timeText, lineLimit: 1, focusState: $state)
                 .offset(y: 1)
                 
                 
@@ -205,6 +236,85 @@ struct AddNewRecipeView: View {
                     .foregroundStyle(.specialDarkGrey)
             )
         }
+        .padding(.horizontal, 16)
+    }
+    
+    private var ingredientsSection: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text("Ingredients")
+                .font(.custom(Constants.appFontBold, size: 20))
+                .foregroundStyle(!vm.ingredients[0].ingredient.isEmpty ? .specialWhite : .specialLightGray)
+            VStack(spacing: 8) {
+                ForEach(vm.ingredients.indices, id: \.self) { index in
+                    HStack {
+                        StrokedTextfield(systemName: .pen, placeholder: "Name", text: $vm.ingredients[index].ingredient, focus: $state)
+                        
+                        HStack {
+                            SuperTextField(textFieldType: .keypad, placeholder: Text("Quantity") .foregroundStyle(.specialLightGray)
+                                .font(.custom(Constants.appFontMedium, size: 16)), text:
+                                            Binding(
+                                                get: {
+                                                    if let quantity = vm.ingredients[index].quantity {
+                                                        String(format: "%.2f", quantity)
+                                                    } else {
+                                                        ""
+                                                    }
+                                                },
+                                                set: { newValue in
+                                                    vm.ingredients[index].quantity = Float(newValue)
+                                                }
+                                            ), lineLimit: 1, focusState: $state)
+                            .offset(y: 1)
+                            
+                            Menu {
+                                Picker("", selection: $vm.ingredients[index].measureMethod) {
+                                    ForEach(MeasureMethod.allCases, id: \.rawValue) { measureMethod in
+                                        Text(measureMethod.rawValue)
+                                            .tag(measureMethod)
+                                    }
+                                }
+                            } label: {
+                                if let measure = vm.ingredients[index].measureMethod {
+                                    Text(measure.lowDescription)
+                                        .foregroundStyle(.specialWhite)
+                                        .font(.custom(Constants.appFontSemiBold, size: 16))
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 4)
+                                        .frame(maxWidth: .infinity, alignment: .trailing)
+                                } else {
+                                    Image(.weight)
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(height: 24)
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 4)
+                                        .background(.specialLightBlack)
+                                        .clipShape(.rect(cornerRadius: 20))
+                                }
+                            }
+                        }
+                        .padding(.leading, 18)
+                        .padding(.trailing, 8)
+                        .padding(.vertical, 8)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 26, style: .continuous)
+                                .stroke(lineWidth: 1)
+                                .foregroundStyle(.specialDarkGrey)
+                        }
+                        .animation(.bouncy, value: vm.ingredients[index].measureMethod)
+                    }
+                }
+            }
+        }
+        .onChange(of: vm.ingredients.last, { oldValue, newValue in
+            withAnimation {
+                if let last = vm.ingredients.last {
+                    if !last.ingredient.isEmpty {
+                        vm.ingredients.append(Ingredient(ingredient: "", quantity: nil, measureMethod: nil))
+                    }
+                }
+            }
+        })
         .padding(.horizontal, 16)
     }
     

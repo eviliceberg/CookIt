@@ -14,12 +14,14 @@ struct StrokedTextfield: View {
     var text: Binding<String>
     var lineLimit: Int? = nil
     
+    var focus: FocusState<Bool>.Binding? = nil
+    
     var body: some View {
         HStack {
             SuperTextField(textFieldType: .regular, placeholder:
               Text(placeholder)
                 .font(.custom(Constants.appFontMedium, size: 16))
-                .foregroundStyle(.specialLightGray), text: text, lineLimit: lineLimit)
+                .foregroundStyle(.specialLightGray), text: text, lineLimit: lineLimit, focusState: focus)
             
             Image(systemName)
                 .resizable()

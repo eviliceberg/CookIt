@@ -96,12 +96,12 @@ enum TimeMeasure: String, Codable, CaseIterable {
 }
 
 struct Ingredient: Hashable, Codable {
-    let ingredient: String
-    let quantity: Int
-    let measureMethod: MeasureMethod
+    var ingredient: String
+    var quantity: Float?
+    var measureMethod: MeasureMethod?
 }
 
-enum MeasureMethod: String, Codable {
+enum MeasureMethod: String, Codable, CaseIterable {
     case grams = "grams"
     case milliliters = "milliliters"
     case pieces = "pieces"
@@ -109,4 +109,23 @@ enum MeasureMethod: String, Codable {
     case slices = "slices"
     case tablespoons = "tablespoons"
     case teaspoons = "teaspoons"
+    
+    var lowDescription: String {
+            switch self {
+            case .grams:
+                return "g"
+            case .milliliters:
+                return "ml"
+            case .pieces:
+                return "pcs"
+            case .pinches:
+                return "pinch"
+            case .slices:
+                return "slice"
+            case .tablespoons:
+                return "tbsp"
+            case .teaspoons:
+                return "tsp"
+            }
+        }
 }
