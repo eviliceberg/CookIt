@@ -217,8 +217,11 @@ struct RecipeView: View {
                 ForEach(vm.recipe.ingredients, id: \.self) { ingredient in
                     HStack {
                         Group {
-                            Text("\((ingredient.quantity ?? 1.0) * Float(vm.servingNumber)) ")
+                            //((ingredient.quantity ?? 1.0) % 10.0 == 0.0) ? "%.0f" : "%.2f"
+                            Text(String(format: "%.0f", (ingredient.quantity ?? 1.0) * Float(vm.servingNumber)))
                                 .font(.custom(Constants.appFontBold, size: 16))
+                            +
+                            Text(" ")
                             +
                             Text((ingredient.measureMethod ?? .pieces).rawValue)
                                 .font(.custom(Constants.appFontMedium, size: 16))

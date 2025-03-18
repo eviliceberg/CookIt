@@ -9,24 +9,6 @@ import SwiftUI
 import SwiftfulRouting
 import PhotosUI
 
-struct Steps {
-    var text: String = ""
-    var image: PhotosPickerItem? = nil
-    
-    var imageUI: UIImage? {
-        get async {
-            do {
-                guard let data = try await image?.loadTransferable(type: Data.self) else { throw CookItErrors.noData }
-                return UIImage(data: data)
-            } catch {
-                print(CookItErrors.noData)
-            }
-            return nil
-        }
-    }
-}
-
-
 @MainActor
 final class AddNewRecipeViewModel: ObservableObject {
     
@@ -39,6 +21,10 @@ final class AddNewRecipeViewModel: ObservableObject {
     @Published var timeMeasure: TimeMeasure = .minutes
     
     @Published var ingredients: [Ingredient] = [Ingredient(ingredient: "", quantity: nil, measureMethod: nil)]
+    
+    @Published var steps: [Step] = [Step(stepNumber: 1, instruction: "", photoURL: nil)]
+    @Published var stepImages: [PhotosPickerItem?] = [nil]
+    @Published var stepUIImages: [UIImage?] = [nil]
     
     
     @Published var mainPhoto: PhotosPickerItem? = nil {
@@ -93,6 +79,61 @@ struct AddNewRecipeView: View {
                         
                         ingredientsSection
                         
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text("Ingredients")
+                                .font(.custom(Constants.appFontBold, size: 20))
+                                .foregroundStyle(!vm.ingredients[0].ingredient.isEmpty ? .specialWhite : .specialLightGray)
+                            
+                            ForEach(vm.steps.indices, id: \.self) { index in
+                                StrokedTextfield(
+                                    systemName: .pen,
+                                    placeholder: "Step \(vm.steps[index].stepNumber)",
+                                    text: $vm.steps[index].instruction,
+                                    lineLimit: 15,
+                                    focus: $state
+                                )
+                                .padding(.bottom, 4)
+        
+                                ZStack {
+                                    if let thumbnail = vm.stepUIImages[index] {
+                                        PhotosPicker(selection: $vm.stepImages[index], matching: .images, photoLibrary: .shared()) {
+                                            Image(uiImage: thumbnail)
+                                                .resizable()
+                                                .scaledToFill()
+                                                .frame(height: 140)
+                                                .clipShape(.rect(cornerRadius: 20))
+                                        }
+                                    } else {
+                                        PhotosPicker(selection: $vm.stepImages[index], matching: .images) {
+                                            PhotoPickerLabel()
+                                        }
+                                    }
+                                }
+                                .onChange(of: vm.stepImages[index]) { _, newValue in
+                                    Task {
+                                        do {
+                                            guard let safeValue = newValue else { return }
+                                            vm.stepUIImages[index] = try await vm.convertToUIImage(image: safeValue)
+                                        } catch {
+                                            print(error)
+                                        }
+                                    }
+                                }
+                                .onChange(of: vm.steps.last) { _, newValue in
+                                    if let last = vm.steps.last {
+                                        if !last.instruction.isEmpty {
+                                            vm.steps.append(Step(stepNumber: last.stepNumber + 1, instruction: "", photoURL: nil))
+                                            vm.stepImages.append(nil)
+                                            vm.stepUIImages.append(nil)
+                                        }
+                                    }
+                                       
+                                }
+                            }
+                        }
+                        .animation(.easeInOut, value: vm.steps)
+                        .padding(.horizontal, 16)
+
                     } header: {
                         header
                     }
@@ -126,14 +167,18 @@ struct AddNewRecipeView: View {
             GeometryReader { geo in
                 ZStack(alignment: .trailing) {
                     RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.specialLightBlack)
+                        .frame(width: geo.size.width)
+                    
+                    RoundedRectangle(cornerRadius: 20)
                         .foregroundStyle(
                             LinearGradient(colors: [.specialGreen, .specialYellow, .specialPink, .specialLightPurple, .specialLightBlue], startPoint: .leading, endPoint: .trailing)
                         )
-                    
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color.specialLightBlack)
-                        .frame(width: geo.size.width / 8  * (8 - CGFloat(vm.stepsDone)))
-                    
+                        .mask(alignment: .leading) {
+                            RoundedRectangle(cornerRadius: 20)
+                                .fill(Color.specialLightBlack)
+                                .frame(width: geo.size.width / 8 * CGFloat(vm.stepsDone))
+                        }
                 }
                 .animation(.easeInOut, value: vm.stepsDone)
             }
@@ -149,7 +194,7 @@ struct AddNewRecipeView: View {
     private func photoPickerCell(photo: Binding<PhotosPickerItem?>, photoUI: UIImage?) -> some View {
         ZStack {
             if let thumbnail = photoUI {
-                PhotosPicker(selection: photo, photoLibrary: .shared()) {
+                PhotosPicker(selection: photo, matching: .images, photoLibrary: .shared()) {
                     Image(uiImage: thumbnail)
                         .resizable()
                         .scaledToFill()
@@ -158,7 +203,7 @@ struct AddNewRecipeView: View {
                         .clipShape(.rect(cornerRadius: 20))
                 }
             } else {
-                PhotosPicker(selection: photo, photoLibrary: .shared()) {
+                PhotosPicker(selection: photo, matching: .images, photoLibrary: .shared()) {
                     PhotoPickerLabel()
                 }
             }

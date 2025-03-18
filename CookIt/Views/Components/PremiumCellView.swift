@@ -61,6 +61,9 @@ struct PremiumCellView: View {
                 }
                 .padding(16)
             }
+            .overlay {
+                GadientView()
+            }
     }
 }
 

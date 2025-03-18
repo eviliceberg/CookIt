@@ -52,9 +52,9 @@ struct Recipe: Codable, Identifiable {
 }
 
 struct Step: Hashable, Codable {
-    let stepNumber: Int
-    let instruction: String
-    let photoURL: String? // Optional image
+    var stepNumber: Int
+    var instruction: String
+    var photoURL: String? // Optional image
 }
 
 struct NutritionFacts: Codable {
