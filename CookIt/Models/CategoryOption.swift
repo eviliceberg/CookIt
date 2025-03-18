@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum CategoryOption: String, CaseIterable {
+enum CategoryOption: String, CaseIterable, Completable {
+    
     case noSorting = "No Sorting"
     case dinner = "dinner"
     case salad = "salad"
@@ -19,6 +20,15 @@ enum CategoryOption: String, CaseIterable {
     case timelessClassics = "Timeless Classics"
     case proteinBoost = "Protein Boost"
     case healthy = "Healthy"
+    
+    var isComplete: Bool {
+        switch self {
+        case .noSorting:
+            return false
+        default:
+            return true
+        }
+    }
     
     var description: String? {
         switch self {

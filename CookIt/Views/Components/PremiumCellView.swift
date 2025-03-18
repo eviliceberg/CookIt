@@ -60,9 +60,11 @@ struct PremiumCellView: View {
                     .font(.custom(Constants.appFontMedium, size: 14))
                 }
                 .padding(16)
-            }
-            .overlay {
-                GadientView()
+//                .background(
+//                    GradientView()
+//                )
+//                .padding(8)
+
             }
     }
 }

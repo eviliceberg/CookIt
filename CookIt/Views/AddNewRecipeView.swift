@@ -9,10 +9,20 @@ import SwiftUI
 import SwiftfulRouting
 import PhotosUI
 
+protocol Completable {
+    var isComplete: Bool { get }
+}
+
 @MainActor
 final class AddNewRecipeViewModel: ObservableObject {
     
-    @Published var stepsDone: Int = 5
+    var stepsDone: Int {
+        let fields = [titleText, descriptionText, timeText, hint]
+        let typeFields: [Completable] = [typeSelection, ingredients[0], steps[0]]
+        let typeFieldsCount = typeFields.filter { $0.isComplete }.count
+        let fieldCount = fields.filter { !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty }.count
+        return mainPhotoUI != nil ? (fieldCount + typeFieldsCount + 1) : fieldCount + typeFieldsCount
+    }
     
     @Published var titleText: String = ""
     @Published var descriptionText: String = ""
@@ -41,6 +51,7 @@ final class AddNewRecipeViewModel: ObservableObject {
     }
     
     @Published var mainPhotoUI: UIImage? = nil
+    @Published var hint: String = ""
     
     func convertToUIImage(image: PhotosPickerItem) async throws -> UIImage? {
         guard let data = try await image.loadTransferable(type: Data.self) else {
@@ -79,60 +90,19 @@ struct AddNewRecipeView: View {
                         
                         ingredientsSection
                         
-                        VStack(alignment: .leading, spacing: 4) {
-                            Text("Ingredients")
-                                .font(.custom(Constants.appFontBold, size: 20))
-                                .foregroundStyle(!vm.ingredients[0].ingredient.isEmpty ? .specialWhite : .specialLightGray)
-                            
-                            ForEach(vm.steps.indices, id: \.self) { index in
-                                StrokedTextfield(
-                                    systemName: .pen,
-                                    placeholder: "Step \(vm.steps[index].stepNumber)",
-                                    text: $vm.steps[index].instruction,
-                                    lineLimit: 15,
-                                    focus: $state
-                                )
-                                .padding(.bottom, 4)
-        
-                                ZStack {
-                                    if let thumbnail = vm.stepUIImages[index] {
-                                        PhotosPicker(selection: $vm.stepImages[index], matching: .images, photoLibrary: .shared()) {
-                                            Image(uiImage: thumbnail)
-                                                .resizable()
-                                                .scaledToFill()
-                                                .frame(height: 140)
-                                                .clipShape(.rect(cornerRadius: 20))
-                                        }
-                                    } else {
-                                        PhotosPicker(selection: $vm.stepImages[index], matching: .images) {
-                                            PhotoPickerLabel()
-                                        }
-                                    }
+                        stepsSection
+                        
+                        hintSection
+                        VStack {
+                            if state {
+                                VStack {
+                                    EmptyView()
+                                        
                                 }
-                                .onChange(of: vm.stepImages[index]) { _, newValue in
-                                    Task {
-                                        do {
-                                            guard let safeValue = newValue else { return }
-                                            vm.stepUIImages[index] = try await vm.convertToUIImage(image: safeValue)
-                                        } catch {
-                                            print(error)
-                                        }
-                                    }
-                                }
-                                .onChange(of: vm.steps.last) { _, newValue in
-                                    if let last = vm.steps.last {
-                                        if !last.instruction.isEmpty {
-                                            vm.steps.append(Step(stepNumber: last.stepNumber + 1, instruction: "", photoURL: nil))
-                                            vm.stepImages.append(nil)
-                                            vm.stepUIImages.append(nil)
-                                        }
-                                    }
-                                       
-                                }
+                                .frame(height: state ? 300 : 1)
                             }
                         }
-                        .animation(.easeInOut, value: vm.steps)
-                        .padding(.horizontal, 16)
+                        .animation(.easeInOut, value: state)
 
                     } header: {
                         header
@@ -216,7 +186,7 @@ struct AddNewRecipeView: View {
                 Menu {
                     Picker("Type", selection: $vm.typeSelection) {
                         ForEach(CategoryOption.allCases, id: \.self) { option in
-                            Text(option == .noSorting ? "Type" : option.rawValue.capitalized)
+                            Text(option == .noSorting ? "None" : option.rawValue.capitalized)
                                 .tag(option)
                         }
                     }
@@ -361,6 +331,75 @@ struct AddNewRecipeView: View {
             }
         })
         .padding(.horizontal, 16)
+    }
+    
+    private var stepsSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Steps")
+                .font(.custom(Constants.appFontBold, size: 20))
+                .foregroundStyle(!vm.steps[0].instruction.isEmpty ? .specialWhite : .specialLightGray)
+            
+            ForEach(vm.steps.indices, id: \.self) { index in
+                StrokedTextfield(
+                    systemName: .pen,
+                    placeholder: "Step \(vm.steps[index].stepNumber)",
+                    text: $vm.steps[index].instruction,
+                    lineLimit: 15,
+                    focus: $state
+                )
+                .padding(.bottom, 4)
+
+                ZStack {
+                    if let thumbnail = vm.stepUIImages[index] {
+                        PhotosPicker(selection: $vm.stepImages[index], matching: .images, photoLibrary: .shared()) {
+                            Image(uiImage: thumbnail)
+                                .resizable()
+                                .scaledToFill()
+                                .frame(height: 140)
+                                .clipShape(.rect(cornerRadius: 20))
+                        }
+                    } else {
+                        PhotosPicker(selection: $vm.stepImages[index], matching: .images) {
+                            PhotoPickerLabel()
+                        }
+                    }
+                }
+                .onChange(of: vm.stepImages[index]) { _, newValue in
+                    Task {
+                        do {
+                            guard let safeValue = newValue else { return }
+                            vm.stepUIImages[index] = try await vm.convertToUIImage(image: safeValue)
+                        } catch {
+                            print(error)
+                        }
+                    }
+                }
+                .onChange(of: vm.steps.last) { _, newValue in
+                    if let last = vm.steps.last {
+                        if !last.instruction.isEmpty {
+                            vm.steps.append(Step(stepNumber: last.stepNumber + 1, instruction: "", photoURL: nil))
+                            vm.stepImages.append(nil)
+                            vm.stepUIImages.append(nil)
+                        }
+                    }
+                       
+                }
+            }
+        }
+        .animation(.easeInOut, value: vm.steps)
+        .padding(.horizontal, 16)
+    }
+    
+    private var hintSection: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Got a hack to improve this recipe?")
+                .font(.custom(Constants.appFontBold, size: 20))
+                .foregroundStyle(!vm.hint.isEmpty ? .specialWhite : .specialLightGray)
+            
+            StrokedTextfield(systemName: .bulb, placeholder: "Drop it here!", text: $vm.hint, lineLimit: 10, focus: $state)
+        }
+        .padding(.horizontal, 16)
+        .padding(.bottom, 48)
     }
     
 }

@@ -51,10 +51,17 @@ struct Recipe: Codable, Identifiable {
     }
 }
 
-struct Step: Hashable, Codable {
+struct Step: Hashable, Codable, Completable {
     var stepNumber: Int
     var instruction: String
     var photoURL: String? // Optional image
+    
+    var isComplete: Bool {
+        if !instruction.isEmpty {
+            return true
+        }
+        return false
+    }
 }
 
 struct NutritionFacts: Codable {
@@ -95,10 +102,18 @@ enum TimeMeasure: String, Codable, CaseIterable {
     }
 }
 
-struct Ingredient: Hashable, Codable {
+struct Ingredient: Hashable, Codable, Completable {
     var ingredient: String
     var quantity: Float?
     var measureMethod: MeasureMethod?
+    
+    var isComplete: Bool {
+        if !ingredient.isEmpty && quantity != nil && measureMethod != nil {
+            return true
+        }
+        
+        return false
+    }
 }
 
 enum MeasureMethod: String, Codable, CaseIterable {

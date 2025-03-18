@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct GadientView: View {
+struct GradientView: View {
     
     var cornerRadius: CGFloat = 20
     
@@ -20,7 +20,7 @@ struct GadientView: View {
                     .frame(width: geo.size.width, height: geo.size.height)
                     .foregroundStyle(LinearGradient(colors: [.red, .orange, .yellow, .green, .specialLightBlue, .blue, .purple], startPoint: .top, endPoint: .bottom))
                     .rotationEffect(Angle(degrees: rotation))
-                    .scaleEffect((geo.size.width * 2) / geo.size.height)
+                    .scaleEffect(geo.size.width > geo.size.height ? (geo.size.width / geo.size.height) : (geo.size.height / geo.size.width))
                     .mask {
                         RoundedRectangle(cornerRadius: cornerRadius)
                             .stroke(lineWidth: 2)
@@ -29,7 +29,7 @@ struct GadientView: View {
             }
         }
         .onAppear {
-            withAnimation(.easeInOut(duration: 2.0).repeatForever(autoreverses: false)) {
+            withAnimation(.linear(duration: 3.0).repeatForever(autoreverses: false)) {
                 rotation = 360
             }
         }
@@ -38,12 +38,16 @@ struct GadientView: View {
 }
 
 #Preview {
-    VStack {
-        Text("Hello World hvfkjhv ")
-            .padding()
-            .overlay {
-                GadientView()
-            }
+    ScrollView {
+        VStack {
+            Text("Text 1")
+            Text("Hello World hvfkjhv ")
+                .padding()
+                .overlay {
+                    GradientView()
+                }
+            Text("Text 2")
+        }
     }
     .padding(.horizontal, 16)
     
