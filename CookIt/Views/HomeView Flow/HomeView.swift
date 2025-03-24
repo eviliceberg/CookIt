@@ -38,7 +38,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     func savePath(path: String) -> URL {
-        return FileManager.documentsDirectory.appending(path: path)
+        return FileManager.cachesDirectory.appending(path: path)
     }
     
     func saveRecipesArray(array: [Recipe], path: String) throws {

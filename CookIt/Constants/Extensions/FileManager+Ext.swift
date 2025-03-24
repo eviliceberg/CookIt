@@ -8,8 +8,8 @@
 import Foundation
 
 extension FileManager {
-    static var documentsDirectory: URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+    static var cachesDirectory: URL {
+        let paths = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)
         return paths[0]
     }
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftfulRouting
 import PhotosUI
+import Combine
 
 protocol Completable {
     var isComplete: Bool { get }
@@ -15,6 +16,8 @@ protocol Completable {
 
 @MainActor
 final class AddNewRecipeViewModel: ObservableObject {
+    
+    var cancellables: Set<AnyCancellable> = Set<AnyCancellable>()
     
     var stepsDone: Int {
         let fields = [titleText, descriptionText, timeText, hint]
@@ -37,21 +40,90 @@ final class AddNewRecipeViewModel: ObservableObject {
     @Published var stepUIImages: [UIImage?] = [nil]
     
     
-    @Published var mainPhoto: PhotosPickerItem? = nil {
-        didSet {
-            Task {
-                do {
-                    guard let safePhoto = mainPhoto else { return }
-                    self.mainPhotoUI = try await convertToUIImage(image: safePhoto)
-                } catch {
-                    print(error)
-                }
-            }
-        }
-    }
+    @Published var mainPhoto: PhotosPickerItem? = nil
     
     @Published var mainPhotoUI: UIImage? = nil
     @Published var hint: String = ""
+    
+    init() {
+        showDoneButton()
+        updateUIImage()
+        updateIngredientsSection()
+        updateSteps()
+    }
+    
+    func updateIngredientsSection() {
+        $ingredients
+            .receive(on: DispatchQueue.main)
+            .debounce(for: 0.3, scheduler: DispatchQueue.main)
+            .sink { [weak self] ingredientArr in
+                guard let last = ingredientArr.last, !last.ingredient.isEmpty else { return }
+                guard let self = self else { return }
+
+                withAnimation {
+                    self.ingredients.append(Ingredient(ingredient: "", quantity: nil, measureMethod: nil))
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func updateUIImage() {
+        $mainPhoto
+            .sink { [weak self] item in
+                guard let item = item else { return }
+                Task {
+                    do {
+                        self?.mainPhotoUI = try await self?.convertToUIImage(image: item)
+                    } catch {
+                        print(error)
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func updateSteps() {
+        $steps
+            .receive(on: DispatchQueue.main)
+            .debounce(for: 0.3, scheduler: DispatchQueue.main)
+            .sink { [weak self] stepsArr in
+                guard let last = stepsArr.last, !last.instruction.isEmpty else { return }
+                guard let self = self else { return }
+
+                withAnimation {
+                    self.steps.append(Step(stepNumber: last.stepNumber + 1, instruction: "", photoURL: nil))
+                    self.stepImages.append(nil)
+                    self.stepUIImages.append(nil)
+                }
+            }
+            .store(in: &cancellables)
+    }
+    
+    func showDoneButton() {
+        
+        let firstCombination = Publishers.CombineLatest3($descriptionText, $typeSelection, $timeText)
+        
+        let secondCombination = Publishers.CombineLatest4($ingredients, $steps, $mainPhotoUI, $hint)
+        
+        $titleText
+            .combineLatest(firstCombination, secondCombination)
+            .debounce(for: 0.3, scheduler: DispatchQueue.main)
+            .sink { (text, first, second) in
+                guard let lastStep = second.1.last, let firstIngredient = second.0.first else { return }
+                
+                if text.count > 3 &&
+                    first.0.count > 3 &&
+                    first.1 != .noSorting &&
+                    first.2 != "" &&
+                    (!firstIngredient.ingredient.isEmpty && firstIngredient.measureMethod != nil && firstIngredient.quantity != nil) &&
+                    (lastStep.stepNumber >= 2 && !lastStep.instruction.isEmpty) &&
+                    second.2 != nil &&
+                    !second.3.isEmpty {
+                    print("YOU DID EVERYTHING RIGHT")
+                }
+            }
+            .store(in: &cancellables)
+    }
     
     func convertToUIImage(image: PhotosPickerItem) async throws -> UIImage? {
         guard let data = try await image.loadTransferable(type: Data.self) else {
@@ -223,7 +295,7 @@ struct AddNewRecipeView: View {
                 Menu {
                     Picker("Select Time", selection: $vm.timeMeasure) {
                         ForEach(TimeMeasure.allCases, id: \.self) { option in
-                            Text(option.lowDescription)
+                            Text(option.rawValue)
                                 .tag(option)
                         }
                     }
@@ -316,20 +388,11 @@ struct AddNewRecipeView: View {
                                 .stroke(lineWidth: 1)
                                 .foregroundStyle(.specialDarkGrey)
                         }
-                        .animation(.bouncy, value: vm.ingredients[index].measureMethod)
+                        .animation(.spring, value: vm.ingredients[index].measureMethod)
                     }
                 }
             }
         }
-        .onChange(of: vm.ingredients.last, { oldValue, newValue in
-            withAnimation {
-                if let last = vm.ingredients.last {
-                    if !last.ingredient.isEmpty {
-                        vm.ingredients.append(Ingredient(ingredient: "", quantity: nil, measureMethod: nil))
-                    }
-                }
-            }
-        })
         .padding(.horizontal, 16)
     }
     
@@ -373,16 +436,6 @@ struct AddNewRecipeView: View {
                             print(error)
                         }
                     }
-                }
-                .onChange(of: vm.steps.last) { _, newValue in
-                    if let last = vm.steps.last {
-                        if !last.instruction.isEmpty {
-                            vm.steps.append(Step(stepNumber: last.stepNumber + 1, instruction: "", photoURL: nil))
-                            vm.stepImages.append(nil)
-                            vm.stepUIImages.append(nil)
-                        }
-                    }
-                       
                 }
             }
         }
