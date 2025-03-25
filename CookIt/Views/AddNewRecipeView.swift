@@ -45,6 +45,8 @@ final class AddNewRecipeViewModel: ObservableObject {
     @Published var mainPhotoUI: UIImage? = nil
     @Published var hint: String = ""
     
+    var doneButtonOpacity: Double = 0
+    
     init() {
         showDoneButton()
         updateUIImage()
@@ -107,9 +109,11 @@ final class AddNewRecipeViewModel: ObservableObject {
         
         $titleText
             .combineLatest(firstCombination, secondCombination)
-            .debounce(for: 0.3, scheduler: DispatchQueue.main)
-            .sink { (text, first, second) in
-                guard let lastStep = second.1.last, let firstIngredient = second.0.first else { return }
+            .debounce(for: 0.1, scheduler: DispatchQueue.main)
+            .sink { [weak self] (text, first, second) in
+                guard let firstIngredient = second.0.first else { return }
+                
+                let lastStep = second.1[second.1.count >= 3 ? second.1.count - 2 : second.1.count - 1]
                 
                 if text.count > 3 &&
                     first.0.count > 3 &&
@@ -119,10 +123,13 @@ final class AddNewRecipeViewModel: ObservableObject {
                     (lastStep.stepNumber >= 2 && !lastStep.instruction.isEmpty) &&
                     second.2 != nil &&
                     !second.3.isEmpty {
-                    print("YOU DID EVERYTHING RIGHT")
+                    self?.doneButtonOpacity = 1
+                } else {
+                    self?.doneButtonOpacity = 0
                 }
             }
             .store(in: &cancellables)
+        
     }
     
     func convertToUIImage(image: PhotosPickerItem) async throws -> UIImage? {
@@ -141,7 +148,9 @@ struct AddNewRecipeView: View {
     
     @StateObject private var vm: AddNewRecipeViewModel = AddNewRecipeViewModel()
     
-    @FocusState private var state: Bool 
+    @FocusState private var state: Bool
+    
+    @StateObject private var keyboardManager = KeyboardResponder()
 
     var body: some View {
         ZStack {
@@ -165,17 +174,9 @@ struct AddNewRecipeView: View {
                         stepsSection
                         
                         hintSection
-                        VStack {
-                            if state {
-                                VStack {
-                                    EmptyView()
-                                        
-                                }
-                                .frame(height: state ? 300 : 1)
-                            }
-                        }
-                        .animation(.easeInOut, value: state)
-
+                        
+                        Spacer(minLength: keyboardManager.currentHeight == 0 ? 48 : keyboardManager.currentHeight + 16)
+                        
                     } header: {
                         header
                     }
@@ -184,6 +185,27 @@ struct AddNewRecipeView: View {
             .scrollIndicators(.hidden)
             .clipped()
             .ignoresSafeArea(.all, edges: .bottom)
+            //.scrollPosition(id: $vm.scrollTo)
+        }
+        .overlay {
+            VStack {
+                Spacer()
+                
+                Text("Done!")
+                    .foregroundStyle(.specialBlack)
+                    .font(.custom(Constants.appFontBold, size: 24))
+                    .padding(.vertical, 12)
+                    .frame(maxWidth: .infinity)
+                    .background(.specialGreen)
+                    .clipShape(.rect(cornerRadius: 30))
+                    .padding(.horizontal, 16)
+                    .opacity(vm.doneButtonOpacity)
+                    .allowsHitTesting(vm.doneButtonOpacity == 1 ? true : false)
+                    .asButton(.press) {
+                       
+                    }
+            }
+            .animation(.linear, value: vm.doneButtonOpacity)
         }
         .onTapGesture {
             state = false
