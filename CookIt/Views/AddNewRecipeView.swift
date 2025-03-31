@@ -46,12 +46,78 @@ final class AddNewRecipeViewModel: ObservableObject {
     @Published var hint: String = ""
     
     var doneButtonOpacity: Double = 0
+    @Published var user: DBUser? = nil
     
     init() {
         showDoneButton()
         updateUIImage()
         updateIngredientsSection()
         updateSteps()
+    }
+    
+    func loadCurrentUser() async throws {
+        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+        self.user = try await UserManager.shared.getUser(userId: authUser.uid)
+    }
+    
+    func uploadRecipe() async throws {
+        
+        var finalIngredients: [Ingredient] = []
+        
+        for ingredient in self.ingredients {
+            if !ingredient.ingredient.isEmpty && ingredient.measureMethod != nil && ingredient.quantity != nil {
+                finalIngredients.append(ingredient)
+            }
+        }
+        
+        let imageData = try await mainPhoto?.loadTransferable(type: Data.self)
+        let imageId = UUID().uuidString
+        var imageUrl = ""
+        
+        if let imageData {
+            imageUrl = try await createURL(name: imageId, data: imageData)
+        }
+        
+        
+        guard !descriptionText.isEmpty, !titleText.isEmpty, !timeText.isEmpty, let user = user, !imageUrl.isEmpty, typeSelection != .noSorting, !timeText.isEmpty, let timeNum = Int(timeText) else {
+            return
+        }
+        
+        try await handleStepData()
+        
+        print(Recipe(id: UUID().uuidString, title: titleText, isPremium: false, ingredients: finalIngredients, description: descriptionText, mainPhoto: imageUrl, sourceURL: "no source", author: user.name ?? "User", authorId: user.userId, category: [typeSelection.rawValue], statuses: ["gluten-free"], cookingTime: CookingTime(timeNumber: timeNum, timeMeasure: timeMeasure), steps: steps, hint: hint, nutritionFacts: NutritionFacts(calories: 1.0, protein: 1.0, carbs: 1.0, fat: 1.0), savedCount: 0, viewCount: 0))
+        
+        try RecipesManager.shared.uploadRecipes(recipe: Recipe(id: UUID().uuidString, title: titleText, isPremium: false, ingredients: finalIngredients, description: descriptionText, mainPhoto: imageUrl, sourceURL: "no source", author: user.name ?? "User", authorId: user.userId, category: [typeSelection.rawValue], statuses: ["gluten-free"], cookingTime: CookingTime(timeNumber: timeNum, timeMeasure: timeMeasure), steps: steps, hint: hint, nutritionFacts: NutritionFacts(calories: 1.0, protein: 1.0, carbs: 1.0, fat: 1.0), savedCount: 0, viewCount: 0))
+        
+    }
+    
+    private func handleStepData() async throws {
+        
+        for index in stepImages.indices {
+            if let image = stepImages[index] {
+                let id = UUID().uuidString
+                guard let data = try await image.loadTransferable(type: Data.self) else { return }
+                let url = try await createURL(name: id, data: data)
+                steps[index].photoURL = url
+            } else {
+                steps[index].photoURL = nil
+            }
+        }
+        
+        steps.indices.forEach { index in
+            let step = steps[index]
+            
+            guard !step.instruction.isEmpty else {
+                steps.remove(at: index)
+                return
+            }
+        }
+
+    }
+    
+    private func createURL(name: String, data: Data) async throws -> String {
+        try await S3Uploader().uploadImage(imageData: data, fileName: name)
+        return "https://\(AWSConfig.bucketName).s3.\(AWSConfig.region).amazonaws.com/\(name)"
     }
     
     func updateIngredientsSection() {
@@ -187,6 +253,13 @@ struct AddNewRecipeView: View {
             .ignoresSafeArea(.all, edges: .bottom)
             //.scrollPosition(id: $vm.scrollTo)
         }
+        .task {
+            do {
+                try await vm.loadCurrentUser()
+            } catch {
+                print("Error getting user data: \(error)")
+            }
+        }
         .overlay {
             VStack {
                 Spacer()
@@ -202,7 +275,13 @@ struct AddNewRecipeView: View {
                     .opacity(vm.doneButtonOpacity)
                     .allowsHitTesting(vm.doneButtonOpacity == 1 ? true : false)
                     .asButton(.press) {
-                       
+                        Task {
+                            do {
+                                try await vm.uploadRecipe()
+                            } catch {
+                                print(error)
+                            }
+                        }
                     }
             }
             .animation(.linear, value: vm.doneButtonOpacity)

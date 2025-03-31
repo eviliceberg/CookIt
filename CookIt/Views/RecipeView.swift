@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftfulUI
 import SwiftfulRouting
+import SDWebImageSwiftUI
 
 @MainActor
 final class RecipesViewModel: ObservableObject {
@@ -65,8 +66,10 @@ struct RecipeView: View {
     
     @Environment(\.router) var router
     
-    init(recipe: Recipe, author: DBUser? = nil) {
-        _vm = StateObject(wrappedValue: RecipesViewModel(recipe: recipe, author: author))
+    @State private var showAuthorImage: Bool = false
+    
+    init(recipe: Recipe) {
+        _vm = StateObject(wrappedValue: RecipesViewModel(recipe: recipe))
     }
     
     var body: some View {
@@ -117,6 +120,9 @@ struct RecipeView: View {
             Task {
                 vm.similarRecipes = await vm.getRecipes()
                 vm.similarRecipes?.removeAll(where: { $0.id == vm.recipe.id })
+                if let id = vm.recipe.authorId {
+                    vm.author = try await UserManager.shared.getUser(userId: id)
+                }
             }
         }
     }
@@ -131,31 +137,53 @@ struct RecipeView: View {
             HStack {
                 HStack {
                     if let authorPhoto = vm.author?.photoUrl {
-                        ImageLoaderView(urlString: authorPhoto)
-                            .frame(width: 40, height: 40)
-                            .clipShape(.circle)
+                        
+                        AsyncImage(url: URL(string: authorPhoto)) { image in
+                            image
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .allowsHitTesting(false)
+                                .frame(width: 40, height: 40)
+                                .clipShape(.circle)
+                        } placeholder: {
+                            ProgressView()
+                                .frame(width: 40, height: 40)
+                        }  
+                        
                     } else {
-                        Image(.user)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 40, height: 40)
-                            .clipShape(.circle)
+                        
+                        
+                        if showAuthorImage {
+                            Image(.user)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 40)
+                                .clipShape(.circle)
+                        } else {
+                            ProgressView()
+                                .frame(width: 40, height: 40)
+                                .clipShape(.circle)
+                        }
+                        
                     }
+                    
                     
                     VStack {
                         Text(vm.recipe.author)
                             .font(.custom(Constants.appFontMedium, size: 12))
                         
-                        if let author = vm.author {
-                            Text("chef")
-                                .font(.custom(Constants.appFontMedium, size: 10))
-                                .foregroundStyle(.specialBlack)
-                                .padding(.horizontal, 8)
-                                .padding(.vertical, 2)
-                                .background()
-                        }
+//                        if let author = vm.author {
+//                            Text("chef")
+//                                .font(.custom(Constants.appFontMedium, size: 10))
+//                                .foregroundStyle(.specialBlack)
+//                                .padding(.horizontal, 8)
+//                                .padding(.vertical, 2)
+//                                .background()
+//                        }
                     }
+                    .animation(.none, value: vm.author)
                 }
+                .animation(.smooth, value: vm.author)
                 Group {
                     if vm.recipe.savedCount == 1 {
                         Text("\(vm.recipe.savedCount) person saved this recipe")
