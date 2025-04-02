@@ -62,13 +62,7 @@ final class AddNewRecipeViewModel: ObservableObject {
     
     func uploadRecipe() async throws {
         
-        var finalIngredients: [Ingredient] = []
-        
-        for ingredient in self.ingredients {
-            if !ingredient.ingredient.isEmpty && ingredient.measureMethod != nil && ingredient.quantity != nil {
-                finalIngredients.append(ingredient)
-            }
-        }
+        let finalIngredients = handleIngredientsData()
         
         let imageData = try await mainPhoto?.loadTransferable(type: Data.self)
         let imageId = UUID().uuidString
@@ -85,10 +79,33 @@ final class AddNewRecipeViewModel: ObservableObject {
         
         try await handleStepData()
         
-        print(Recipe(id: UUID().uuidString, title: titleText, isPremium: false, ingredients: finalIngredients, description: descriptionText, mainPhoto: imageUrl, sourceURL: "no source", author: user.name ?? "User", authorId: user.userId, category: [typeSelection.rawValue], statuses: ["gluten-free"], cookingTime: CookingTime(timeNumber: timeNum, timeMeasure: timeMeasure), steps: steps, hint: hint, nutritionFacts: NutritionFacts(calories: 1.0, protein: 1.0, carbs: 1.0, fat: 1.0), savedCount: 0, viewCount: 0))
+        let recipeId = UUID().uuidString
         
-        try RecipesManager.shared.uploadRecipes(recipe: Recipe(id: UUID().uuidString, title: titleText, isPremium: false, ingredients: finalIngredients, description: descriptionText, mainPhoto: imageUrl, sourceURL: "no source", author: user.name ?? "User", authorId: user.userId, category: [typeSelection.rawValue], statuses: ["gluten-free"], cookingTime: CookingTime(timeNumber: timeNum, timeMeasure: timeMeasure), steps: steps, hint: hint, nutritionFacts: NutritionFacts(calories: 1.0, protein: 1.0, carbs: 1.0, fat: 1.0), savedCount: 0, viewCount: 0))
+        try await UserManager.shared.addUserRecipe(userId: user.userId, recipeId: recipeId)
         
+        let recipe = Recipe(id: recipeId, title: titleText, isPremium: false, ingredients: finalIngredients, description: descriptionText, mainPhoto: imageUrl, sourceURL: "no source", author: user.name ?? "User", authorId: user.userId, category: [typeSelection.rawValue], statuses: ["gluten-free"], cookingTime: CookingTime(timeNumber: timeNum, timeMeasure: timeMeasure), steps: steps, hint: hint, nutritionFacts: NutritionFacts(calories: 1.0, protein: 1.0, carbs: 1.0, fat: 1.0), savedCount: 0, viewCount: 0)
+        
+ //       try addToCache(recipe: recipe)
+        
+        try RecipesManager.shared.uploadRecipes(recipe: recipe)
+        
+    }
+    
+//    private func addToCache(recipe: Recipe) throws {
+//        let data = try JSONEncoder().encode(recipe)
+//        
+//        try data.write(to: path)
+//    }
+    
+    private func handleIngredientsData() -> [Ingredient] {
+        var finalIngredients: [Ingredient] = []
+        
+        for ingredient in self.ingredients {
+            if !ingredient.ingredient.isEmpty && ingredient.measureMethod != nil && ingredient.quantity != nil {
+                finalIngredients.append(ingredient)
+            }
+        }
+        return finalIngredients
     }
     
     private func handleStepData() async throws {

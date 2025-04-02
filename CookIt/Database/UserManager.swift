@@ -21,6 +21,8 @@ struct FavouriteItem: Codable, Identifiable {
     }
 }
 
+typealias MyRecipe = FavouriteItem
+
 struct DBUser: Codable, Equatable {
     let userId: String
     let isAnonymous: Bool?
@@ -141,6 +143,14 @@ final class UserManager {
         userDocument(userid: userId).collection("favourite_recipes")
     }
     
+    private func userRecipesCollection(userId: String) -> CollectionReference {
+        userDocument(userid: userId).collection("my_recipes")
+    }
+    
+    private func userRecipeDocument(userid: String, recipeId: String) -> DocumentReference {
+        userRecipesCollection(userId: userid).document(recipeId)
+    }
+    
     private func userFavouriteRecipeDocument(userid: String, favouriteRecipeId: String) -> DocumentReference {
         userFavouriteCollection(userId: userid).document(favouriteRecipeId)
     }
@@ -158,6 +168,24 @@ final class UserManager {
      //   decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }()
+    
+    func addUserRecipe(userId: String, recipeId: String) async throws {
+        
+        let document = userRecipesCollection(userId: userId).document()
+        let documentId = document.documentID
+        
+        let data: [String : Any] = [
+            "id" : documentId,
+            "recipe_id" : recipeId,
+            "date_created" : Timestamp()
+        ]
+        
+        try await document.setData(data, merge: false)
+    }
+    
+    func getUserRecipes(userId: String) async throws -> [MyRecipe] {
+        return try await userRecipesCollection(userId: userId).getDocuments(as: MyRecipe.self)
+    }
     
     func createNewUser(user: DBUser) async throws {
         try userDocument(userid: user.userId).setData(from: user, merge: true)

@@ -8,7 +8,6 @@
 import SwiftUI
 import SwiftfulUI
 import SwiftfulRouting
-import SDWebImageSwiftUI
 
 @MainActor
 final class RecipesViewModel: ObservableObject {
@@ -118,11 +117,14 @@ struct RecipeView: View {
         }
         .onFirstAppear {
             Task {
-                vm.similarRecipes = await vm.getRecipes()
-                vm.similarRecipes?.removeAll(where: { $0.id == vm.recipe.id })
                 if let id = vm.recipe.authorId {
                     vm.author = try await UserManager.shared.getUser(userId: id)
+                } else {
+                    showAuthorImage = true
                 }
+                vm.similarRecipes = await vm.getRecipes()
+                vm.similarRecipes?.removeAll(where: { $0.id == vm.recipe.id })
+                
             }
         }
     }
@@ -151,8 +153,6 @@ struct RecipeView: View {
                         }  
                         
                     } else {
-                        
-                        
                         if showAuthorImage {
                             Image(.user)
                                 .resizable()
@@ -164,9 +164,7 @@ struct RecipeView: View {
                                 .frame(width: 40, height: 40)
                                 .clipShape(.circle)
                         }
-                        
                     }
-                    
                     
                     VStack {
                         Text(vm.recipe.author)
@@ -181,7 +179,6 @@ struct RecipeView: View {
 //                                .background()
 //                        }
                     }
-                    .animation(.none, value: vm.author)
                 }
                 .animation(.smooth, value: vm.author)
                 Group {

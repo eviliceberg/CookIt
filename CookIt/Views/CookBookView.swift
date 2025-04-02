@@ -12,21 +12,33 @@ import SwiftfulRouting
 final class CookBookViewModel: ObservableObject  {
     
     @Published var favorites: [(recipe: Recipe, favouriteId: String)] = []
+    @Published var myRecipes: [Recipe] = []
+    
+    private func getUserId() throws -> String {
+        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
+        return authUser.uid
+    }
     
     func getFavorites() async throws {
-        let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
-        
-        let favoritesArray = try await UserManager.shared.getFavourites(userId: authUser.uid)
+        let favoritesArray = try await UserManager.shared.getFavourites(userId: try getUserId())
         
         for item in favoritesArray {
             self.favorites.append((try await RecipesManager.shared.getRecipe(by: item.productId), item.id))
         }
     }
     
+    func getMyRecipes() async throws {
+        let myTempRecipes = try await UserManager.shared.getUserRecipes(userId: try getUserId())
+        
+        for item in myTempRecipes {
+            let recipe = try await RecipesManager.shared.getRecipe(by: item.productId)
+            self.myRecipes.append(recipe)
+        }
+    }
+    
     func deleteFavorite(_ recipeId: String) {
         Task {
-            let authUser = try AuthenticationManager.shared.getAuthenticatedUser()
-            try await UserManager.shared.removeUserFavouriteRecipe(userId: authUser.uid, favouriteRecipeId: recipeId)
+            try await UserManager.shared.removeUserFavouriteRecipe(userId: try getUserId(), favouriteRecipeId: recipeId)
             try await RecipesManager.shared.decrementSavedCount(recipeId: recipeId)
         }
     }
@@ -134,35 +146,54 @@ struct CookBookView: View {
     }
     
     private var myRecipesPlaceholder: some View {
-        VStack {
-            Text("You haven't saved any recipes yet")
-                .font(.custom(Constants.appFontBold, size: 18))
-                .foregroundStyle(.specialLightGray)
-            Text("Create your own delicious recipes and save them here – tap the button below!")
-                .font(.custom(Constants.appFontMedium, size: 16))
-                .foregroundStyle(.specialWhite)
-                .multilineTextAlignment(.center)
-            Circle()
-                .fill(.specialGreen)
-                .frame(width: 60, height: 60)
-                .overlay {
-                    Image(systemName: "plus")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .imageScale(.large)
-                        .foregroundStyle(.specialBlack)
-                }
-                .onTapGesture {
-                    router.showScreen(.push) { _ in
-                        AddNewRecipeView()
+        ZStack {
+            if !vm.myRecipes.isEmpty {
+                LazyVGrid(columns: [GridItem(), GridItem()]) {
+                    ForEach(vm.myRecipes, id: \.id) { recipe in
+                        SmallCellView(
+                            title: recipe.title,
+                            author: recipe.author,
+                            time: recipe.cookingTime.lowDescription,
+                            photoUrl: recipe.mainPhoto,
+                            status: recipe.statuses.first ?? "",
+                            isPremium: recipe.isPremium,
+                            height: 184,
+                            width: 173
+                        )
                     }
                 }
+                
+            } else {
+                VStack {
+                    Text("You haven't saved any recipes yet")
+                        .font(.custom(Constants.appFontBold, size: 18))
+                        .foregroundStyle(.specialLightGray)
+                    Text("Create your own delicious recipes and save them here – tap the button below!")
+                        .font(.custom(Constants.appFontMedium, size: 16))
+                        .foregroundStyle(.specialWhite)
+                        .multilineTextAlignment(.center)
+                    Circle()
+                        .fill(.specialGreen)
+                        .frame(width: 60, height: 60)
+                        .overlay {
+                            Image(systemName: "plus")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .imageScale(.large)
+                                .foregroundStyle(.specialBlack)
+                        }
+                        .onTapGesture {
+                            router.showScreen(.push) { _ in
+                                AddNewRecipeView()
+                            }
+                        }
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+                .padding(.top, 64)
+                .padding(.horizontal, 16)
+            }
         }
-        .frame(maxWidth: .infinity, alignment: .center)
-        .padding(.top, 64)
-        .padding(.horizontal, 16)
     }
-    
 }
 
 #Preview {

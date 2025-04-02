@@ -155,6 +155,7 @@ struct HomeView: View {
         .onFirstAppear {
             Task {
                 do {
+                    try await cookBookVM.getMyRecipes()
                     try await cookBookVM.getFavorites()
                 } catch {
                     print(error)
