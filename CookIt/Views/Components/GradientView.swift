@@ -41,7 +41,7 @@ struct GradientView: View {
     ScrollView {
         VStack {
             Text("Text 1")
-            Text("Hello World hvfkjhv ")
+            Text("Hello World hvfkjhvgfkgfkgfkgfkhfkffkfhfkhjfhfjfjfhfkfhfjhfjkfkhfkhfhfhfhfkhfkjfjkfhjfjffjfhjfjkfkjfhjfkjkjfkfhjfjhfkjfjhjkhfjfkfhkfhjffkjhf ")
                 .padding()
                 .overlay {
                     GradientView()

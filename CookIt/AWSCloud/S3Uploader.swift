@@ -43,4 +43,11 @@ final class S3Uploader {
         print(imageUrl)
     }
     
+    func deleteImage(fileName: String) async throws {
+        let image = DeleteObjectInput(bucket: AWSConfig.bucketName, key: fileName)
+        
+        _ = try await s3Client.deleteObject(input: image)
+        print("successfully deleted")
+    }
+    
 }

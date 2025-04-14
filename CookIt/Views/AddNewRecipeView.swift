@@ -39,6 +39,7 @@ final class AddNewRecipeViewModel: ObservableObject {
     @Published var stepImages: [PhotosPickerItem?] = [nil]
     @Published var stepUIImages: [UIImage?] = [nil]
     
+    @Published var nutritionFacts: NutritionFacts = NutritionFacts(calories: 0, protein: 0, carbs: 0, fat: 0)
     
     @Published var mainPhoto: PhotosPickerItem? = nil
     
@@ -47,6 +48,8 @@ final class AddNewRecipeViewModel: ObservableObject {
     
     var doneButtonOpacity: Double = 0
     @Published var user: DBUser? = nil
+    
+    @Published var isUploading: Bool = false
     
     init() {
         showDoneButton()
@@ -61,6 +64,7 @@ final class AddNewRecipeViewModel: ObservableObject {
     }
     
     func uploadRecipe() async throws {
+        isUploading = true
         
         let finalIngredients = handleIngredientsData()
         
@@ -83,12 +87,12 @@ final class AddNewRecipeViewModel: ObservableObject {
         
         try await UserManager.shared.addUserRecipe(userId: user.userId, recipeId: recipeId)
         
-        let recipe = Recipe(id: recipeId, title: titleText, isPremium: false, ingredients: finalIngredients, description: descriptionText, mainPhoto: imageUrl, sourceURL: "no source", author: user.name ?? "User", authorId: user.userId, category: [typeSelection.rawValue], statuses: ["gluten-free"], cookingTime: CookingTime(timeNumber: timeNum, timeMeasure: timeMeasure), steps: steps, hint: hint, nutritionFacts: NutritionFacts(calories: 1.0, protein: 1.0, carbs: 1.0, fat: 1.0), savedCount: 0, viewCount: 0)
+        let recipe = Recipe(id: recipeId, title: titleText, isPremium: false, ingredients: finalIngredients, description: descriptionText, mainPhoto: imageUrl, sourceURL: "no source", author: user.name ?? "User", authorId: user.userId, category: [typeSelection.rawValue], statuses: ["gluten-free"], cookingTime: CookingTime(timeNumber: timeNum, timeMeasure: timeMeasure), steps: steps, hint: hint, nutritionFacts: nutritionFacts, savedCount: 0, viewCount: 0)
         
  //       try addToCache(recipe: recipe)
         
         try RecipesManager.shared.uploadRecipes(recipe: recipe)
-        
+        isUploading = false
     }
     
 //    private func addToCache(recipe: Recipe) throws {
@@ -129,7 +133,6 @@ final class AddNewRecipeViewModel: ObservableObject {
                 return
             }
         }
-
     }
     
     private func createURL(name: String, data: Data) async throws -> String {
@@ -234,6 +237,12 @@ struct AddNewRecipeView: View {
     @FocusState private var state: Bool
     
     @StateObject private var keyboardManager = KeyboardResponder()
+    
+    @StateObject private var cookBookVM: CookBookViewModel
+    
+    init(cookBookVM: CookBookViewModel) {
+        _cookBookVM = StateObject(wrappedValue: cookBookVM)
+    }
 
     var body: some View {
         ZStack {
@@ -254,6 +263,8 @@ struct AddNewRecipeView: View {
                         
                         ingredientsSection
                         
+                        nutrientsSection
+                        
                         stepsSection
                         
                         hintSection
@@ -270,6 +281,9 @@ struct AddNewRecipeView: View {
             .ignoresSafeArea(.all, edges: .bottom)
             //.scrollPosition(id: $vm.scrollTo)
         }
+        .fullScreenCover(isPresented: $vm.isUploading, content: {
+            LoadingAnimation()
+        })
         .task {
             do {
                 try await vm.loadCurrentUser()
@@ -295,6 +309,8 @@ struct AddNewRecipeView: View {
                         Task {
                             do {
                                 try await vm.uploadRecipe()
+                                router.dismissScreenStack()
+                                try await cookBookVM.getMyRecipes()
                             } catch {
                                 print(error)
                             }
@@ -404,7 +420,7 @@ struct AddNewRecipeView: View {
                 }
             
             HStack {
-                SuperTextField(textFieldType: .regular, placeholder: Text("Time")
+                SuperTextField(textFieldType: .keypad, placeholder: Text("Time")
                     .foregroundStyle(.specialLightGray)
                     .font(.custom(Constants.appFontMedium, size: 16)), text: $vm.timeText, lineLimit: 1, focusState: $state)
                 .offset(y: 1)
@@ -514,6 +530,152 @@ struct AddNewRecipeView: View {
         .padding(.horizontal, 16)
     }
     
+    private var nutrientsSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Text("Nutrition Facts")
+                .font(.custom(Constants.appFontBold, size: 20))
+                .foregroundStyle(vm.nutritionFacts.calories != 0 ? .specialWhite : .specialLightGray)
+            HStack {
+                VStack {
+                    HStack {
+                        Text("Cal")
+                            .font(.custom(Constants.appFontBold, size: 16))
+                            .foregroundStyle(vm.nutritionFacts.calories != 0 ? .specialWhite : .specialLightGray)
+                        
+                        SuperTextField(
+                            textFieldType: .keypad,
+                            placeholder: Text("Calories")
+                                .font(.custom(Constants.appFontBold, size: 16))
+                                .foregroundStyle(.specialLightGray),
+                            text: Binding(get: {
+                                if vm.nutritionFacts.calories != 0.0 {
+                                    return String(format: "%.2f", vm.nutritionFacts.calories)
+                                } else {
+                                    return ""
+                                }
+                            }, set: { newValue in
+                                if let number = Double(newValue) {
+                                    vm.nutritionFacts.calories = number
+                                }
+                            }),
+                            lineLimit: 1,
+                            focusState: $state
+                        )
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 18)
+                    .background(
+                        RoundedRectangle(cornerRadius: 26, style: .continuous)
+                            .stroke(lineWidth: 1)
+                            .foregroundStyle(.specialDarkGrey)
+                    )
+                    
+                    HStack {
+                        Text("Carbs")
+                            .font(.custom(Constants.appFontBold, size: 16))
+                            .foregroundStyle(vm.nutritionFacts.calories != 0 ? .specialWhite : .specialLightGray)
+                        
+                        SuperTextField(
+                            textFieldType: .keypad,
+                            placeholder: Text("Carbonohydrates")
+                                .font(.custom(Constants.appFontBold, size: 16))
+                                .foregroundStyle(.specialLightGray),
+                            text: Binding(get: {
+                                if vm.nutritionFacts.carbs != 0.0 {
+                                    return String(format: "%.2f", vm.nutritionFacts.carbs)
+                                } else {
+                                    return ""
+                                }
+                            }, set: { newValue in
+                                if let number = Double(newValue) {
+                                    vm.nutritionFacts.carbs = number
+                                }
+                            }),
+                            lineLimit: 1,
+                            focusState: $state
+                        )
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 18)
+                    .background(
+                        RoundedRectangle(cornerRadius: 26, style: .continuous)
+                            .stroke(lineWidth: 1)
+                            .foregroundStyle(.specialDarkGrey)
+                    )
+                }
+                
+                VStack {
+                    HStack {
+                        Text("Prot")
+                            .font(.custom(Constants.appFontBold, size: 16))
+                            .foregroundStyle(vm.nutritionFacts.calories != 0 ? .specialWhite : .specialLightGray)
+                        
+                        SuperTextField(
+                            textFieldType: .keypad,
+                            placeholder: Text("Proteines")
+                                .font(.custom(Constants.appFontBold, size: 16))
+                                .foregroundStyle(.specialLightGray),
+                            text: Binding(get: {
+                                if vm.nutritionFacts.protein != 0.0 {
+                                    return String(format: "%.2f", vm.nutritionFacts.protein)
+                                } else {
+                                    return ""
+                                }
+                            }, set: { newValue in
+                                if let number = Double(newValue) {
+                                    vm.nutritionFacts.protein = number
+                                }
+                            }),
+                            lineLimit: 1,
+                            focusState: $state
+                        )
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 18)
+                    .background(
+                        RoundedRectangle(cornerRadius: 26, style: .continuous)
+                            .stroke(lineWidth: 1)
+                            .foregroundStyle(.specialDarkGrey)
+                    )
+                    
+                    HStack {
+                        Text("Fat")
+                            .font(.custom(Constants.appFontBold, size: 16))
+                            .foregroundStyle(vm.nutritionFacts.calories != 0 ? .specialWhite : .specialLightGray)
+                        
+                        SuperTextField(
+                            textFieldType: .keypad,
+                            placeholder: Text("Calories")
+                                .font(.custom(Constants.appFontBold, size: 16))
+                                .foregroundStyle(.specialLightGray),
+                            text: Binding(get: {
+                                if vm.nutritionFacts.fat != 0.0 {
+                                    return String(format: "%.2f", vm.nutritionFacts.fat)
+                                } else {
+                                    return ""
+                                }
+                            }, set: { newValue in
+                                if let number = Double(newValue) {
+                                    vm.nutritionFacts.fat = number
+                                }
+                            }),
+                            lineLimit: 1,
+                            focusState: $state
+                        )
+                    }
+                    .padding(.vertical, 8)
+                    .padding(.horizontal, 18)
+                    .background(
+                        RoundedRectangle(cornerRadius: 26, style: .continuous)
+                            .stroke(lineWidth: 1)
+                            .foregroundStyle(.specialDarkGrey)
+                    )
+                }
+            }
+        }
+        .padding(.horizontal, 16)
+    }
+    
     private var stepsSection: some View {
         VStack(alignment: .leading, spacing: 8) {
             Text("Steps")
@@ -576,5 +738,5 @@ struct AddNewRecipeView: View {
 }
 
 #Preview {
-    AddNewRecipeView()
+    AddNewRecipeView(cookBookVM: CookBookViewModel())
 }

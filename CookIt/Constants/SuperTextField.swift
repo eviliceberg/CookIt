@@ -30,33 +30,45 @@ struct SuperTextField: View {
             case .email:
                 if let focusState {
                     TextField("", text: $text, axis: .vertical)
+                        .autocorrectionDisabled()
                         .keyboardType(.emailAddress)
                         .focused(focusState)
+                        .font(.custom(Constants.appFontMedium, size: 16))
                 } else {
                     TextField("", text: $text, axis: .vertical)
+                        .autocorrectionDisabled()
                         .keyboardType(.emailAddress)
+                        .font(.custom(Constants.appFontMedium, size: 16))
                 }
             case .regular:
                 if let focusState {
                     TextField("", text: $text, axis: .vertical)
+                        .autocorrectionDisabled()
                         .keyboardType(.default)
                         .lineLimit(lineLimit)
                         .focused(focusState)
+                        .font(.custom(Constants.appFontMedium, size: 16))
                 } else {
                     TextField("", text: $text, axis: .vertical)
+                        .autocorrectionDisabled()
                         .keyboardType(.default)
                         .lineLimit(lineLimit)
+                        .font(.custom(Constants.appFontMedium, size: 16))
                 }
             case .keypad:
                 if let focusState {
                     TextField("", text: $text, axis: .vertical)
-                        .keyboardType(.numberPad)
+                        .autocorrectionDisabled()
+                        .keyboardType(.decimalPad)
                         .lineLimit(lineLimit)
                         .focused(focusState)
+                        .font(.custom(Constants.appFontMedium, size: 16))
                 } else {
                     TextField("", text: $text, axis: .vertical)
-                        .keyboardType(.numberPad)
+                        .autocorrectionDisabled()
+                        .keyboardType(.decimalPad)
                         .lineLimit(lineLimit)
+                        .font(.custom(Constants.appFontMedium, size: 16))
                 }
             }
             

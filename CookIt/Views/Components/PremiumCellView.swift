@@ -59,12 +59,7 @@ struct PremiumCellView: View {
                     }
                     .font(.custom(Constants.appFontMedium, size: 14))
                 }
-                .padding(16)
-//                .background(
-//                    GradientView()
-//                )
-//                .padding(8)
-
+                .padding(16)    
             }
     }
 }

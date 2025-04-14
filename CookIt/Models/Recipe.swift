@@ -65,10 +65,10 @@ struct Step: Hashable, Codable, Completable {
 }
 
 struct NutritionFacts: Codable {
-    let calories: Double
-    let protein: Double
-    let carbs: Double
-    let fat: Double
+    var calories: Double
+    var protein: Double
+    var carbs: Double
+    var fat: Double
 }
 
 struct CookingTime: Codable {
