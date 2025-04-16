@@ -184,7 +184,7 @@ struct CookBookView: View {
                         }
                         .onTapGesture {
                             router.showScreen(.push) { _ in
-                                AddNewRecipeView()
+                                AddNewRecipeView(cookBookVM: vm)
                             }
                         }
                 }
